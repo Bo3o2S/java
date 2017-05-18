@@ -1103,7 +1103,7 @@ public class myway {
 			System.out.println("파이썬으로 침투 테스트용 TCP Proxy 만드는 법을 설명한다");
 			System.out.println("1. 하나씩 다 자세히 설명한다");
 			System.out.println("2. 소스만 설명한다");
-			System.out.println("선택(1 ~ 2) : ");
+			System.out.print("선택(1 ~ 2) : ");
 			Answer = scan.next();
 			scan.nextLine();
 			if(Answer.equals("1"))
@@ -1369,6 +1369,259 @@ public class myway {
 			else if(Answer.equals("2"))
 			{
 				System.out.println("TCP Proxy의 소스에 대해 설명한다");
+				System.out.print("소스를 코딩한다. 완료되었으면(Y), 아직이면(N) : ");
+				Answer = scan.next();
+				scan.nextLine();
+				if(Answer.equals("Y") || Answer.equals("y"))
+				{
+					System.out.print("빌드 및  실행한다. 성공했으면 (Y), 아니면(N) : ");
+					Answer = scan.next();
+					scan.nextLine();
+					if(Answer.equals("Y") || Answer.equals("y"))
+					{
+						System.out.print("명령어를 입력하여 실행해 본다. 성공시 (Y), 아니면(N) : ");
+						Answer = scan.next();
+						scan.nextLine();
+						if(Answer.equals("Y") || Answer.equals("y"))
+						{
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+						else if(Answer.equals("N") || Answer.equals("n"))
+						{
+							System.out.println("어디가 잘못됐는지 확인한다.");
+							System.out.println("오류를 수정하고 명령어를 입력하여 성공한다");
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+					}
+					else if(Answer.equals("N") || Answer.equals("n"))
+					{
+						System.out.println("어디가 잘못됐는지 확인한다.");
+						System.out.println("오류를 수정하고 빌드 및 실행하여 성공한다.");
+						System.out.print("명령어를 입력하여 실행해 본다. 성공시 (Y), 아니면(N) : ");
+						Answer = scan.next();
+						scan.nextLine();
+						if(Answer.equals("Y") || Answer.equals("y"))
+						{
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+						else if(Answer.equals("N") || Answer.equals("n"))
+						{
+							System.out.println("어디가 잘못됐는지 확인한다.");
+							System.out.println("오류를 수정하고 명령어를 입력하여 성공한다");
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+					}
+				}
+				else if(Answer.equals("N") || Answer.equals("n"))
+				{
+					System.out.println("남은 코드를 코딩완료 한다.");
+
+					System.out.print("빌드 및  실행한다. 성공했으면 (Y), 아니면(N) : ");
+					Answer = scan.next();
+					scan.nextLine();
+					if(Answer.equals("Y") || Answer.equals("y"))
+					{
+						System.out.print("명령어를 입력하여 실행해 본다. 성공시 (Y), 아니면(N) : ");
+						Answer = scan.next();
+						scan.nextLine();
+						if(Answer.equals("Y") || Answer.equals("y"))
+						{
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+						else if(Answer.equals("N") || Answer.equals("n"))
+						{
+							System.out.println("어디가 잘못됐는지 확인한다.");
+							System.out.println("오류를 수정하고 명령어를 입력하여 성공한다");
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+					} 
+					else if(Answer.equals("N") || Answer.equals("n"))
+					{
+						System.out.println("어디가 잘못됐는지 확인한다.");
+						System.out.println("오류를 수정하고 빌드 및 실행하여 성공한다.");
+						System.out.print("명령어를 입력하여 실행해 본다. 성공시 (Y), 아니면(N) : ");
+						Answer = scan.next();
+						scan.nextLine();
+						if(Answer.equals("Y") || Answer.equals("y"))
+						{
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+						else if(Answer.equals("N") || Answer.equals("n"))
+						{
+							System.out.println("어디가 잘못됐는지 확인한다.");
+							System.out.println("오류를 수정하고 명령어를 입력하여 성공한다");
+							System.out.print("질문이 있는지 확인한다. 있으면(Y), 없으면(N) : ");
+							Answer = scan.next();
+							scan.nextLine();
+							if(Answer.equals("Y") || Answer.equals("y"))
+							{
+								System.out.println("질문을 받는다.");
+								System.out.println("질문에 대한 답변을 한다");
+								System.out.println("추가 질문을 받는다. 있으면(Y), 없으면(N)");
+								if(Answer.equals("Y") || Answer.equals("y"))
+								{
+									System.out.println("추가 질문에 대한 답변을 한다.");
+									System.out.println("스터디를 끝낸다.");
+								}
+								else if(Answer.equals("N") || Answer.equals("n"))
+								{
+									System.out.println("스터디를 끝낸다.");
+								}
+							}
+							else if(Answer.equals("N") || Answer.equals("n"))
+							{
+								System.out.println("스터디를 종료한다");
+							}
+						}
+					}
+				}
 			}
 			else
 			{
