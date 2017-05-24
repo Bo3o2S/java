@@ -15,27 +15,26 @@ public class MakeRhombus {
 			System.out.println("################ 마름모 만들기 프로그램 ############### ");
 			System.out.println("\"*\"로 마름모를 만드는 프로그램입니다.");
 			System.out.println("숫자입력시 해당 숫자 크기 만큼의 마름모를 만들 수 있습니다.");
-			System.out.println("단, 마름모가 상하 대칭이므로 홀수만 입력(1부터)해야 합니다.");
-			System.out.println("예시)"+"\t"+"1입력시"+"\t"+"3입력시"+"\t"+"5입력시");
+			System.out.println("예시)"+"\t"+"1입력시"+"\t"+"2입력시"+"\t"+"3입력시");
 			System.out.println("\t"+"  *"+"\t"+"  *"+"\t"+"  *");
 			System.out.println("\t"+"\t"+" ***"+"\t"+" ***");
 			System.out.println("\t"+"\t"+"  *"+"\t"+"*****");
 			System.out.println("\t"+"\t"+"\t"+" ***");
 			System.out.println("\t"+"\t"+"\t"+"  *");
 			System.out.println("############################################### ");
-			System.out.print("숫자를 입력해주세요(1부터 홀수 단위로 입력, 0입력시 종료) : ");
+			System.out.print("숫자를 입력해주세요(1부터 숫자 입력, 0입력시 종료) : ");
 			str = scan.next();
 			scan.nextLine();
 			number = Integer.parseInt(str);
 			System.out.println(number+"이(가) 입력되었습니다");
-			number = number*2 +1;
-			char rhombus[][] = new char [number][number];
 			if(number == 0)
 			{
 				System.out.println("프로그램을 종료합니다");
 			}
 			else
 			{
+				number = number*2 +1;
+				char rhombus[][] = new char [number][number];
 				int j = 0,k = 0, l = 1;
 				for(int i = 0; i < number; i++)
 				{
