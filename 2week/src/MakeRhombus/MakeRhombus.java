@@ -12,59 +12,57 @@ public class MakeRhombus {
 			boolean b;
 			String str;
 			Scanner scan = new Scanner(System.in);
-			System.out.println("################ ¸¶¸§¸ğ ¸¸µé±â ÇÁ·Î±×·¥ ############### ");
-			System.out.println("\"*\"·Î ¸¶¸§¸ğ¸¦ ¸¸µå´Â ÇÁ·Î±×·¥ÀÔ´Ï´Ù.");
-			System.out.println("¼ıÀÚÀÔ·Â½Ã ÇØ´ç ¼ıÀÚ Å©±â ¸¸Å­ÀÇ ¸¶¸§¸ğ¸¦ ¸¸µé ¼ö ÀÖ½À´Ï´Ù.");
-			System.out.println("´Ü, ¸¶¸§¸ğ°¡ »óÇÏ ´ëÄªÀÌ¹Ç·Î È¦¼ö¸¸ ÀÔ·Â(1ºÎÅÍ)ÇØ¾ß ÇÕ´Ï´Ù.");
-			System.out.println("¿¹½Ã)"+"\t"+"1ÀÔ·Â½Ã"+"\t"+"3ÀÔ·Â½Ã"+"\t"+"5ÀÔ·Â½Ã");
+			System.out.println("################ ë§ˆë¦„ëª¨ ë§Œë“¤ê¸° í”„ë¡œê·¸ë¨ ############### ");
+			System.out.println("\"*\"ë¡œ ë§ˆë¦„ëª¨ë¥¼ ë§Œë“œëŠ” í”„ë¡œê·¸ë¨ì…ë‹ˆë‹¤.");
+			System.out.println("ìˆ«ìì…ë ¥ì‹œ í•´ë‹¹ ìˆ«ì í¬ê¸° ë§Œí¼ì˜ ë§ˆë¦„ëª¨ë¥¼ ë§Œë“¤ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
+			System.out.println("ë‹¨, ë§ˆë¦„ëª¨ê°€ ìƒí•˜ ëŒ€ì¹­ì´ë¯€ë¡œ í™€ìˆ˜ë§Œ ì…ë ¥(1ë¶€í„°)í•´ì•¼ í•©ë‹ˆë‹¤.");
+			System.out.println("ì˜ˆì‹œ)"+"\t"+"1ì…ë ¥ì‹œ"+"\t"+"3ì…ë ¥ì‹œ"+"\t"+"5ì…ë ¥ì‹œ");
 			System.out.println("\t"+"  *"+"\t"+"  *"+"\t"+"  *");
 			System.out.println("\t"+"\t"+" ***"+"\t"+" ***");
 			System.out.println("\t"+"\t"+"  *"+"\t"+"*****");
 			System.out.println("\t"+"\t"+"\t"+" ***");
 			System.out.println("\t"+"\t"+"\t"+"  *");
 			System.out.println("############################################### ");
-			System.out.print("¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä(1ºÎÅÍ È¦¼ö ´ÜÀ§·Î ÀÔ·Â, 0ÀÔ·Â½Ã Á¾·á) : ");
+			System.out.print("ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”(1ë¶€í„° í™€ìˆ˜ ë‹¨ìœ„ë¡œ ì…ë ¥, 0ì…ë ¥ì‹œ ì¢…ë£Œ) : ");
 			str = scan.next();
 			scan.nextLine();
 			number = Integer.parseInt(str);
-			System.out.println(number+"ÀÌ(°¡) ÀÔ·ÂµÇ¾ú½À´Ï´Ù");
-			System.out.println(number+"Å©±â¸¸Å­ÀÇ ¸¶¸§¸ğ¸¦ ¸¸µì´Ï´Ù");
+			System.out.println(number+"ì´(ê°€) ì…ë ¥ë˜ì—ˆìŠµë‹ˆë‹¤");
+			number = number*2 +1;
 			char rhombus[][] = new char [number][number];
 			if(number == 0)
 			{
-				System.out.println("ÇÁ·Î±×·¥À» Á¾·áÇÕ´Ï´Ù");
+				System.out.println("í”„ë¡œê·¸ë¨ì„ ì¢…ë£Œí•©ë‹ˆë‹¤");
 			}
 			else
 			{
-				if(b = (number%2 != 1))					// 2·Î ³ª´©¾úÀ» °æ¿ì
+				int j = 0,k = 0, l = 1;
+				for(int i = 0; i < number; i++)
 				{
-					System.out.println("È¦¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä!");
-				}
-				else if(number == 1)
-				{
-					System.out.println("*");
-				}
-				else
-				{
-					for(int i = 0; i < number-1; i++)
+					if(i > number/2)						// ë§ˆë¦„ëª¨ ì¤‘ê°„ ì´í›„
 					{
-						int j = number/2-i;
-						int k = i*2+1;
-						if(i > number/2)
+						j = i - number/2;
+						k = number - 2*l;
+						l++;
+					}
+					else									// ë§ˆë¦„ëª¨ ì¤‘ê°„ ì´ì „
+					{
+						j = number/2-i;
+						k = i*2+1;
+					}
+					while(true)
+					{
+						if(k == 0)
 						{
-							j = i-number/2;
+							System.out.println(rhombus[i]);
+							break;
 						}
-						while(true)
-						{
-							rhombus[i][j] = '*';
-							k--;
-							if(k == 0)
-								break;
-							j++;
-						}
+						rhombus[i][j] = '*';
+						k--;
+						j++;
 					}
 				}
-				System.out.println("Enter Å°¸¦ ´©¸£¼¼¿ä");
+				System.out.println("Enter í‚¤ë¥¼ ëˆ„ë¥´ì„¸ìš”");
 				pause();
 			}
 		}
