@@ -36,13 +36,14 @@ public class MakeStar {
 			else
 			{
 				int col = 6+(number-1)*2;
-				int row = 9+(number-1)*4;
+				int row = 9+(number-1)*6;
 				char star[][] = new char [col][row];
 				System.out.println("Enter 키를 누르세요");
 				int i = 0,j = 0;
 				for(; i < col; i++)
 				{				
-					int k = 0, count = 0, start = 0;
+					int k = 0, count = 0, start = 0, temp = 0;
+					/*--- 상단 ---*/
 					for(; j <= number; j++)
 					{	
 						count = k*2+1;
@@ -55,11 +56,12 @@ public class MakeStar {
 							start++;
 							count--;
 						}
+						System.out.println(star[i]);
 						k++;
 						i++;						
 					}
-					
-					count = 9+(number-1)*4;
+					/*--- 중간 ---*/
+					count = 9+(number-1)*6;
 					start = (row-count)/2;
 					while(true)
 					{
@@ -69,7 +71,49 @@ public class MakeStar {
 						start++;
 						count--;
 					}
+					System.out.println(star[i]);
 					i++;
+					/*--- 하단 ---*/
+					for(k=0; k <= number/2; k++)
+					{
+						count = 3+(number-1)*6-k*4;
+						start = (row-count)/2;
+						while(true)
+						{
+							if(count ==0)
+								break;
+							star[i][start] = '*';
+							start++;
+							count--;
+						}
+						System.out.println(star[i]);
+						i++;
+					}
+					temp = 3+(number-1)*6-(k-1)*4-1;
+					k = 0;
+					/*--- 다리 ---*/
+					for(; i < col; i++)
+					{
+						//count = number+1-k*1;
+						//count = (3+(number-1)*6-k*4)/2;
+						//start = count-(k+1);
+						
+						count = temp/2+1;
+						start = (row-(count*2+(k*6)))/2;
+						while(true)
+						{
+							if(count ==0)
+								break;
+							star[i][start] = '*';
+							star[i][row-start-1] = '*';
+							start++;
+							count--;
+							
+						}
+						temp = temp-3;
+						System.out.println(star[i]);
+						k++;
+					}
 					
 				}
 				pause();
