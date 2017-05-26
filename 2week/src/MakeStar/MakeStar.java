@@ -35,7 +35,7 @@ public class MakeStar {
 			}
 			else
 			{
-				int col = 6+(number-1)*2;
+				int col = 9+(number-1)*3;
 				int row = 9+(number-1)*6;
 				char star[][] = new char [col][row];
 				System.out.println("Enter 키를 누르세요");
@@ -43,6 +43,7 @@ public class MakeStar {
 				for(; i < col; i++)
 				{				
 					int k = 0, count = 0, start = 0, temp = 0;
+					
 					/*--- 상단 ---*/
 					for(; j <= number; j++)
 					{	
@@ -60,23 +61,11 @@ public class MakeStar {
 						k++;
 						i++;						
 					}
-					/*--- 중간 ---*/
-					count = 9+(number-1)*6;
-					start = (row-count)/2;
-					while(true)
+					
+					/*--- 중단 ---*/
+					for(k=0; k <= number/2+2; k++)
 					{
-						if(count ==0)
-							break;
-						star[i][start] = '*';
-						start++;
-						count--;
-					}
-					System.out.println(star[i]);
-					i++;
-					/*--- 하단 ---*/
-					for(k=0; k <= number/2; k++)
-					{
-						count = 3+(number-1)*6-k*4;
+						count = 9+(number-1)*6-k*4;
 						start = (row-count)/2;
 						while(true)
 						{
@@ -89,32 +78,56 @@ public class MakeStar {
 						System.out.println(star[i]);
 						i++;
 					}
-					temp = 3+(number-1)*6-(k-1)*4-1;
-					k = 0;
-					/*--- 다리 ---*/
-					for(; i < col; i++)
+					temp = 9+(number-1)*6-(k-1)*4;
+
+					/*--- 하단 ---*/
+					for(k=0; k <= number/4+1; k++)
 					{
-						//count = number+1-k*1;
-						//count = (3+(number-1)*6-k*4)/2;
-						//start = count-(k+1);
-						
-						count = temp/2+1;
-						start = (row-(count*2+(k*6)))/2;
+						count = temp+2;
+						start = (row-count)/2;
 						while(true)
 						{
 							if(count ==0)
 								break;
 							star[i][start] = '*';
-							star[i][row-start-1] = '*';
 							start++;
 							count--;
-							
 						}
-						temp = temp-3;
 						System.out.println(star[i]);
-						k++;
+						temp = temp+2;
+						i++;
 					}
 					
+					/*--- 다리 ---*/
+					for(k=0; k <= number; k++)
+					{
+						if((temp/2)%2 == 1)
+							count = temp/2+2-k*5;
+							
+						else if((temp/2)%2 == 0)
+							count = temp/2+1-k*5;
+						
+						if (count<1 && count>-5)
+						{
+							count = 1;
+						}
+						else if(count < -4)
+							break;
+							
+						start = (row-temp)/2-(k+1);
+						while(true)
+						{
+							if(count ==0)
+								break;
+							star[i][start] = '*';
+							star[i][(row-1)-start] = '*';
+							start++;
+							count--;
+						}
+						System.out.println(star[i]);
+						i++;
+					}
+					break;
 				}
 				pause();
 			}
