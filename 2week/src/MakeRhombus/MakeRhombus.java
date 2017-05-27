@@ -15,12 +15,12 @@ public class MakeRhombus {
 			System.out.println("################ 마름모 만들기 프로그램 ############### ");
 			System.out.println("\"*\"로 마름모를 만드는 프로그램입니다.");
 			System.out.println("숫자입력시 해당 숫자 크기 만큼의 마름모를 만들 수 있습니다.");
-			System.out.println("예시)"+"\t"+"1입력시"+"\t"+"2입력시"+"\t"+"3입력시");
-			System.out.println("\t"+"  *"+"\t"+"  *"+"\t"+"  *");
-			System.out.println("\t"+"\t"+" ***"+"\t"+" ***");
-			System.out.println("\t"+"\t"+"  *"+"\t"+"*****");
-			System.out.println("\t"+"\t"+"\t"+" ***");
-			System.out.println("\t"+"\t"+"\t"+"  *");
+//			System.out.println("예시)"+"\t"+"1입력시"+"\t"+"2입력시"+"\t"+"3입력시");
+//			System.out.println("\t"+"  *"+"\t"+"  *"+"\t"+"  *");
+//			System.out.println("\t"+"\t"+" ***"+"\t"+" ***");
+//			System.out.println("\t"+"\t"+"  *"+"\t"+"*****");
+//			System.out.println("\t"+"\t"+"\t"+" ***");
+//			System.out.println("\t"+"\t"+"\t"+"  *");
 			System.out.println("############################################### ");
 			System.out.print("숫자를 입력해주세요(1부터 숫자 입력, 0입력시 종료) : ");
 			str = scan.next();
@@ -61,6 +61,7 @@ public class MakeRhombus {
 						j++;
 					}
 				}
+				System.out.println("");
 				System.out.println("Enter 키를 누르세요");
 				pause();
 			}
