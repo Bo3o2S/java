@@ -12,16 +12,10 @@ public class MakeRhombus {
 			boolean b;
 			String str;
 			Scanner scan = new Scanner(System.in);
-			System.out.println("################ 마름모 만들기 프로그램 ############### ");
+			System.out.println("################ 마름모 만들기 프로그램 ###############");
 			System.out.println("\"*\"로 마름모를 만드는 프로그램입니다.");
 			System.out.println("숫자입력시 해당 숫자 크기 만큼의 마름모를 만들 수 있습니다.");
-//			System.out.println("예시)"+"\t"+"1입력시"+"\t"+"2입력시"+"\t"+"3입력시");
-//			System.out.println("\t"+"  *"+"\t"+"  *"+"\t"+"  *");
-//			System.out.println("\t"+"\t"+" ***"+"\t"+" ***");
-//			System.out.println("\t"+"\t"+"  *"+"\t"+"*****");
-//			System.out.println("\t"+"\t"+"\t"+" ***");
-//			System.out.println("\t"+"\t"+"\t"+"  *");
-			System.out.println("############################################### ");
+			System.out.println("###############################################");
 			System.out.print("숫자를 입력해주세요(1부터 숫자 입력, 0입력시 종료) : ");
 			str = scan.next();
 			scan.nextLine();
@@ -38,18 +32,19 @@ public class MakeRhombus {
 				int j = 0,k = 0, l = 1;
 				for(int i = 0; i < number; i++)
 				{
-					if(i > number/2)						// 마름모 중간 이후
+					
+					if(i > number/2) // 마름모 중간 이후						
 					{
 						j = i - number/2;
 						k = number - 2*l;
 						l++;
 					}
-					else									// 마름모 중간 이전
+					else // 마름모 중간 이전									
 					{
 						j = number/2-i;
 						k = i*2+1;
 					}
-					while(true)
+					while(true) // 별찍기
 					{
 						if(k == 0)
 						{
