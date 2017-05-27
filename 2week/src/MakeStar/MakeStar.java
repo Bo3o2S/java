@@ -38,7 +38,6 @@ public class MakeStar {
 				int col = 9+(number-1)*3;
 				int row = 9+(number-1)*6;
 				char star[][] = new char [col][row];
-				System.out.println("Enter 키를 누르세요");
 				int i = 0,j = 0;
 				for(; i < col; i++)
 				{				
@@ -99,7 +98,7 @@ public class MakeStar {
 					}
 					
 					/*--- 다리 ---*/
-					for(k=0; k <= number; k++)
+					for(k=0; k <= number/2+1; k++)
 					{
 						if((temp/2)%2 == 1)
 							count = temp/2+2-k*5;
@@ -107,11 +106,11 @@ public class MakeStar {
 						else if((temp/2)%2 == 0)
 							count = temp/2+1-k*5;
 						
-						if (count<1 && count>-5)
+						if (count<1 && count>-4)
 						{
 							count = 1;
 						}
-						else if(count < -4)
+						else if(count < -3)
 							break;
 							
 						start = (row-temp)/2-(k+1);
@@ -129,6 +128,8 @@ public class MakeStar {
 					}
 					break;
 				}
+				System.out.println("");
+				System.out.println("Enter 키를 누르세요");
 				pause();
 			}
 		}
