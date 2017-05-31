@@ -1,32 +1,28 @@
 package Character;
 
 public class Holy_Warrior extends Character_BasicStatus{
+	
+	// 성전사 추가 스탯
+	int Holy_Hp = 40;
+	int Holy_Strength = 2;
+	int Holy_Vitality = 2;
+	int Holy_Defence = 4;
+	int Holy_Hp_Rate = 10;
+	int Holy_Vital_Rate = 2;
+	int Holy_Strength_Rate = 20;
+	int Holy_Recovery_Rate = 2; 
+	double Holy_Defence_Rate = 1;
+	
 	public Holy_Warrior()
 	{
-		HP = 140;
-		Holy_Power = 100;
-		Strength = 10;
-		Dex = 8;
-		Intelligence = 8;
-		Vitality = 10;
-		Attack = 5;
-		Defence = 16;
-		Recovery = 10;
-		evasion = 3;
-		Gold = 5000;
-	}
-
-	public void Level(int Level)
-	{
-		HP = HP + 200*(Level-1) + (Vitality + 10*(Level-1))*0.05;
-		Strength = Strength + 30*(Level-1);
-		Dex = Dex + 10*(Level-1);
-		Intelligence = Intelligence + 10*(Level-1);
-		Vitality = Vitality + 10*(Level-1);
-		Attack = Attack + 10*(Level-1);
-		Defence = Defence + 10*(Level-1);
-		Recovery = Recovery + 7*(Level-1);
-		evasion = evasion + 0.3*(Level-1);
-		Gold = 5000;
+		HP = HP + Holy_Hp;
+		Strength = Strength + Holy_Strength;
+		Vitality = Strength + Holy_Vitality;
+		Defence = Defence + Holy_Defence;
+		HP_Rate = HP_Rate + Holy_Hp_Rate;
+		Strength_Rate = Strength_Rate + Holy_Strength_Rate;
+		Defence_Rate = Defence_Rate + Holy_Defence_Rate;
+		Vitality_Rate = Vitality_Rate + Holy_Vital_Rate;
+		Recovery_Rate = Recovery_Rate + Holy_Recovery_Rate;
 	}
 }

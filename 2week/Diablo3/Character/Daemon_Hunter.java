@@ -1,32 +1,23 @@
 package Character;
 
 public class Daemon_Hunter extends Character_BasicStatus{
+	
+	// 악마사냥꾼 추가 스탯
+	int DH_Hp = 30;
+	int DH_Dex = 2;
+	int DH_Dex_Rate = 20;
+	double DH_Attack = 1;
+	double DH_evasion = 4;
+	double DH_Attack_Rate = 1;
+	double DH_Evasion_Rate = 0.1;
+	
 	public Daemon_Hunter()
 	{
-		HP = 130;
-		Hate = 125;
-		Moderation = 30;    
-		Strength = 8;
-		Dex = 10;
-		Intelligence = 8;
-		Vitality = 8;
-		Attack = 6;
-		Defence = 12;
-		Recovery = 10;
-		evasion = 7;
-		Gold = 5000;
-	}
-	
-	public void Level(int level)
-	{
-		HP = HP + 190*(Level-1) + (Vitality + 10*(Level-1))*0.05;
-		Strength = Strength + 10*(Level-1);
-		Dex = Dex + 30*(Level-1);
-		Intelligence = Intelligence + 10*(Level-1);
-		Vitality = Vitality + 10*(Level-1);
-		Attack = Attack + 11*(Level-1);
-		Defence = Defence + 9*(Level-1);
-		Recovery = Recovery + 5*(Level-1);
-		evasion = evasion + 0.4*(Level-1);
+		HP = HP + DH_Hp;
+		Dex = Dex + DH_Dex;
+		Attack = Attack + DH_Attack;
+		evasion = evasion + DH_evasion;
+		Attack_Rate = Attack_Rate + DH_Attack_Rate;
+		Evasion_Rate = Evasion_Rate + DH_Evasion_Rate;
 	}
 }

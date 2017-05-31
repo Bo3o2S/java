@@ -1,32 +1,28 @@
 package Character;
 
 public class Babarian extends Character_BasicStatus{
+	
+	// 야만용사 추가 스탯
+	int Baba_Hp = 40;
+	int Baba_Strength = 2;
+	int Baba_Vitality = 2;
+	int Baba_Defence = 4;
+	int Baba_Hp_Rate = 10;
+	int Baba_Vital_Rate = 2;
+	int Baba_Strength_Rate = 20;
+	int Baba_Recovery_Rate = 2; 
+	double Baba_Defence_Rate = 1;
+	
 	public Babarian()
 	{
-		HP = 140;
-		Anger = 100;
-		Strength = 10;
-		Dex = 8;
-		Intelligence = 8;
-		Vitality = 10;
-		Attack = 5;
-		Defence = 16;
-		Recovery = 10;
-		evasion = 3;
-		Gold = 5000;
-	}
-	
-	public void Level(int Level)
-	{
-		HP = HP + 200*(Level-1) + (Vitality + 10*(Level-1))*0.05;
-		Strength = Strength + 30*(Level-1);
-		Dex = Dex + 10*(Level-1);
-		Intelligence = Intelligence + 10*(Level-1);
-		Vitality = Vitality + 10*(Level-1);
-		Attack = Attack + 10*(Level-1);
-		Defence = Defence + 10*(Level-1);
-		Recovery = Recovery + 7*(Level-1);
-		evasion = evasion + 0.3*(Level-1);
-		Gold = 5000;
+		HP = HP + Baba_Hp;
+		Strength = Strength + Baba_Strength;
+		Vitality = Strength + Baba_Vitality;
+		Defence = Defence + Baba_Defence;
+		HP_Rate = HP_Rate + Baba_Hp_Rate;
+		Strength_Rate = Strength_Rate + Baba_Strength_Rate;
+		Defence_Rate = Defence_Rate + Baba_Defence_Rate;
+		Vitality_Rate = Vitality_Rate + Baba_Vital_Rate;
+		Recovery_Rate = Recovery_Rate + Baba_Recovery_Rate;
 	}
 }

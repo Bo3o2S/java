@@ -1,32 +1,21 @@
 package Character;
 
 public class Magician extends Character_BasicStatus{
+	
+	// 마법사  추가스탯
+
+	int Magic_Hp = 30;
+	int Magic_Intelligence = 2;
+	int Magic_Intelligence_Rate = 20;
+	double Magic_Attack = 1;
+	double Magic_Attack_Rate = 1;
+	
 	public Magician()
 	{
-		this.HP = 130;
-		this.Arcane_Power = 100;
-		this.Strength = 8;
-		this.Dex = 8;
-		this.Intelligence = 10;
-		this.Vitality = 8;
-		this.Attack = 6;
-		this.Defence = 12;
-		this.Recovery = 10;
-		this.evasion = 3;
-		this.Gold = 5000;
-	}
-	
-	public void Level(int level)
-	{
-		HP = HP + 190*(Level-1) + (Vitality + 8*(Level-1))*0.05;
-		Strength = Strength + 10*(Level-1);
-		Dex = Dex + 10*(Level-1);
-		Intelligence = Intelligence + 30*(Level-1);
-		Vitality = Vitality + 8*(Level-1);
-		Attack = Attack + 11*(Level-1);
-		Defence = Defence + 10*(Level-1);
-		Recovery = Recovery + 7*(Level-1);
-		evasion = evasion + 0.3*(Level-1);
-		Gold = 5000;
+		HP = HP + Magic_Hp;
+		Intelligence = Intelligence + Magic_Intelligence;
+		Intelligence_Rate = Intelligence_Rate + Magic_Intelligence_Rate;
+		Attack = Attack + Magic_Attack;
+		Attack_Rate = Attack_Rate + Magic_Attack_Rate;
 	}
 }
