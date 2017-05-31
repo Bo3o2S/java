@@ -1,42 +1,42 @@
-package Character;
+package Basic_Status;
 
 public class Character_BasicStatus {
 	
 		//캐릭터 기본스탯
-		int Level_Num = 1;
-		double HP = 100;
-		int Arcane_Power = 100;
-		int	Anger = 100;
-		int Spirit_Power = 250;
-		int Holy_Power = 100;
-		int Hate = 125;
-		int Moderation = 30;
-		int Mana = 750;
-		
-		int Strength = 8;
-		int Dex = 8;
-		int Intelligence = 8;
-		int Vitality = 8;
+		public int Level_Num = 1;
+		public double HP = 100;
+		public int Arcane_Power = 100;
+		public int	Anger = 100;
+		public int Spirit_Power = 250;
+		public int Holy_Power = 100;
+		public int Hate = 125;
+		public int Moderation = 30;
+		public int Mana = 750;
 			
-		double Attack = 5;
-		double Defence = 12;
-		double Recovery = 10;
-		double evasion = 3;
-		long Gold = 5000;
-		long Exp = 500;
-		
-		int HP_Rate = 190;
-		int Strength_Rate = 10;
-		int Dex_Rate = 10;
-		int Intelligence_Rate = 10;
-		int Vitality_Rate = 8;
-		int Recovery_Rate = 5;
-
-		double Attack_Rate = 10;
-		double Defence_Rate = 9;
-		double Evasion_Rate = 0.3;
-		double Vital_Hp_Rate = 0.05;
-		long Exp_Rate = 300;
+		public int Strength = 8;
+		public int Dex = 8;
+		public int Intelligence = 8;
+		public int Vitality = 8;
+				
+		public double Attack = 5;
+		public double Defence = 12;
+		public double Recovery = 10;
+		public double evasion = 3;
+		public long Gold = 5000;
+		public long Exp = 500;
+			
+		public int HP_Rate = 190;
+		public int Strength_Rate = 10;
+		public int Dex_Rate = 10;
+		public int Intelligence_Rate = 10;
+		public int Vitality_Rate = 8;
+		public int Recovery_Rate = 5;
+	
+		public double Attack_Rate = 10;
+		public double Defence_Rate = 9;
+		public double Evasion_Rate = 0.3;
+		public double Vital_Hp_Rate = 0.05;
+		public long Exp_Rate = 300;
 		
 		public void Level(int Level)
 		{
@@ -68,14 +68,17 @@ public class Character_BasicStatus {
 			
 			return Damage;
 		}
+		
 		public double Skill_1()
 		{
 			return 0;
 		}
+		
 		public double Skill_2()
 		{
 			return 0;
 		}
+		
 		public double Skill_3()
 		{
 			return 0;

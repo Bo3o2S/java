@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Daemon_Hunter extends Character_BasicStatus{
 	
 	// 악마사냥꾼 추가 스탯

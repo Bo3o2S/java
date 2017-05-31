@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Babarian extends Character_BasicStatus{
 	
 	// 야만용사 추가 스탯

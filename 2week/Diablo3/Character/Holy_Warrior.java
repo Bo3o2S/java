@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Holy_Warrior extends Character_BasicStatus{
 	
 	// 성전사 추가 스탯

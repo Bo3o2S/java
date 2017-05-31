@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Monk extends Character_BasicStatus{
 	
 	//Monk 추가 스탯

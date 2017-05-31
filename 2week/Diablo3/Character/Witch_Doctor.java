@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Witch_Doctor extends Character_BasicStatus{
 	
 	// 부두술사  추가스탯

@@ -1,4 +1,6 @@
-package Character;
+package Character_Skill;
+
+import Character.Holy_Warrior;
 
 public class Holy_Warrior_Skill extends Holy_Warrior{
 

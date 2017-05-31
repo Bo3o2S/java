@@ -1,4 +1,6 @@
-package Character;
+package Character_Skill;
+
+import Character.Babarian;
 
 public class Babarian_Skill extends Babarian{
 	
@@ -35,7 +37,7 @@ public class Babarian_Skill extends Babarian{
 			System.out.println("분노가 꽉찼습니다");
 		}
 		System.out.println("현재 분노량 "+Anger);
-		bar();
+		
 		return Damage;
 	}
 	
@@ -50,7 +52,7 @@ public class Babarian_Skill extends Babarian{
 			System.out.println("선조의 망치를 시전합니다."+(int)Damage+"의 데미지를 주었습니다!");
 			System.out.println("분노가 "+Anger_Use_S2+"만큼 감소합니다.");
 			System.out.println("현재 분노량 "+Anger);
-			bar();
+			
 			return Damage;
 		}
 		else
@@ -70,7 +72,7 @@ public class Babarian_Skill extends Babarian{
 		System.out.println("방어력이 " + Defence*0.2 +"만큼 증가하였습니다\n");
 		System.out.println("HP가 " + HP*0.1 +"만큼 증가하였습니다\n");
 		System.out.println("분노가 " + Anger_Make_S3 +"만큼 증가하였습니다\n");
-		bar();
+		
 		return 0;
 	}
 }

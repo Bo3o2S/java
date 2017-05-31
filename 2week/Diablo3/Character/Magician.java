@@ -1,5 +1,7 @@
 package Character;
 
+import Basic_Status.Character_BasicStatus;
+
 public class Magician extends Character_BasicStatus{
 	
 	// 마법사  추가스탯

@@ -1,5 +1,8 @@
-package Character;
+package Character_Skill;
+
 import java.util.Random;
+import Character.Daemon_Hunter;
+
 public class Damon_Hunter_Skill extends Daemon_Hunter{
 	
 	// 악마사냥꾼 추가 스킬 세팅
