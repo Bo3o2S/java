@@ -165,7 +165,6 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		System.out.println("골드 : " + Gold);
 		System.out.println("레벨업 필요 경험치: " + Exp);
 		System.out.println("전체 경험치: " + Full_Exp);
-		
 		bar2();
 	}
 	
@@ -211,7 +210,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		System.out.println("선택하기(1~3) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
-		scan.close();
+		
 		return num;
 	}
 }

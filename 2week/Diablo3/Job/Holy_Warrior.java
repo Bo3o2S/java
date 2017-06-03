@@ -202,7 +202,7 @@ public class Holy_Warrior extends Character implements Character_Job{
 		System.out.println("선택하기(1~3) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
-		scan.close();
+		
 		return num;
 	}
 }
