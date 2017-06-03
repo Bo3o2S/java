@@ -1,8 +1,11 @@
 package Job;
 
+import java.util.Random;
+import java.util.Scanner;
+
 import Character.Character;
 
-public class Holy_Warrior extends Character{
+public class Holy_Warrior extends Character implements Character_Job{
 
 	public Holy_Warrior()	// 성전사 초기화
 	{
@@ -10,7 +13,7 @@ public class Holy_Warrior extends Character{
 		Name = "성전사";
 		Level_Num = 1;
 		HP = 140;
-		Attack = 5;
+		Attack = 20;
 		Defence = 16;
 		Evasion = 3;
 		Strength = 10;  
@@ -21,6 +24,7 @@ public class Holy_Warrior extends Character{
 		Defence = 16;
 		Gold = 5000;
 		Exp = 100;
+		Full_Exp = Exp;
 		
 		// 레벨 증가시 수치 향상 비율
 		HP_Rate = 200;
@@ -32,7 +36,7 @@ public class Holy_Warrior extends Character{
 		Recovery_Rate = 10;
 		Vital_Hp_Rate = 0.05;		
 		Exp_Rate = 200;
-		Attack_Rate = 10;
+		Attack_Rate = 20;
 		Defence_Rate = 10;
 		Evasion_Rate = 0.3;		
 	}
@@ -50,7 +54,7 @@ public class Holy_Warrior extends Character{
 	
 	int Full_Holy_Power = 100;					// 신성력 최고량
 	
-	public double Justice()
+	public double Justice()	// 스킬 "정의"
 	{
 		double Damage = 0;
 		double Damage_Add = 0;
@@ -79,7 +83,7 @@ public class Holy_Warrior extends Character{
 		return Damage;
 	}
 	
-	public double Fist_of_Heaven()	// 천상의 주먹 스킬
+	public double Fist_of_Heaven()	// 스킬 "천상의 주먹" 
 	{
 		double Damage = 0;
 		double Damage_Add = 0;
@@ -104,7 +108,7 @@ public class Holy_Warrior extends Character{
 		}
 	}
 	
-	public double Iron_Skin()	// 철갑 피부 스킬
+	public double Iron_Skin()	// 스킬 "철갑 피부" 
 	{
 		Defence = Defence + Defence*0.2;
 		HP = HP + HP*0.1;
@@ -131,5 +135,74 @@ public class Holy_Warrior extends Character{
 		System.out.println("신성력이 " + Holy_Power_Make_Iron +"만큼 증가하였습니다\n");
 		bar();
 		return 0;
+	}
+	
+	public void Print_Status() {	// 캐릭터 상태창 출력
+		// TODO Auto-generated method stub
+		bar();
+		System.out.println("아이디: " + ID);
+		System.out.println("직업명 : " + Name);
+		System.out.println("레벨 : " + Level_Num);
+		System.out.println("신성력 : " + Holy_Power);
+		System.out.println("전체 생명력 : " + HP);
+		System.out.println("현재 생명력 : " + HP);
+		System.out.println("힘 : " + Strength);
+		System.out.println("민첩 : " + Dex);
+		System.out.println("지능 : " + Intelligence);
+		System.out.println("활력 : " + Vitality);
+		System.out.println("공격력 : " + Attack);
+		System.out.println("방어력 : " + Defence);
+		System.out.println("회복력 : " + Recovery);
+		System.out.println("회피력 : " + Evasion);
+		System.out.println("골드 : " + Gold);
+		System.out.println("레벨업 필요 경험치: " + Exp);
+		System.out.println("전체 경험치: " + Full_Exp);
+		bar2();
+	}
+	
+	@Override
+	public double Normal_Attack() {	// 일반 공격
+		// TODO Auto-generated method stub
+		double Damage = 0;
+		Damage = Attack;
+		System.out.println(Name + "가 " + Attack + "만큼의 데미지를 입힙니다");		// 몬스터에게 주는 데미지
+		return Damage;
+	}
+	
+	@Override
+	public double Skill_Attack() {
+		// TODO Auto-generated method stub
+		double Damage = 0;		// 몬스터에 주는 데미지
+		Random random = new Random();	
+		int Skill_Num = Skill_Choice();	// 스킬 선택
+		
+		if(Skill_Num == 1)	// 스킬 "정의" 사용시
+		{
+			Damage = Justice();
+		}			
+		else if(Skill_Num == 2)	// 스킬 "천상의 주먹" 사용시
+		{
+			Damage = Fist_of_Heaven();
+		}
+		else if(Skill_Num == 3) // 스킬 "철갑 피부" 사용시
+		{
+			Iron_Skin();
+		}
+		return Damage;
+	}	
+	
+	public int Skill_Choice()	// 스킬 선택
+	{
+		Scanner scan = new Scanner(System.in);
+		bar2();
+		System.out.println("1. 굶주린 화살");
+		System.out.println("2. 투검");
+		System.out.println("3. 공격력 증가");
+		bar2();
+		System.out.println("선택하기(1~3) : ");
+		int num = scan.nextInt();
+		scan.nextLine();
+		scan.close();
+		return num;
 	}
 }

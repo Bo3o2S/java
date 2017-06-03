@@ -8,11 +8,18 @@ public class Unit {
 	public double Defence;				// 방어력
 	public double Evasion;				// 회피율
 	public long	Exp;					// 경험치
+	public long	Gold;					// 드롭or획득 골드
+	
+	public double Full_HP;				// 레벨별 생명력 최대치
+	public long Full_Exp;				// 레벨별 경험치 최대치
 	
 	protected int HP_Rate;				// 생명력 증가율
 	protected double Attack_Rate;		// 공격력 증가율
 	protected double Defence_Rate;		// 방어력 증가율
 	protected double Evasion_Rate;		// 회피 증가율
+	protected int Exp_Rate;				// 필요or획득 경험치 증가율
+	
+	public String Skill_Name;			// 스킬명
 	
 	public void bar()	// 상하 구분을 위한 경계선
 	{

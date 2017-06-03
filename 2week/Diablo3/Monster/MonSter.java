@@ -1,48 +1,42 @@
 package Monster;
 import java.util.Random;
 
+import Monster_Type.Common_Monster;
+import Monster_Unit.Compulsion_Common_Monster;
 import Unit.Unit;
 
-public class MonSter extends Unit{
+public class MonSter extends Unit{	// 몬스터 기본 세팅
 
 	
-	protected String SkillName_1;			// 1번 스킬명
-	protected String SkillName_2;			// 2번 스킬명
-	protected String SkillName_3;			// 3번 스킬명
+	protected int HP_Change_Rate;									// 몬스터 생성시 생명력 차이
+	protected int Attack_Change_Rate;								// 몬스터 생성시 공격력 차이
+	protected int Defence_Change_Rate;								// 몬스터 생성시 빙어력 차이
+	protected int Evasion_Change_Rate;								// 몬스터 생성시 회피력 차이
+
 	
-	protected int HP_Chance;
-	protected int Attack_Chance;
-	protected int Defence_Chance;
-	protected int Evasion_Chance;
-	
-	protected int Add_HP;
-	protected int Add_Attack;
-	protected int Add_Defence;
-	
-	protected double DamageSkill_1;			// 1번 스킬 데미지
-	protected double DamageSkill_2;			// 2번 스킬 데미지
-	protected double DamageSkill_3;			// 3번 스킬 데미지
-	
-	protected void Set_Monster_Status()
+	protected void Set_Monster_Status()	// 몬스터 기본 수치 세팅
 	{
-		Random random = new Random();
-		HP = HP + Add_HP + random.nextInt(HP_Chance);
-		Attack = Attack + Add_Attack + random.nextInt(Attack_Chance);
-		Defence = Defence + Add_Defence + random.nextInt(Defence_Chance);
-		Evasion = Evasion + random.nextInt(Evasion_Chance);
+		Random random = new Random();								
+		HP = HP + random.nextInt(HP_Change_Rate);					// 기본 생명력 + 생명력 차이량
+		Attack = Attack + random.nextInt(Attack_Change_Rate);		// 기본 생명력 + 공격력 차이량
+		Defence = Defence + random.nextInt(Defence_Change_Rate);	// 기본 생명력 + 방어력 차이량
+		Evasion = Evasion + random.nextInt(Evasion_Change_Rate);	// 기본 생명력 + 회피력 차이량
 	}
 		
-	public void bar()
+	public void bar() // 구분선
 	{
 		System.out.println("================================================");
 	}
 	
-	public void Level(int Level)
+	public void Level(int Level) // 레벨별 몬스터 수치 세팅
 	{
-		Level_Num = Level;
-		Level = Level - 1;
-		HP = HP + HP_Rate*Level;
-		Attack = Attack + Attack_Rate*Level;
-		Defence = Defence + Defence_Rate*Level;
+		Level_Num = Level;											// 레벨 
+		Level = Level - 1;											// 1렙일 때는 기본수치. 2렙부터 수치 변화
+		HP = HP + HP_Rate*Level;									// 기본생명력 + 생명력 증가분
+		Attack = Attack + Attack_Rate*Level;						// 기본공격력 + 공격력 증가분
+		Defence = Defence + Defence_Rate*Level;						// 기본방어력 + 방어력 증가분
+		Exp = Exp + Exp_Rate*Level;									// 기본 획득 경험치 + 경험치 증가분
 	}
+	
+	
 }
