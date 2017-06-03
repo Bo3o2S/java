@@ -6,7 +6,6 @@ import java.util.Scanner;
 import Character.Character;
 
 public class Magician extends Character implements Character_Job{
-	
 		
 	public Magician()
 	{

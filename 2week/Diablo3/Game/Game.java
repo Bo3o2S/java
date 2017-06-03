@@ -30,6 +30,7 @@ public class Game {
 			
 			while(true)
 			{
+				Boss_Kill_Success = false;
 				num = Play(stage);
 				if(num == 1)
 				{
@@ -39,19 +40,27 @@ public class Game {
 				{
 					if(stage == 1)
 						Go_Normal_Dungeon_Stage1(baba);					// 1막 일반던전 시작
-//					if(stage == 2)
-//						Go_Normal_Dungeon_Stage2();
-//					if(stage == 3)
-//						Go_Normal_Dungeon_Stage3();
-//					if(stage == 4)
-//						Go_Normal_Dungeon_Stage4();
-//					if(stage == 5)
-//						Go_Normal_Dungeon_Stage5();
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(baba);					// 2막 일반던전 시작
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(baba);					// 3막 일반던전 시작
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(baba);					// 4막 일반던전 시작
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(baba);					// 5막 일반던전 시작
 				}
 				else if(num == 3)
 				{
 					if(stage == 1)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(baba);					// 1막 일반던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(baba);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(baba);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(baba);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(baba);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(baba);					// 5막 보스던전 시작
 					if(Boss_Kill_Success)
 						stage++;
 				}
@@ -81,6 +90,7 @@ public class Game {
 			
 			while(true)
 			{
+				Boss_Kill_Success = false;
 				num = Play(stage);
 				if(num == 1)
 				{
@@ -90,19 +100,29 @@ public class Game {
 				{
 					if(stage == 1)
 						Go_Normal_Dungeon_Stage1(h_warrior);					// 1막 일반던전 시작
-//					if(stage == 2)
-//						Go_Normal_Dungeon_Stage2();
-//					if(stage == 3)
-//						Go_Normal_Dungeon_Stage3();
-//					if(stage == 4)
-//						Go_Normal_Dungeon_Stage4();
-//					if(stage == 5)
-//						Go_Normal_Dungeon_Stage5();
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(h_warrior);					// 2막 일반던전 시작
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(h_warrior);					// 3막 일반던전 시작
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(h_warrior);					// 4막 일반던전 시작
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(h_warrior);					// 5막 일반던전 시작
 				}
 				else if(num == 3)
 				{
 					if(stage == 1)
-						Go_Boss_Dungeon_Stage1(h_warrior);					// 1막 일반던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 5막 보스던전 시작
+					if(Boss_Kill_Success)
+						stage++;
 				}
 				else if(num == 4)
 				{
@@ -130,6 +150,7 @@ public class Game {
 			
 			while(true)
 			{
+				Boss_Kill_Success = false;
 				num = Play(stage);
 				if(num == 1)
 				{
@@ -139,19 +160,29 @@ public class Game {
 				{
 					if(stage == 1)
 						Go_Normal_Dungeon_Stage1(daemon_hunter);					// 1막 일반던전 시작
-//					if(stage == 2)
-//						Go_Normal_Dungeon_Stage2();
-//					if(stage == 3)
-//						Go_Normal_Dungeon_Stage3();
-//					if(stage == 4)
-//						Go_Normal_Dungeon_Stage4();
-//					if(stage == 5)
-//						Go_Normal_Dungeon_Stage5();
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(daemon_hunter);
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(daemon_hunter);
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(daemon_hunter);
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(daemon_hunter);
 				}
 				else if(num == 3)
 				{
 					if(stage == 1)
-						Go_Boss_Dungeon_Stage1(daemon_hunter);					// 1막 일반던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 5막 보스던전 시작
+					if(Boss_Kill_Success)
+						stage++;
 				}
 				else if(num == 4)
 				{
@@ -178,7 +209,8 @@ public class Game {
 			magician.ID = ID;
 			
 			while(true)
-			{
+			{	
+				Boss_Kill_Success = false;
 				num = Play(stage);
 				if(num == 1)
 				{
@@ -188,19 +220,29 @@ public class Game {
 				{
 					if(stage == 1)
 						Go_Normal_Dungeon_Stage1(magician);					// 1막 일반던전 시작
-//					if(stage == 2)
-//						Go_Normal_Dungeon_Stage2();
-//					if(stage == 3)
-//						Go_Normal_Dungeon_Stage3();
-//					if(stage == 4)
-//						Go_Normal_Dungeon_Stage4();
-//					if(stage == 5)
-//						Go_Normal_Dungeon_Stage5();
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(magician);					// 2막 일반던전 시작
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(magician);					// 3막 일반던전 시작
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(magician);					// 4막 일반던전 시작
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(magician);					// 5막 일반던전 시작
 				}
 				else if(num == 3)
 				{
 					if(stage == 1)
-						Go_Boss_Dungeon_Stage1(magician);					// 1막 일반던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 5막 보스던전 시작
+					if(Boss_Kill_Success)
+						stage++;
 				}
 				else if(num == 4)
 				{
@@ -237,19 +279,29 @@ public class Game {
 				{
 					if(stage == 1)
 						Go_Normal_Dungeon_Stage1(monk);					// 1막 일반던전 시작
-//					if(stage == 2)
-//						Go_Normal_Dungeon_Stage2();
-//					if(stage == 3)
-//						Go_Normal_Dungeon_Stage3();
-//					if(stage == 4)
-//						Go_Normal_Dungeon_Stage4();
-//					if(stage == 5)
-//						Go_Normal_Dungeon_Stage5();
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(monk);					// 2막 일반던전 시작
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(monk);					// 3막 일반던전 시작
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(monk);					// 4막 일반던전 시작
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(monk);					// 5막 일반던전 시작
 				}
 				else if(num == 3)
 				{
 					if(stage == 1)
-						Go_Boss_Dungeon_Stage1(monk);					// 1막 일반던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 5막 보스던전 시작
+					if(Boss_Kill_Success)
+						stage++;
 				}
 				else if(num == 4)
 				{
@@ -319,7 +371,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		bar();
 		System.out.println("직업을 선택해주세요");
-		System.out.println("1. ");
+		System.out.println("1. 야만전사");
 		System.out.println("2. 성전사");
 		System.out.println("3. 악마사냥꾼");
 		System.out.println("4. 마법사");
