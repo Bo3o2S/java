@@ -42,8 +42,7 @@ public class Monk extends Character implements Character_Job{
 	}
 	
 	// 수도사 추가 스탯 세팅
-	public int Hate = 125;
-	public int Moderation = 30;
+	public int 
 	
 	// 증오, 절제의 최고량
 	int Full_Hate = 125;
