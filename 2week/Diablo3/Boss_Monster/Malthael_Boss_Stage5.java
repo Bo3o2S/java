@@ -1,8 +1,9 @@
-package Monster_Unit;
+package Boss_Monster;
 
 import java.util.Random;
 
 import Monster_Type.Boss_Monster;
+import Monster_Unit.Monster_Unit;
 
 public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	// 5스테이지 보스 : 말티엘
 	

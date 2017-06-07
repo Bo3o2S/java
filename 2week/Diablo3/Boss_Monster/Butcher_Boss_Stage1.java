@@ -1,8 +1,9 @@
-package Monster_Unit;
+package Boss_Monster;
 
 import java.util.Random;
 
 import Monster_Type.Boss_Monster;
+import Monster_Unit.Monster_Unit;
 
 public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ // 1번째 스테이지 보스
 	

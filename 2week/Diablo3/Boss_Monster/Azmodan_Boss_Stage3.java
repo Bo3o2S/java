@@ -1,6 +1,8 @@
-package Monster_Unit;
+package Boss_Monster;
 
 import Monster_Type.Boss_Monster;
+import Monster_Unit.Monster_Unit;
+
 import java.util.Random;
 
 public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	// 3번쨰 스테이지 보스 : 아즈모단

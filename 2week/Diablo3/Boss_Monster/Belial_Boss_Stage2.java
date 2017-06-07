@@ -1,8 +1,9 @@
-package Monster_Unit;
+package Boss_Monster;
 
 import java.util.Random;
 
 import Monster_Type.Boss_Monster;
+import Monster_Unit.Monster_Unit;
 
 public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ // 2번째 스테이지 보스
 	

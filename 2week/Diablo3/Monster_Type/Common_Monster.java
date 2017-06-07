@@ -1,6 +1,6 @@
 package Monster_Type;
+import Common_Monster.Compulsion_Common_Monster;
 import Monster.MonSter;
-import Monster_Unit.Compulsion_Common_Monster;
 
 public class Common_Monster extends MonSter{	// 일반 몬스터 공통수치
 	

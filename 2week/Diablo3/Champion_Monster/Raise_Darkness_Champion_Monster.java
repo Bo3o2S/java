@@ -1,9 +1,10 @@
-package Monster_Unit;
+package Champion_Monster;
 
 import java.util.Random;
 import java.util.Scanner;
 
 import Monster_Type.Champion_Monster;
+import Monster_Unit.Monster_Unit;
 
 
 public class Raise_Darkness_Champion_Monster extends Champion_Monster implements Monster_Unit{	// 챔피언 몬스터 : 어둠을 키우는 자

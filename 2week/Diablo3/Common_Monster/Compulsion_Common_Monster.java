@@ -1,8 +1,9 @@
-package Monster_Unit;
+package Common_Monster;
 
 import java.util.Random;
 
 import Monster_Type.Common_Monster;
+import Monster_Unit.Monster_Unit;
 
 public class Compulsion_Common_Monster extends Common_Monster implements Monster_Unit{ 	//일반 몬스터 : 강제자
 	

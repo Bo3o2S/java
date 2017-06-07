@@ -1,8 +1,8 @@
 package Monster;
 import java.util.Random;
 
+import Common_Monster.Compulsion_Common_Monster;
 import Monster_Type.Common_Monster;
-import Monster_Unit.Compulsion_Common_Monster;
 import Unit.Unit;
 
 public class MonSter extends Unit{	// 몬스터 기본 세팅

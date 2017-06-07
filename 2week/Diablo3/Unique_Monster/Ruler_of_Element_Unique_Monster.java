@@ -1,8 +1,9 @@
-package Monster_Unit;
+package Unique_Monster;
 
 import java.util.Random;
 
 import Monster_Type.Unique_Monster;
+import Monster_Unit.Monster_Unit;
 
 public class Ruler_of_Element_Unique_Monster extends Unique_Monster implements Monster_Unit{	// 유니크 몬스터 : 원소의 지배자
 	
