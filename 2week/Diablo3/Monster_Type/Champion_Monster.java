@@ -6,6 +6,7 @@ public class Champion_Monster extends MonSter{  // 챔피언 몬스터 공통수
 	
 	public Champion_Monster()
 	{
+		Monster_Type = "챔피언";					// 종류 : 챔피언 몬스터
 		Level_Num = 1;							// 챔피언 몬스터 초기 레벨
 		HP = 500;								// 챔피언 몬스터 생명력
 		Attack = 50;							// 챔피언 몬스터 공격력

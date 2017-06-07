@@ -114,13 +114,13 @@ public class Game {
 					if(stage == 1)
 						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 1막 보스던전 시작
 					if(stage == 2)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 2막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(h_warrior);					// 2막 보스던전 시작
 					if(stage == 3)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 3막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(h_warrior);					// 3막 보스던전 시작
 					if(stage == 4)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 4막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(h_warrior);					// 4막 보스던전 시작
 					if(stage == 5)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(h_warrior);					// 5막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(h_warrior);					// 5막 보스던전 시작
 					if(Boss_Kill_Success)
 						stage++;
 				}
@@ -174,13 +174,13 @@ public class Game {
 					if(stage == 1)
 						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 1막 보스던전 시작
 					if(stage == 2)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 2막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(daemon_hunter);					// 2막 보스던전 시작
 					if(stage == 3)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 3막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(daemon_hunter);					// 3막 보스던전 시작
 					if(stage == 4)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 4막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(daemon_hunter);					// 4막 보스던전 시작
 					if(stage == 5)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(daemon_hunter);					// 5막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(daemon_hunter);					// 5막 보스던전 시작
 					if(Boss_Kill_Success)
 						stage++;
 				}
@@ -234,13 +234,13 @@ public class Game {
 					if(stage == 1)
 						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 1막 보스던전 시작
 					if(stage == 2)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 2막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(magician);					// 2막 보스던전 시작
 					if(stage == 3)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 3막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(magician);					// 3막 보스던전 시작
 					if(stage == 4)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 4막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(magician);					// 4막 보스던전 시작
 					if(stage == 5)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(magician);					// 5막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(magician);					// 5막 보스던전 시작
 					if(Boss_Kill_Success)
 						stage++;
 				}
@@ -293,13 +293,13 @@ public class Game {
 					if(stage == 1)
 						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 1막 보스던전 시작
 					if(stage == 2)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 2막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(monk);					// 2막 보스던전 시작
 					if(stage == 3)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 3막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(monk);					// 3막 보스던전 시작
 					if(stage == 4)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 4막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(monk);					// 4막 보스던전 시작
 					if(stage == 5)
-						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(monk);					// 5막 보스던전 시작
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(monk);					// 5막 보스던전 시작
 					if(Boss_Kill_Success)
 						stage++;
 				}
@@ -309,6 +309,65 @@ public class Game {
 					monk.HP = monk.Full_HP;
 					System.out.println("생명력을 100% 회복되었습니다!");
 					System.out.println("현재 생명력 : " + monk.HP);
+				}
+				else if(num == 5)
+				{
+					System.out.println("게임을 종료합니다!");
+					System.exit(0);
+				}
+				else
+					continue;
+			}
+		}
+		else if(job_Num == 6)
+		{
+			Witch_Doctor witch_doctor = new Witch_Doctor();
+			
+			// ID 입력
+			ID = Input_ID();
+			witch_doctor.ID = ID;
+			
+			while(true)
+			{
+				num = Play(stage);
+				if(num == 1)
+				{
+					Status(witch_doctor);				// 캐릭터 상태창 출력
+				}
+				else if(num == 2)
+				{
+					if(stage == 1)
+						Go_Normal_Dungeon_Stage1(witch_doctor);					// 1막 일반던전 시작
+					if(stage == 2)
+						Go_Normal_Dungeon_Stage2(witch_doctor);					// 2막 일반던전 시작
+					if(stage == 3)
+						Go_Normal_Dungeon_Stage3(witch_doctor);					// 3막 일반던전 시작
+					if(stage == 4)
+						Go_Normal_Dungeon_Stage4(witch_doctor);					// 4막 일반던전 시작
+					if(stage == 5)
+						Go_Normal_Dungeon_Stage5(witch_doctor);					// 5막 일반던전 시작
+				}
+				else if(num == 3)
+				{
+					if(stage == 1)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage1(witch_doctor);					// 1막 보스던전 시작
+					if(stage == 2)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage2(witch_doctor);					// 2막 보스던전 시작
+					if(stage == 3)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage3(witch_doctor);					// 3막 보스던전 시작
+					if(stage == 4)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage4(witch_doctor);					// 4막 보스던전 시작
+					if(stage == 5)
+						Boss_Kill_Success = Go_Boss_Dungeon_Stage5(witch_doctor);					// 5막 보스던전 시작
+					if(Boss_Kill_Success)
+						stage++;
+				}
+				else if(num == 4)
+				{
+					System.out.println("생명력을 회복합니다");
+					witch_doctor.HP = witch_doctor.Full_HP;
+					System.out.println("생명력을 100% 회복되었습니다!");
+					System.out.println("현재 생명력 : " + witch_doctor.HP);
 				}
 				else if(num == 5)
 				{

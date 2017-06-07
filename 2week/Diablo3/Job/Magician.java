@@ -147,8 +147,7 @@ public class Magician extends Character implements Character_Job{
 		System.out.println("회복력 : " + Recovery);
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
-		System.out.println("레벨업 필요 경험치: " + Exp);
-		System.out.println("전체 경험치: " + Full_Exp);
+		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
 		
 		bar2();
 	}

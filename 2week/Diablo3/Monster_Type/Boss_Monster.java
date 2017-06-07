@@ -6,6 +6,7 @@ public class Boss_Monster extends MonSter{	// 보스 몬스터 공통수치
 
 	public Boss_Monster()					// 초기화
 	{
+		Monster_Type = "보스";				// 종류 : 보스 몬스터
 		Level_Num = 1;						// 보스 몬스터 초기 레벨
 		HP = 1200;							// 보스 몬스터 생명력
 		Attack = 500;						// 보스 몬스터 공격력

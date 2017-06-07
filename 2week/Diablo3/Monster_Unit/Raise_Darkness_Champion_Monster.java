@@ -49,7 +49,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar2();
-		System.out.println(Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
 		System.out.println("교전을 시작합니다");
 	}
 	

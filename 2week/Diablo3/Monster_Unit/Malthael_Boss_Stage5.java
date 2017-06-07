@@ -44,7 +44,7 @@ public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar2();
-		System.out.println(Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
 		System.out.println("교전을 시작합니다");
 	}
 	

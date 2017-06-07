@@ -19,6 +19,8 @@ public class Character extends Unit{
 		protected int Vitality_Rate;		// 활력 증가량
 		protected int Recovery_Rate;		// 회복력 증가량
 	
+		public double Full_HP;				// 레벨별 생명력 최대치
+		public long Full_Exp;				// 레벨별 경험치 최대치
 		
 		protected double Vital_Hp_Rate;		// 활력이 HP에 미치는 증가량. HP = 활력*Vital_Hp_Rate
 		protected long Exp_Rate;			// 레벨에 따른 필요 경험치 증가량

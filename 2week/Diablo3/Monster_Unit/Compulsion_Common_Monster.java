@@ -7,8 +7,8 @@ import Monster_Type.Common_Monster;
 public class Compulsion_Common_Monster extends Common_Monster implements Monster_Unit{ 	//일반 몬스터 : 강제자
 	
 	public  Compulsion_Common_Monster() // 초기화
-	{
-		Name = "강제자";
+	{		
+		Name = "해골";
 	}
 	
 	double Damage_Tightening= 1.5;								// 스킬 "조이기" 공격배수
@@ -24,7 +24,7 @@ public class Compulsion_Common_Monster extends Common_Monster implements Monster
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar2();
-		System.out.println(Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
 		System.out.println("교전을 시작합니다");
 	}
 	
