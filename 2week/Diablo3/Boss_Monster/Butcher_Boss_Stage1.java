@@ -7,11 +7,7 @@ import Monster_Unit.Monster_Unit;
 
 public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ // 1번째 스테이지 보스
 	
-	public Butcher_Boss_Stage1() 						// 초기화
-	{
-		Name = "도살자";		
-	}
-	
+	public String Name = "도살자";
 	double Damage_Throw_Hook= 4.0;					// 스킬 "갈고리 날리기" 공격배수
 	double Damage_Flamethrower= 4.0;				// 스킬 "화염방사" 공격배수
 	double Damage_Crash= 5.0;						// 스킬 "충돌" 공격배수

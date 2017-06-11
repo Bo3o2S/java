@@ -13,7 +13,7 @@ public class MonSter extends Unit{	// 몬스터 기본 세팅
 	protected int Defence_Change_Rate;								// 몬스터 생성시 빙어력 차이
 	protected int Evasion_Change_Rate;								// 몬스터 생성시 회피력 차이
 	public String Monster_Type;										// 몬스터 생성시 종류(일반, 챔피언, 유니크, 보스)
-	
+	public String Name;												// 몬스터 생성시 이름
 	protected void Set_Monster_Status()	// 몬스터 기본 수치 세팅
 	{
 		Random random = new Random();								

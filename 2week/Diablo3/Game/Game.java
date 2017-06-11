@@ -1,20 +1,21 @@
 package Game;
 
 import Job.*;
-import Monster_Unit.*;
-import Unique_Monster.Ruler_of_Element_Unique_Monster;
+
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import Boss_Monster.Azmodan_Boss_Stage3;
-import Boss_Monster.Belial_Boss_Stage2;
-import Boss_Monster.Butcher_Boss_Stage1;
-import Boss_Monster.Diablo_Boss_Stage4;
-import Boss_Monster.Malthael_Boss_Stage5;
-import Champion_Monster.Raise_Darkness_Champion_Monster;
+import Boss_Monster.*;
+import Common_Monster.*;
+import Champion_Monster.*;
+import Unique_Monster.*;
+import Unit.Unit;
+import Monster_Unit.*;
 import Character.Character;
-import Common_Monster.Compulsion_Common_Monster;
+
 
 public class Game {
 	
@@ -38,8 +39,15 @@ public class Game {
 			
 			while(true)
 			{
+				if(stage > 5)
+				{
+					System.out.println("축하합니다!!! 모든 스테이지를 클리어 하였습니다!");
+					break;
+				}
+				
 				Boss_Kill_Success = false;
 				num = Play(stage);
+				
 				if(num == 1)
 				{
 					Status(baba);				// 캐릭터 상태창 출력
@@ -389,7 +397,7 @@ public class Game {
 		else if(job_Num == 0)
 			System.exit(0);
 		else
-			System.exit(1);
+			System.exit(0);
 			
 
 	}
@@ -473,22 +481,7 @@ public class Game {
 	
 	
 	
-	public static int Attack_Choice()
-	{
-		Scanner scan = new Scanner(System.in);
-		bar2();
-		System.out.println("1. 일반공격");
-		System.out.println("2. 스킬공격");
-		System.out.println("3. 체력회복");
-		System.out.println("4. 후퇴하기");
-		System.out.println("5. 마을복귀");
-		bar2();
-		System.out.println("선택하기(1~5) : ");
-		int num = scan.nextInt();
-		scan.nextLine();
-		
-		return num;
-	}
+	
 		
 	public static void Go_Normal_Dungeon_Stage1(Character character) { 	// 1막 일반던전 사냥
 
@@ -512,8 +505,8 @@ public class Game {
 				= new Compulsion_Common_Monster();								// 일반 몬스터 : "강제자" 생성
 			Raise_Darkness_Champion_Monster raise_darkness
 				= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
-			Ruler_of_Element_Unique_Monster element
-				= new Ruler_of_Element_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+			Azrase_Unique_Monster element
+				= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
 			
 			
 			int Common_Monster_Apear_Chance = 85;
@@ -539,6 +532,7 @@ public class Game {
 				Monster_Flag = 3;	// 유니크 몬스터
 			}
 				
+			SharedResource_Battle sharedresource_battle = new SharedResource_Battle(character.HP, compulsion.HP);
 			
 			while(true)
 			{
@@ -592,71 +586,57 @@ public class Game {
 					
 					int num = Attack_Choice();	// 공격 선택
 					
+					double Damage = 0;
+					if(Monster_Flag == 1) // 일반 몬스터
+					{
+						if(compulsion.HP > 0 )
+						{
+							Monster_Attack_Thread common_attack_thread = new Monster_Attack_Thread();
+							common_attack_thread.character = character;
+							common_attack_thread.sharedresource_battle = sharedresource_battle;
+							common_attack_thread.monster_unit = compulsion;
+							common_attack_thread.start();
+							character.HP = sharedresource_battle.Character_HP;
+						}
+						
+					}
+					else if(Monster_Flag == 2) // 챔피언 몬스터
+					{
+						if(raise_darkness.HP > 0 )
+						{
+							System.out.println("현재 " + raise_darkness.Name + "의 HP : "+ raise_darkness.HP);	// 현재 몬스터 HP
+							Damage = Monster_Attack(raise_darkness);
+							character.HP = character.HP - Damage;
+							System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
+							if(character.HP > 0)
+								System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
+						}
+					}
+					else	// 유니크 몬스터
+					{
+						if(element.HP > 0 )
+						{
+							System.out.println("현재 " + element.Name + "의 HP : "+ element.HP);					// 현재 몬스터 HP
+							Damage = Monster_Attack(element);
+							character.HP = character.HP - Damage;
+							System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
+							if(character.HP > 0)
+								System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
+						}
+					}
+					
 					if(num == 1) // 1. 일반공격 선택시
 					{
-						double Damage = 0;
-						if(Monster_Flag == 1) // 일반 몬스터
+						if(character.HP > 0)
 						{
-							if(character.HP > 0)
-							{
-								Damage = Normal_Attack((Character_Job) character);								// 캐릭터 일반공격
-								compulsion.HP = compulsion.HP - Damage;											
-								System.out.println(compulsion.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");	// 몬스터가 받는 데미지
-
-							}
-							if(compulsion.HP > 0 )
-							{
-								System.out.println("현재 " + compulsion.Name + "의 HP : "+ compulsion.HP);			// 현재 몬스터 HP
-								Damage = Monster_Attack(compulsion);
-								System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
-								character.HP = character.HP - Damage;
-								if(character.HP > 0)
-									System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
-							}
-							
-						}
-						else if(Monster_Flag == 2) // 챔피언 몬스터
-						{
-							if(character.HP > 0)
-							{
-								Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
-								raise_darkness.HP = raise_darkness.HP - Damage;
-								System.out.println(raise_darkness.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");	// 몬스터가 받는 데미지
-							}
-							if(raise_darkness.HP > 0 )
-							{
-								System.out.println("현재 " + raise_darkness.Name + "의 HP : "+ raise_darkness.HP);	// 현재 몬스터 HP
-								Damage = Monster_Attack(raise_darkness);
-								character.HP = character.HP - Damage;
-								System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
-								if(character.HP > 0)
-									System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
-							}
-							
-						}
-						else	// 유니크 몬스터
-						{
-							if(character.HP > 0)
-							{
-								Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
-								element.HP = element.HP - Damage;
-								System.out.println(element.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
-							}
-							if(element.HP > 0 )
-							{
-								System.out.println("현재 " + element.Name + "의 HP : "+ element.HP);					// 현재 몬스터 HP
-								Damage = Monster_Attack(element);
-								character.HP = character.HP - Damage;
-								System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
-								if(character.HP > 0)
-									System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
-							}
-							
+							Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
+							compulsion.HP = compulsion.HP - Damage;
+							System.out.println(compulsion.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
+							System.out.println(compulsion.Name + "의 현재 생명력은 " + compulsion.HP + " 입니다!");			// 몬스터가 받는 데미지
 						}
 					}
 					else if(num == 2) // 2. 스킬공격 선택시
 					{
-						double Damage = 0;
 						if(Monster_Flag == 1) // 일반 몬스터
 						{
 							if(character.HP > 0)
@@ -674,8 +654,6 @@ public class Game {
 								if(character.HP > 0)
 									System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
 							}
-							
-							
 						}
 						else if(Monster_Flag == 2) // 챔피언 몬스터
 						{
@@ -736,6 +714,21 @@ public class Game {
 		
 	}
 	
+	private static int Attack_Choice() {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		System.out.println("1. 일반공격");
+		System.out.println("2. 스킬공격");
+		System.out.println("3. 체력회복");
+		System.out.println("4. 후퇴하기");
+		System.out.println("5. 마을복귀");
+		
+		System.out.println("선택하기(1~5) : ");
+		int num = scan.nextInt();
+		scan.nextLine();
+		return num;
+	}
+
 	public static void Go_Normal_Dungeon_Stage2(Character character) { 	// 2막 일반던전 사냥
 	 	
 			bar();
@@ -758,8 +751,8 @@ public class Game {
 					= new Compulsion_Common_Monster();								// 일반 몬스터 : "강제자" 생성
 				Raise_Darkness_Champion_Monster raise_darkness
 					= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
-				Ruler_of_Element_Unique_Monster element
-					= new Ruler_of_Element_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+				Azrase_Unique_Monster element
+					= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
 				
 				
 				int Common_Monster_Apear_Chance = 85;
@@ -1004,8 +997,8 @@ public class Game {
 					= new Compulsion_Common_Monster();								// 일반 몬스터 : "강제자" 생성
 				Raise_Darkness_Champion_Monster raise_darkness
 					= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
-				Ruler_of_Element_Unique_Monster element
-					= new Ruler_of_Element_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+				Azrase_Unique_Monster element
+					= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
 				
 				
 				int Common_Monster_Apear_Chance = 85;
@@ -1249,8 +1242,8 @@ public class Game {
 				= new Compulsion_Common_Monster();								// 일반 몬스터 : "강제자" 생성
 			Raise_Darkness_Champion_Monster raise_darkness
 				= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
-			Ruler_of_Element_Unique_Monster element
-				= new Ruler_of_Element_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+			Azrase_Unique_Monster element
+				= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
 			
 			
 			int Common_Monster_Apear_Chance = 85;
@@ -1495,8 +1488,8 @@ public class Game {
 				= new Compulsion_Common_Monster();								// 일반 몬스터 : "강제자" 생성
 			Raise_Darkness_Champion_Monster raise_darkness
 				= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
-			Ruler_of_Element_Unique_Monster element
-				= new Ruler_of_Element_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+			Azrase_Unique_Monster element
+				= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
 			
 			
 			int Common_Monster_Apear_Chance = 85;
@@ -2349,5 +2342,78 @@ public class Game {
 		}
 		else	// 생명력이 가득 차 있을 경우
 			System.out.println("생명력이 가득 차있습니다");
+	}
+}
+
+class SharedResource_Battle
+{
+	public double Character_HP;
+	public double Monster_HP;
+	public int Attack_Choice_Num;
+	public SharedResource_Battle(double character_hp, double monster_hp)
+	{
+		this.Character_HP = character_hp;
+		this.Monster_HP = monster_hp;
+	}
+	
+	public synchronized void Monster_Attack(double Damage)
+	{
+		Character_HP = Character_HP- Damage;
+	}
+	
+	public synchronized void Character_Attack(double Damage)
+	{
+		Monster_HP = Monster_HP- Damage;
+	}
+}
+
+class Monster_Attack_Thread extends Thread
+{
+	SharedResource_Battle sharedresource_battle;
+	Monster_Unit monster_unit;
+	Character character;
+	double Damage;
+	
+	@Override
+	public void run() {
+		while(true)
+		{
+			if(sharedresource_battle.Monster_HP <= 0 || sharedresource_battle.Character_HP <= 0)
+				break;
+			if(sharedresource_battle.Monster_HP > 0)
+			{
+				System.out.println("현재 " + Monster_Unit.Name + "의 HP : "+ sharedresource_battle.Monster_HP);			// 현재 몬스터 HP
+				Damage = monster_unit.Monster_Attack();			
+				System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
+				sharedresource_battle.Monster_Attack(Damage);
+				if(sharedresource_battle.Character_HP > 0)
+					System.out.println("현재 " + character.ID +"의 HP : " + sharedresource_battle.Character_HP);
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+	}
+}
+
+class Normal_Attack_Choice extends Thread
+{
+	SharedResource_Battle sharedresource_battle;
+	Scanner scan = new Scanner(System.in);
+	@Override
+	public void run() {
+		while(true)
+		{
+			System.out.println("1. 공격");
+			System.out.println("2. 후퇴");
+			System.out.println("선택하기(1~2) : ");
+			sharedresource_battle.Attack_Choice_Num = scan.nextInt();
+			int num = scan.nextInt();
+			scan.nextLine();
+		}
 	}
 }

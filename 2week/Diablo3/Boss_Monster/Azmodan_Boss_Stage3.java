@@ -6,11 +6,8 @@ import Monster_Unit.Monster_Unit;
 import java.util.Random;
 
 public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	// 3번쨰 스테이지 보스 : 아즈모단
-	public  Azmodan_Boss_Stage3()							// 초기화
-	{
-		Name = "아즈모단";	
-	}
 	
+	public String Name = "아즈모단";	
 	double Damage_Throw_Corpse= 4.0;			// 스킬 "시체투하" 공격배수
 	double Damage_Darkness_Area= 4.0;			// 스킬 "어둠의 영역" 공격배수
 	double Damage_Fireball= 5.0;				// 스킬 "화염구" 공격배수

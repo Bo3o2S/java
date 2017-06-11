@@ -7,11 +7,7 @@ import Monster_Unit.Monster_Unit;
 
 public class Compulsion_Common_Monster extends Common_Monster implements Monster_Unit{ 	//일반 몬스터 : 강제자
 	
-	public  Compulsion_Common_Monster() // 초기화
-	{		
-		Name = "해골";
-	}
-	
+	public String Name = "해골";
 	double Damage_Tightening= 1.5;								// 스킬 "조이기" 공격배수
 	
 	public double Tightening() //스킬 "조이기"

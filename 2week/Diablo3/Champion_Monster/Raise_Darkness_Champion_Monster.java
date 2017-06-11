@@ -11,11 +11,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	
 	static Scanner scan = new Scanner(System.in);
 	
-	public  Raise_Darkness_Champion_Monster() 							// 초기화
-	{
-		Name = "어둠을 키우는 자";
-	}
-	
+	public String Name = "어둠을 키우는 자";
 	double Damage_Melting = 2.0;										// 스킬 "융해" 공격배수
 	double Damage_Plague = 2.0;											// 스킬 "역병" 공격배수
 	double Damage_Shelling = 2.0;										// 스킬 "포격" 공격배수

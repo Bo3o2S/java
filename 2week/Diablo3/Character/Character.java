@@ -6,7 +6,7 @@ public class Character extends Unit{
 	
 		//캐릭터 기본스탯
 		public String ID;					// 아이디
-					
+		public String Name;			
 		public int Strength;				// 힘
 		public int Dex;						// 민첩
 		public int Intelligence;			// 지능

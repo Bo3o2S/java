@@ -7,11 +7,7 @@ import Monster_Unit.Monster_Unit;
 
 public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	// 4번째 스테이지 보스 : 디아블로
 	
-	public  Diablo_Boss_Stage4()						// 초기화
-	{
-		Name = "디아블로";
-	}
-	
+	public String Name = "디아블로";
 	double Damage_Fire_Circle= 4.0;					// 스킬 "화염의 원" 공격배수
 	double Damage_Fire_Launch= 4.0;					// 스킬 "화염발사" 공격배수
 	double Damage_Fire_Earthquake= 5.0;				// 스킬 "화염지진" 공격배수

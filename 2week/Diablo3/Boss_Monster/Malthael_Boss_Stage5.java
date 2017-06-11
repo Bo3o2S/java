@@ -7,11 +7,7 @@ import Monster_Unit.Monster_Unit;
 
 public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	// 5스테이지 보스 : 말티엘
 	
-	public  Malthael_Boss_Stage5()						// 초기화
-	{
-		Name = "말티엘";
-	}
-	
+	public String Name = "말티엘";
 	double Damage_Sprit_Ball= 4.0;						// 스킬 "영혼구" 공격배수
 	double Damage_Spirit_Fog= 4.0;						// 스킬 "영혼의 안개" 공격배수
 	double Damage_Ruin_Cloud= 5.0;						// 스킬 "파멸의 구름" 공격배수

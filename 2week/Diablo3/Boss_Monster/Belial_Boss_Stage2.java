@@ -7,12 +7,7 @@ import Monster_Unit.Monster_Unit;
 
 public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ // 2번째 스테이지 보스
 	
-	public  Belial_Boss_Stage2() //초기화
-	{
-		Name = "베리얼";						// 보스 몬스터명
-		
-	}
-
+	public String Name = "베리얼";
 	double Damage_Down_Tongs= 4.0;			// 스킬 "집게 내려찍기" 공격배수
 	double Damage_Spout_Poison= 4.0;		// 스킬 "독뿜기" 공격배수
 	double Damage_Poison_Fire= 5.0;			// 스킬 "독의 화염" 공격배수

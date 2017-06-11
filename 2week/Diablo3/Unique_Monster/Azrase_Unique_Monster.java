@@ -5,13 +5,9 @@ import java.util.Random;
 import Monster_Type.Unique_Monster;
 import Monster_Unit.Monster_Unit;
 
-public class Ruler_of_Element_Unique_Monster extends Unique_Monster implements Monster_Unit{	// 유니크 몬스터 : 원소의 지배자
+public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Unit, Runnable{	// 유니크 몬스터 : 원소의 지배자
 	
-	public  Ruler_of_Element_Unique_Monster()							// 초기화
-	{
-		Name = "원소의 지배자";
-	}
-	
+	public String Name = "악마피붙이 애즈래스";
 	double Damage_Flame_Hell= 3.0;										// 스킬 "화염지옥" 공격배수
 	double Damage_Thunderbolt_Raid= 3.0;								// 스킬 "번개작렬" 공격배수
 	double Damage_Freezing= 3.0;										// 스킬 "빙결" 공격배수
@@ -80,4 +76,12 @@ public class Ruler_of_Element_Unique_Monster extends Unique_Monster implements M
 		// TODO Auto-generated method stub
 		return HP;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Monster_Attack();
+	}
 }
+
+
