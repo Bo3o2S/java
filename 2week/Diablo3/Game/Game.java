@@ -583,9 +583,6 @@ public class Game {
 						Level_Up(character);																// 레벨업 여부 판단
 						break;
 					}
-					
-					int num = Attack_Choice();	// 공격 선택
-					
 					double Damage = 0;
 					if(Monster_Flag == 1) // 일반 몬스터
 					{
@@ -625,14 +622,16 @@ public class Game {
 						}
 					}
 					
+					int num = Attack_Choice();	// 공격 선택
+					
 					if(num == 1) // 1. 일반공격 선택시
 					{
 						if(character.HP > 0)
 						{
 							Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
-							compulsion.HP = compulsion.HP - Damage;
+							sharedresource_battle.Character_Attack(Damage);
 							System.out.println(compulsion.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
-							System.out.println(compulsion.Name + "의 현재 생명력은 " + compulsion.HP + " 입니다!");			// 몬스터가 받는 데미지
+							System.out.println(compulsion.Name + "의 현재 생명력은 " + sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
 						}
 					}
 					else if(num == 2) // 2. 스킬공격 선택시
@@ -2389,7 +2388,7 @@ class Monster_Attack_Thread extends Thread
 				if(sharedresource_battle.Character_HP > 0)
 					System.out.println("현재 " + character.ID +"의 HP : " + sharedresource_battle.Character_HP);
 				try {
-					Thread.sleep(3000);
+					Thread.sleep(5000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
