@@ -61,9 +61,15 @@ public class Magician extends Character implements Character_Job{
 	// "서리광선" 비전력 사용량
 	int Arcane_Use_Frost_Beam = 16;
 	
-	// "얼음갑옷" 비전력 사용량
-	int Arcane_Use_Frost_Armor = 16;
-		
+	// "비전집중" 비전력 사용량
+	int Arcane_Use_Arcane_Concentration = 50;
+	
+	// "비전집중" 공격력 증가 배수
+	double Arcane_Concentration_Attack = 2.0;
+	
+	// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능.
+	Boolean Skill_On = false;					
+	
 	public double Magic_Bullet()	// 스킬 "마법탄"
 	{
 		double Damage = 0;
@@ -111,12 +117,37 @@ public class Magician extends Character implements Character_Job{
 		return Damage;	
 	}
 	
-	public double Frost_Armor()		// 스킬 "얼음갑옷"
+	public void Arcane_Concentration()		// 스킬 "비전집중"
 	{
-		double Damage = 0;
-		System.out.println("얼음갑옷을 시전합니다. HP가 20% 상승합니다");
+		Skill_Name = "비전집중";
+		Thread thread = new Thread(new Runnable() 
+		{
+			
+			@Override
+			public void run() {
+				int duration = 5;
+				double temp_Attack = Attack;
+				Attack = Attack * Arcane_Concentration_Attack;
+				Skill_On = true;
+				System.out.println(Skill_Name + "을 시전합니다. " + duration + "초 만큼 지속됩니다");
+				System.out.println("공격력이 " + Arcane_Concentration_Attack*100 + "% 만큼 증가합니다");
+				try {
+					Thread.sleep(duration*1000);
+					Attack = temp_Attack;
+					System.out.println("공격력이 원래대로 돌아옵니다. 현재 공격력은 " + (long)Attack +"입니다");
+					Skill_On = false;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+		});
+		thread.start();
+		
+		System.out.println("비전집중을 시전합니다. HP가 20% 상승합니다");
+		
 		HP = HP*1.2;
-		return Damage;
 	}
 	
 	@Override
@@ -149,7 +180,7 @@ public class Magician extends Character implements Character_Job{
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
 		
-		bar2();
+		bar();
 	}
 
 	@Override
@@ -159,17 +190,17 @@ public class Magician extends Character implements Character_Job{
 		Random random = new Random();	
 		int Skill_Num = Skill_Choice();	// 스킬 선택
 		
-		if(Skill_Num == 1)	// 스킬 "굶주린 화살" 사용시
+		if(Skill_Num == 1)	// 스킬 "마법탄" 사용시
 		{
 			Damage = Magic_Bullet();
 		}			
-		else if(Skill_Num == 2)	// 스킬 "투검" 사용시
+		else if(Skill_Num == 2)	// 스킬 "서리 광선" 사용시
 		{
 			Damage = Frost_Beam();
 		}
-		else if(Skill_Num == 3) // 스킬 "공격력 증가" 사용시
+		else if(Skill_Num == 3) // 스킬 "비전 집중" 사용시
 		{
-			Frost_Armor();
+			Arcane_Concentration();
 		}
 		return Damage;
 	}
@@ -177,12 +208,16 @@ public class Magician extends Character implements Character_Job{
 	public int Skill_Choice()	// 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
+		bar();
 		System.out.println("1. 마법탄");
 		System.out.println("2. 서리광선");
-		System.out.println("3. 얼음갑옷");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		if(!Skill_On)
+			System.out.println("3. 비전집중");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

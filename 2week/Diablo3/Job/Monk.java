@@ -61,6 +61,9 @@ public class Monk extends Character implements Character_Job{
 	// "반달차기" 공력 사용량
 	int Spirit_Use_Halfmoon_Kick = 50;
 	
+	// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능.
+	Boolean Skill_On = false;					
+	
 	public double Thunder_Fist()	// 스킬 "천둥주먹"
 	{
 		double Damage = 0;
@@ -105,22 +108,39 @@ public class Monk extends Character implements Character_Job{
 		return Damage;
 	}
 	
-	public double Heaven_Breath()	// 스킬 "천상의 숨결"
+	public void Heaven_Breath()	// 스킬 "천상의 숨결"
 	{
-		double Damage = 0;
-		if(HP <= Full_HP*0.3)
+		bar();
+		Thread thread = new Thread(new Runnable() 
 		{
-			HP = HP + Full_HP*0.7;
-			System.out.println("생명력이 70% 회복되었습니다!");
-			System.out.println("현재 생명력 " + HP);
-		}
-		else
-		{
-			System.out.println("생명력이 회복되었습니다!");
-			HP = Full_HP;
-			System.out.println("현재 생명력 " + HP);
-		}
-		return Damage;
+			@Override
+			public void run() {
+				int duration = 30;
+				if(HP <= Full_HP*0.3)
+				{
+					HP = HP + Full_HP*0.7;
+					System.out.println("생명력이 70% 회복되었습니다!");
+					System.out.println("현재 생명력 " + HP);
+				}
+				else
+				{
+					System.out.println("생명력이 100% 회복되었습니다!");
+					HP = Full_HP;
+					System.out.println("현재 생명력 " + HP);
+				}
+				Skill_On = true;
+				try {
+					Thread.sleep(duration*1000);
+					Skill_On = false;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+		});
+		thread.start();
+		bar();
 	}
 	
 	@Override
@@ -143,7 +163,7 @@ public class Monk extends Character implements Character_Job{
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
-		bar2();
+		bar();
 	}
 
 
@@ -172,12 +192,16 @@ public class Monk extends Character implements Character_Job{
 	public int Skill_Choice()	// 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
+		bar();
 		System.out.println("1. 천둥주먹");
 		System.out.println("2. 반달차기");
-		System.out.println("3. 천상의 숨결");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		if(!Skill_On)
+			System.out.println("3. 천상의 숨결");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

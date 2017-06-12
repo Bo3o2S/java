@@ -58,7 +58,16 @@ public class Witch_Doctor extends Character implements Character_Job{
 	
 	// "망자의 손아귀" 마나 사용량
 	int Mana_Use_Dead_Mans_Hand = 150;
-		
+	
+	// "혼령 수확" 마나 사용량
+	int Mana_Use_Sprit_harvesting = 350;
+	
+	// "혼령 수확" 데미지 증가량
+	double Damage_Mana_Use_Sprit_harvesting = 1.5;
+	
+	// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능.
+	Boolean Skill_On = false;					
+	
 	public double Poison_Sting()	// 스킬 "독침"
 	{
 		double Damage = 0;
@@ -99,14 +108,51 @@ public class Witch_Doctor extends Character implements Character_Job{
 			bar();
 		}
 		else
+		{
 			System.out.println("마나가 부족합니다");
+			System.out.println("현재 마나량은 " + Mana + "입니다");
+		}
 		return Damage;	
 	}
 	
-	public double Sprit_harvesting() // 스킬 "혼령수확"
+	public void Sprit_harvesting() // 스킬 "혼령수확"
 	{
-		double Damage = 0;
-		return Damage;
+		Skill_Name = "혼령수확";
+		if(Mana >= Mana_Use_Sprit_harvesting)
+		{
+			Thread thread = new Thread(new Runnable() 
+			{
+				@Override
+				public void run() {
+					int duration = 7;
+					double temp_Damage_Poison_Sting = Damage_Poison_Sting;
+					double temp_Damage_Dead_Mans_Hand = Damage_Dead_Mans_Hand;
+					Damage_Poison_Sting = Damage_Poison_Sting*Damage_Mana_Use_Sprit_harvesting;
+					Damage_Dead_Mans_Hand = Damage_Dead_Mans_Hand*Damage_Mana_Use_Sprit_harvesting;
+					Skill_On = true;
+					System.out.println(Skill_Name + "을 시전합니다." + duration + "초 만큼 지속됩니다.");
+					System.out.println("독침 스킬 공격력이 증가합니다. 공격력의 " + (long)Damage_Poison_Sting*100 + "% 만큼 데미지를 줍니다");
+					System.out.println("망자의 손아귀 스킬 공격력이 증가합니다. 공격력의 " + (long)Damage_Dead_Mans_Hand*100 + "% 만큼 데미지를 줍니다");
+					
+					try {
+						Thread.sleep(duration*1000);
+						Damage_Poison_Sting = temp_Damage_Poison_Sting;
+						Damage_Dead_Mans_Hand = temp_Damage_Dead_Mans_Hand;
+						Skill_On = false;
+						System.out.println("독침 스킬 공격력이 원래대로 돌아옵니다 공격력의 " + (long)Damage_Poison_Sting*100 + "% 만큼 데미지를 줍니다");
+						System.out.println("망자의 손아귀 스킬 공격력이 원래대로 돌아옵니다. 공격력의 " + (long)Damage_Dead_Mans_Hand*100 + "% 만큼 데미지를 줍니다");
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			thread.start();
+		}
+		else
+		{
+			System.out.println("마나가 부족합니다");
+			System.out.println("현재 마나량은 " + Mana + "입니다");
+		}
 	}
 	
 	@Override
@@ -139,7 +185,7 @@ public class Witch_Doctor extends Character implements Character_Job{
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
 		
-		bar2();
+		bar();
 	}
 
 	@Override
@@ -157,9 +203,12 @@ public class Witch_Doctor extends Character implements Character_Job{
 		{
 			Damage = Dead_Mans_Hand();
 		}
-		else if(Skill_Num == 3) // 스킬 "혼령 수확" 사용시
+		if(!Skill_On)
 		{
-			Damage = Sprit_harvesting();
+			if(Skill_Num == 3) // 스킬 "혼령 수확" 사용시
+			{
+				Sprit_harvesting();
+			}
 		}
 		return Damage;
 	}
@@ -167,12 +216,16 @@ public class Witch_Doctor extends Character implements Character_Job{
 	public int Skill_Choice()	// 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
+		bar();
 		System.out.println("1. 독침");
 		System.out.println("2. 망자의 손아귀");
-		System.out.println("3. 혼령수확");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		if(!Skill_On)
+			System.out.println("3. 혼령수확");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

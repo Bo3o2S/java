@@ -58,7 +58,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 	double Add_Damage_Throw_Knife= 3.0;
 	
 	// "공격력 상승" 공격력 증가량
-	double Attack_Up = 1.1;
+	double Damage_Dark_Power = 1.1;
 	
 	// "굶주린 화살" 추가 공격 발생확률
 	int Chance_Hungry_Arrow = 35;
@@ -71,6 +71,9 @@ public class Daemon_Hunter extends Character implements Character_Job{
 	
 	// "투검" 증오 사용량
 	int Hate_Use_Throw_Knife = 40;
+	
+	// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능. 
+	Boolean Skill_On = false;
 	
 	Random random = new Random();
 	
@@ -131,17 +134,37 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		return Damage;	
 	}
 	
-	public double Attack_Up()
+	public double Dark_Power()
 	{
-		double Damage = 0;
-		double temp = 0;
-		temp = Attack;
-		Attack = Attack*Attack_Up;
+		Skill_Name = "어둠의 힘";
+		
+		Thread thread = new Thread(new Runnable() 
+		{
+			@Override
+			public void run() {
+				double temp = 0;
+				int duration = 15; // 스킬 지속 시간
+				temp = Attack;
+				Attack = Attack*Damage_Dark_Power;
+				System.out.println(Skill_Name + "을 시전합니다. " + duration + "초 동안 지속됩니다");
+				System.out.println("공격력이 " + (long)temp + "에서 " +(long)Attack + "로 증가하였습니다");
+				Skill_On = true;
+				try {
+					Thread.sleep(duration*1000);
+					Attack = temp;
+					System.out.println("공격력이 원래대로 돌아옵니다. 현재 공격력은 " + (long)Attack);
+					Skill_On = false;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+		});
+		thread.start();
+		
 		bar();
-		System.out.println("어둠의 힘을 시전합니다");
-		System.out.println("공격력이 " + (int)temp + "에서 " + Attack + "로 증가하였습니다");
-		bar();
-		return Damage;
+		return 0;
 	}
 	
 	public void Print_Status() // 캐릭터 상태창 출력
@@ -164,7 +187,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
-		bar2();
+		bar();
 	}
 	
 	@Override
@@ -191,9 +214,12 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		{
 			Damage = Throw_Knife();
 		}
-		else if(Skill_Num == 3) // 스킬 "공격력 증가" 사용시
+		if(!Skill_On)
 		{
-			Attack_Up();
+			if(Skill_Num == 3) // 스킬 "공격력 증가" 사용시
+			{
+				Dark_Power();
+			}
 		}
 		return Damage;
 	}	
@@ -201,12 +227,16 @@ public class Daemon_Hunter extends Character implements Character_Job{
 	public int Skill_Choice()	// 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
+		bar();
 		System.out.println("1. 굶주린 화살");
 		System.out.println("2. 투검");
-		System.out.println("3. 공격력 증가");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		if(!Skill_On)
+			System.out.println("3. 어둠의 힘");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

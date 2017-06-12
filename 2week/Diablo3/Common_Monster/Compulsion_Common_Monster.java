@@ -14,15 +14,16 @@ public class Compulsion_Common_Monster extends Common_Monster implements Monster
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Tightening;		
-		System.out.println(Name + "가 조이기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "이 조이기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		bar();
 		return Damage;
 	}
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
-		bar2();
-		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
-		System.out.println("교전을 시작합니다");
+		bar();
+		System.out.println(Monster_Type + " " + Name + "이 나타났습니다");
+		System.out.println("전투를 시작합니다");
+		bar();
 	}
 	
 	@Override
@@ -31,8 +32,10 @@ public class Compulsion_Common_Monster extends Common_Monster implements Monster
 		boolean Monster_Kill_Success = false;
 		if(HP <= 0)
 		{
+			bar();
 			System.out.println(Name + "을 처치하였습니다.");
 			Monster_Kill_Success = true;
+			bar();
 		}
 		return Monster_Kill_Success;
 	}

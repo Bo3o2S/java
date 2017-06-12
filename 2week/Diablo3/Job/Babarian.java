@@ -51,6 +51,7 @@ public class Babarian extends Character implements Character_Job{
 	int Anger_Use_Ancestor_Hammer = 20;			// 스킬 "선조의 망치"의 분노 소비량
 	int Anger_Make_Cry_of_Battlefield = 20;		// 스킬 "전장의 함성"의 분노 생성량
 	int Full_Anger = 100;						// 분노 최대치
+	Boolean Skill_On = false;					// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능. 
 	
 	public double Fury() // 스킬 "광분"
 	{
@@ -106,15 +107,40 @@ public class Babarian extends Character implements Character_Job{
 	
 	public double Cry_of_Battlefield() //스킬 "전장의 함성"
 	{
+		Skill_Name = "전장의 함성";
+		double temp_HP, temp_Defence;
+		temp_Defence = Defence;
+		temp_HP = HP;
+		int duration = 10;
+		Thread thread = new Thread(new Runnable() 
+		{
+			@Override
+			public void run() {
+				System.out.println(Skill_Name + "을 시전합니다. " + duration + "초 동안 지속됩니다");
+				System.out.println("방어력이 " + Defence*0.2 +"만큼 증가하였습니다");
+				System.out.println("HP가 " + HP*0.1 +"만큼 증가하였습니다");
+				Defence = Defence*1.2;			// 방어력 20% 증가
+				HP = HP*1.2;					// 생명력 10% 증가
+				Skill_On = true;
+				System.out.println("현재 방어력은 " + (long)Defence +"입니다");
+				System.out.println("현재 HP는 " + (long)HP +"입니다");
+				try {
+					Thread.sleep(duration*1000);
+					Defence = temp_Defence;
+					HP = temp_HP;
+					System.out.println("방어력이 원래대로 돌아옵니다. 현재 방어력은 " + (long)Defence +"입니다");
+					System.out.println("HP가 원래대로 돌아옵니다. 현재 HP는 " + (long)HP +"입니다");
+					Skill_On = false;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		
-		Defence = Defence + Defence*0.2;		// 방어력 20% 증가
-		
-		HP = HP + HP*0.1;						// 생명력 10% 증가
-
+		});
+		thread.start();
 		bar();
-		System.out.println(Skill_Name + "을 시전합니다");
-		System.out.println("방어력이 " + Defence*0.2 +"만큼 증가하였습니다\n");
-		System.out.println("HP가 " + HP*0.1 +"만큼 증가하였습니다\n");
+		
 		if(Anger <= (Full_Anger - Anger_Make_Cry_of_Battlefield))	// 분노가 80이하 일때
 		{
 			System.out.println(Anger_Make_Cry_of_Battlefield + "의 분노를 회복합니다");
@@ -130,9 +156,7 @@ public class Babarian extends Character implements Character_Job{
 			System.out.println("분노가 꽉찼습니다");
 		}
 		
-		bar2();
-		System.out.println("현재 방어력 "+Defence);
-		System.out.println("현재 HP "+HP);
+		bar();
 		System.out.println("현재 분노량 "+Anger);
 		
 		return 0;
@@ -157,7 +181,7 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
-		bar2();
+		bar();
 	}
 
 	@Override
@@ -184,9 +208,12 @@ public class Babarian extends Character implements Character_Job{
 		{
 			Damage = Ancestor_Hammer();
 		}
-		else if(Skill_Num == 3) // 스킬 "전장의 함성" 사용시
+		if(!Skill_On)
 		{
-			Cry_of_Battlefield();
+			if(Skill_Num == 3) // 스킬 "전장의 함성" 사용시
+			{
+				Cry_of_Battlefield();
+			}
 		}
 		return Damage;
 	}
@@ -194,12 +221,16 @@ public class Babarian extends Character implements Character_Job{
 	public int Skill_Choice()	// 야만용사 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
+		bar();
 		System.out.println("1. 광분");
 		System.out.println("2. 선조의 망치");
-		System.out.println("3. 전장의 함성");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		if(!Skill_On)
+			System.out.println("3. 전장의 함성");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

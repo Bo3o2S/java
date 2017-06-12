@@ -47,12 +47,15 @@ public class Holy_Warrior extends Character implements Character_Job{
 	double Add_Damage_Justice= 2.45;			// 스킬 "정의" 추가 공격 배수
 	double Damage_Fist= 5.45;					// 스킬 "천상의 주먹" 공격 배수
 	double Add_Damage_Fist= 2.45;				// 스킬 "천상의 주먹" 추가 공격 배수
+	double Iron_Skin_Defence_Rate = 3.0;		// 스킬 "철갑피부" 방어력 강화 배수
 	
 	int Holy_Power_Make_Justice = 10;			// 스킬 "정의" 신성력 생성량
 	int Holy_Power_Use_Fist = 20;				// 스킬 "천상의 주먹" 신성력 사용량 			
-	int Holy_Power_Make_Iron = 20;				// 스킬 "철갑피부" 신성력 생성량
+	int Holy_Power_Use_Iron_Skin = 50;				// 스킬 "철갑피부" 신성력 사용량
 	
 	int Full_Holy_Power = 100;					// 신성력 최고량
+	
+	Boolean Skill_On = false;					// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능. 
 	
 	public double Justice()	// 스킬 "정의"
 	{
@@ -108,33 +111,41 @@ public class Holy_Warrior extends Character implements Character_Job{
 		}
 	}
 	
-	public double Iron_Skin()	// 스킬 "철갑 피부" 
+	public void Iron_Skin()	// 스킬 "철갑 피부" 
 	{
-		Defence = Defence + Defence*0.2;
-		HP = HP + HP*0.1;
-		System.out.println("방어력이 " + Defence*0.2 +"만큼 증가하였습니다\n");
-		System.out.println("HP가 " + HP*0.1 +"만큼 증가하였습니다\n");
+		Skill_Name = "철갑 피부";
+		if(Holy_Power >= Holy_Power_Use_Iron_Skin)	// 신성력 량이 충분할 때(신성력 20 이상)
+		{
+			Thread thread = new Thread(new Runnable() 
+			{
+				@Override
+				public void run() {
+					int duration = 3;
+					double temp_Defence = Defence;
+					Defence = Defence*Iron_Skin_Defence_Rate;
+					System.out.println(Skill_Name + "를 시전합니다. " + duration + "초 동안 지속됩니다");
+					System.out.println("방어력이 " + (long)Iron_Skin_Defence_Rate*100 +"% 증가하였습니다");
+					Skill_On = true;
+					try {
+						Thread.sleep(duration*1000);
+						Defence = temp_Defence;
+						System.out.println("방어력이 원래대로 돌아옵니다. 현재 방어력은 " + (long)Defence +"입니다");
+						Skill_On = false;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
+			});
+			thread.start();
+		}
+		else	// 신성력이 부족할 때
+		{
+			System.out.println("신성력이 부족합니다. 현재 신성력량 " + Holy_Power);
+		}
 		
-		if(Holy_Power <= (Full_Holy_Power - Holy_Power_Make_Iron))										// 신성력이 80이하인 경우
-		{
-			System.out.println(Holy_Power_Make_Iron + "의 신성력를 회복합니다");
-			Holy_Power = Holy_Power + Holy_Power_Make_Iron;
-		}
-		else if(Holy_Power > (Full_Holy_Power - Holy_Power_Make_Iron) && Holy_Power < Full_Holy_Power)	// 신성력이 81 ~ 89 일 때
-		{
-			System.out.println((Full_Holy_Power-Holy_Power) + "의 신성력를 회복합니다");			
-			Holy_Power = 100;
-		}
-		else //신성력 100% 일 때
-		{
-			System.out.println("신성력이 꽉찼습니다");
-		}
-		System.out.println("현재 신성력량 "+Holy_Power);	// 현재 신성력 량
-		bar();
 		
-		System.out.println("신성력이 " + Holy_Power_Make_Iron +"만큼 증가하였습니다\n");
-		bar();
-		return 0;
 	}
 	
 	public void Print_Status() {	// 캐릭터 상태창 출력
@@ -156,7 +167,7 @@ public class Holy_Warrior extends Character implements Character_Job{
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
-		bar2();
+		bar();
 	}
 	
 	@Override
@@ -183,9 +194,12 @@ public class Holy_Warrior extends Character implements Character_Job{
 		{
 			Damage = Fist_of_Heaven();
 		}
-		else if(Skill_Num == 3) // 스킬 "철갑 피부" 사용시
+		if(!Skill_On)
 		{
-			Iron_Skin();
+			if(Skill_Num == 3) // 스킬 "철갑 피부" 사용시
+			{
+				Iron_Skin();
+			}
 		}
 		return Damage;
 	}	
@@ -193,12 +207,16 @@ public class Holy_Warrior extends Character implements Character_Job{
 	public int Skill_Choice()	// 스킬 선택
 	{
 		Scanner scan = new Scanner(System.in);
-		bar2();
-		System.out.println("1. 굶주린 화살");
-		System.out.println("2. 투검");
-		System.out.println("3. 공격력 증가");
-		bar2();
-		System.out.println("선택하기(1~3) : ");
+		bar();
+		System.out.println("1. 정의");
+		System.out.println("2. 천상의 주먹");
+		if(!Skill_On)
+			System.out.println("3. 철갑피부");
+		bar();
+		if(!Skill_On)
+			System.out.println("선택하기(1~3) : ");
+		else
+			System.out.println("선택하기(1~2) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		

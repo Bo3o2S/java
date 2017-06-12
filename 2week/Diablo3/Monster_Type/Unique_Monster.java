@@ -5,7 +5,7 @@ public class Unique_Monster extends MonSter{	// 유니크 몬스터 공통수치
 	
 	public Unique_Monster()						// 초기화
 	{
-		Monster_Type = "유니크";					// 종류 : 유니크 몬스터
+		Monster_Type = "유니크 몬스터";					// 종류 : 유니크 몬스터
 		Level_Num = 1;							// 유니크 몬스터 초기 레벨
 		HP = 800;								// 유니크 몬스터 생명력
 		Attack = 100;							// 유니크 몬스터 공격력
