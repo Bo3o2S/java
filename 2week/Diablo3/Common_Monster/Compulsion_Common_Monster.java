@@ -1,7 +1,6 @@
 package Common_Monster;
 
-import java.util.Random;
-
+import Character_Job.*;
 import Monster_Type.Common_Monster;
 import Monster_Unit.Monster_Unit;
 
@@ -51,6 +50,12 @@ public class Compulsion_Common_Monster extends Common_Monster implements Monster
 	public double Monster_HP() {
 		// TODO Auto-generated method stub
 		return HP;
+	}
+
+	@Override
+	public Object Drop_Item(Character_Job character_job) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

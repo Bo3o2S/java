@@ -1,18 +1,20 @@
 package Game;
 
-import Job.*;
-
-
 import java.util.Random;
 import java.util.Scanner;
 
 
 import Boss_Monster.*;
 import Common_Monster.*;
+import Item.Armor;
+import Item.Item;
+import Item.Jewelry;
+import Item.Weapon;
 import Champion_Monster.*;
 import Unique_Monster.*;
 import Monster_Unit.*;
 import Character.Character;
+import Character_Job.*;
 
 
 public class Game {
@@ -523,14 +525,14 @@ public class Game {
 					boolean Monster_Kill_Success = false;
 					if(Monster_Flag == 1) // 일반 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(compulsion);
+						Monster_Kill_Success = Monster_Kill_Success(compulsion, character);
 					}
 					else if(Monster_Flag == 2) // 챔피언 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(raise_darkness);
+						Monster_Kill_Success = Monster_Kill_Success(raise_darkness, character);
 					}
 					else if(Monster_Flag == 3)// 유니크 몬스터
-						Monster_Kill_Success = Monster_Kill_Success(element); 					
+						Monster_Kill_Success = Monster_Kill_Success(element, character); 					
 					
 					if(Monster_Kill_Success) // 몬스터 처치 성공시
 					{
@@ -542,6 +544,8 @@ public class Game {
 							Get_Experience(Monster_Experience, character);
 							Monster_Gold = compulsion.Gold;
 							Get_Gold(Monster_Gold, character);
+							Item item = Get_Item(compulsion, character);
+							((Character_Job)character).Wear_Equipment(item);
 						}
 						else if(Monster_Flag == 2) // 챔피언 몬스터
 						{
@@ -549,6 +553,8 @@ public class Game {
 							Get_Experience(Monster_Experience, character);
 							Monster_Gold = raise_darkness.Gold;
 							Get_Gold(Monster_Gold, character);
+							Item item = Get_Item(compulsion, character);
+							((Character_Job)character).Wear_Equipment(item);
 						}
 						else
 						{
@@ -556,22 +562,24 @@ public class Game {
 							Get_Experience(Monster_Experience, character);
 							Monster_Gold = element.Gold;
 							Get_Gold(Monster_Gold, character);
+							Item item = Get_Item(compulsion, character);
+							((Character_Job)character).Wear_Equipment(item);
 						}
 						
 						Level_Up(character);																// 레벨업 여부 판단
 						break;
 					}
-					if(Monster_Apear_Chance <= Common_Monster_Apear_Chance) // 일반 몬스터
-					{
-						Monster_Appear_Print(compulsion);
-						Monster_Flag = 1;	// 일반 몬스터
-					}
-					else if((Monster_Apear_Chance > Common_Monster_Apear_Chance) && (Monster_Apear_Chance <= (Apear_Chance-Unique_Monster_Apear_Chance))) // 챔피언 몬스터
-					{
-						Monster_Appear_Print(raise_darkness);
-						Monster_Flag = 2;	// 챔피언 몬스터
-					}
-					else
+//					if(Monster_Apear_Chance <= Common_Monster_Apear_Chance) // 일반 몬스터
+//					{
+//						Monster_Appear_Print(compulsion);
+//						Monster_Flag = 1;	// 일반 몬스터
+//					}
+//					else if((Monster_Apear_Chance > Common_Monster_Apear_Chance) && (Monster_Apear_Chance <= (Apear_Chance-Unique_Monster_Apear_Chance))) // 챔피언 몬스터
+//					{
+//						Monster_Appear_Print(raise_darkness);
+//						Monster_Flag = 2;	// 챔피언 몬스터
+//					}
+//					else
 					{
 						Monster_Appear_Print(element);
 						Monster_Flag = 3;	// 유니크 몬스터
@@ -623,20 +631,24 @@ public class Game {
 							{
 								if(character.HP > 0)
 								{
+									이부분 고치기 : 스레드로 만들기!
 									Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
 									Damage_Calculator damage_calculator = new Damage_Calculator(Damage, compulsion.Defence, compulsion.Evasion);
 									Damage = damage_calculator.Damage_Conversion();
 									sharedresource_battle.Character_Attack(Damage);
 									compulsion.HP = sharedresource_battle.Monster_HP;
 									System.out.println(compulsion.Name + "이(가) " +(int) Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
+									
 									if(sharedresource_battle.Monster_HP > 0)
 										System.out.println(compulsion.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
 								}
 							}
 							else if(attack_num == 2) // 2. 스킬공격 선택시
 							{
+								
 								if(character.HP > 0)
 								{
+									이부분 고치기 : 스레드로 만들기!
 									Damage = Skill_Attack((Character_Job) character);
 									if(Damage > 0) // 공격스킬 사용시에만
 									{
@@ -652,7 +664,7 @@ public class Game {
 							}
 							else // 3. 후퇴하기
 							{
-								common_attack_thread.stop();
+								common_attack_thread.destroy();
 								break;
 							}
 								
@@ -680,6 +692,14 @@ public class Game {
 		
 	}
 	
+	private static Item Get_Item(Monster_Unit monster_unit, Character character) {
+		// TODO Auto-generated method stub
+		
+		Item item = (Item)monster_unit.Drop_Item((Character_Job)character);
+		return item;
+	}
+
+
 	private static int Attack_or_Retreat() {
 		Scanner scan = new Scanner(System.in);
 		bar();
@@ -767,14 +787,14 @@ public class Game {
 						boolean Monster_Kill_Success = false;
 						if(Monster_Flag == 1) // 일반 몬스터
 						{
-							Monster_Kill_Success = Monster_Kill_Success(compulsion);
+							Monster_Kill_Success = Monster_Kill_Success(compulsion, character);
 						}
 						else if(Monster_Flag == 2) // 챔피언 몬스터
 						{
-							Monster_Kill_Success = Monster_Kill_Success(raise_darkness);
+							Monster_Kill_Success = Monster_Kill_Success(raise_darkness, character);
 						}
 						else // 유니크 몬스터
-							Monster_Kill_Success = Monster_Kill_Success(element); 					
+							Monster_Kill_Success = Monster_Kill_Success(element, character); 					
 						
 						if(Monster_Kill_Success) // 몬스터 처치 성공시
 						{
@@ -1013,14 +1033,14 @@ public class Game {
 						boolean Monster_Kill_Success = false;
 						if(Monster_Flag == 1) // 일반 몬스터
 						{
-							Monster_Kill_Success = Monster_Kill_Success(compulsion);
+							Monster_Kill_Success = Monster_Kill_Success(compulsion, character);
 						}
 						else if(Monster_Flag == 2) // 챔피언 몬스터
 						{
-							Monster_Kill_Success = Monster_Kill_Success(raise_darkness);
+							Monster_Kill_Success = Monster_Kill_Success(raise_darkness, character);
 						}
 						else // 유니크 몬스터
-							Monster_Kill_Success = Monster_Kill_Success(element); 					
+							Monster_Kill_Success = Monster_Kill_Success(element, character); 					
 						
 						if(Monster_Kill_Success) // 몬스터 처치 성공시
 						{
@@ -1258,14 +1278,14 @@ public class Game {
 					boolean Monster_Kill_Success = false;
 					if(Monster_Flag == 1) // 일반 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(compulsion);
+						Monster_Kill_Success = Monster_Kill_Success(compulsion, character);
 					}
 					else if(Monster_Flag == 2) // 챔피언 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(raise_darkness);
+						Monster_Kill_Success = Monster_Kill_Success(raise_darkness, character);
 					}
 					else // 유니크 몬스터
-						Monster_Kill_Success = Monster_Kill_Success(element); 					
+						Monster_Kill_Success = Monster_Kill_Success(element, character); 					
 					
 					if(Monster_Kill_Success) // 몬스터 처치 성공시
 					{
@@ -1504,14 +1524,14 @@ public class Game {
 					boolean Monster_Kill_Success = false;
 					if(Monster_Flag == 1) // 일반 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(compulsion);
+						Monster_Kill_Success = Monster_Kill_Success(compulsion, character);
 					}
 					else if(Monster_Flag == 2) // 챔피언 몬스터
 					{
-						Monster_Kill_Success = Monster_Kill_Success(raise_darkness);
+						Monster_Kill_Success = Monster_Kill_Success(raise_darkness, character);
 					}
 					else // 유니크 몬스터
-						Monster_Kill_Success = Monster_Kill_Success(element); 					
+						Monster_Kill_Success = Monster_Kill_Success(element, character); 					
 					
 					if(Monster_Kill_Success) // 몬스터 처치 성공시
 					{
@@ -1720,7 +1740,7 @@ public class Game {
 				else	// 야만전사 생존시
 				{
 					Boss_Kill_Success 
-						= Monster_Kill_Success(butcher); 								// 보스 몬스터 처치 성공 여부
+						= Monster_Kill_Success(butcher, character); 								// 보스 몬스터 처치 성공 여부
 					long Monster_Experience;
 					long Monster_Gold;
 					if(Boss_Kill_Success) // 몬스터 처치 성공시
@@ -1825,7 +1845,7 @@ public class Game {
 				else	// 야만전사 생존시
 				{
 					Boss_Kill_Success 
-						= Monster_Kill_Success(belial); 								// 보스 몬스터 처치 성공 여부
+						= Monster_Kill_Success(belial, character); 								// 보스 몬스터 처치 성공 여부
 					long Monster_Experience;
 					long Monster_Gold;
 					if(Boss_Kill_Success) // 몬스터 처치 성공시
@@ -1931,7 +1951,7 @@ public class Game {
 				else	// 야만전사 생존시
 				{
 					Boss_Kill_Success 
-						= Monster_Kill_Success(azmodan); 								// 보스 몬스터 처치 성공 여부
+						= Monster_Kill_Success(azmodan, character); 								// 보스 몬스터 처치 성공 여부
 					long Monster_Experience;
 					long Monster_Gold;
 					if(Boss_Kill_Success) // 몬스터 처치 성공시
@@ -2037,7 +2057,7 @@ public class Game {
 				else	// 야만전사 생존시
 				{
 					Boss_Kill_Success 
-						= Monster_Kill_Success(diablo); 								// 보스 몬스터 처치 성공 여부
+						= Monster_Kill_Success(diablo, character); 								// 보스 몬스터 처치 성공 여부
 					long Monster_Experience;
 					long Monster_Gold;
 					if(Boss_Kill_Success) // 몬스터 처치 성공시
@@ -2143,7 +2163,7 @@ public class Game {
 				else	// 야만전사 생존시
 				{
 					Boss_Kill_Success 
-						= Monster_Kill_Success(malthael); 								// 보스 몬스터 처치 성공 여부
+						= Monster_Kill_Success(malthael, character); 								// 보스 몬스터 처치 성공 여부
 					long Monster_Experience;
 					long Monster_Gold;
 					if(Boss_Kill_Success) // 몬스터 처치 성공시
@@ -2221,7 +2241,7 @@ public class Game {
 	{
 		monster_unit.Monster_Appear();	// 몬스터 등장 알림
 	}
-	public static boolean Monster_Kill_Success(Monster_Unit monster_unit)
+	public static boolean Monster_Kill_Success(Monster_Unit monster_unit, Character character)
 	{
 		boolean Success = false;
 		Success = monster_unit.Kill_Success();
@@ -2367,7 +2387,7 @@ class Monster_Attack_Thread extends Thread
 				if(sharedresource_battle.Character_HP > 0)
 					System.out.println("현재 " + character.ID +"의 HP : " + (int)sharedresource_battle.Character_HP);
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

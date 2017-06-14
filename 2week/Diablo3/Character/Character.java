@@ -1,5 +1,8 @@
 package Character;
 
+import Item.Armor;
+import Item.Jewelry;
+import Item.Weapon;
 import Unit.Unit;
 
 public class Character extends Unit{
@@ -43,4 +46,7 @@ public class Character extends Unit{
 			Full_Exp = Full_Exp + Level*Exp_Rate;												// 전체 경험치
 		}
 		
+		public Weapon weapon = new Weapon();
+		public Armor armor = new Armor();
+		public Jewelry jewelry = new Jewelry();	
 }

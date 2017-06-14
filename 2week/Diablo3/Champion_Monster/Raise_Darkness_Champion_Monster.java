@@ -3,6 +3,9 @@ package Champion_Monster;
 import java.util.Random;
 import java.util.Scanner;
 
+import Character_Job.*;
+import Item_Armor_Common.*;
+import Item_Weapon_Common.*;
 import Monster_Type.Champion_Monster;
 import Monster_Unit.Monster_Unit;
 
@@ -83,5 +86,91 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	public double Monster_HP() {
 		// TODO Auto-generated method stub
 		return HP;
+	}
+
+	@Override
+	public Object Drop_Item(Character_Job character_job) {
+		// TODO Auto-generated method stub
+		Random random = new Random();
+		if(character_job instanceof Babarian)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Babarian_Leather_Clothes common_leather = new Common_Babarian_Leather_Clothes();
+				return common_leather;
+			}
+			else
+			{
+				Common_Babarian_Giant_Sword common_sword = new Common_Babarian_Giant_Sword();
+				return common_sword;
+			}
+		}
+		else if(character_job instanceof Daemon_Hunter)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Daemon_Hunter_Cloak common_cloak = new Common_Daemon_Hunter_Cloak();
+				return common_cloak;
+			}
+			else
+			{
+				Common_Daemon_Hunter_Bow common_bow = new Common_Daemon_Hunter_Bow();
+				return common_bow;
+			}
+			
+		}
+		else if(character_job instanceof Holy_Warrior)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Holy_Warrior_Holy_Armor common_holy_armor = new Common_Holy_Warrior_Holy_Armor();
+				return common_holy_armor;
+			}
+			else
+			{
+				Common_Holy_Warrior_Flail common_flail = new Common_Holy_Warrior_Flail();
+				return common_flail;
+			}
+		}
+		else if(character_job instanceof Magician)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Magician_Robe common_robe = new Common_Magician_Robe();
+				return common_robe;
+			}
+			else
+			{
+				Common_Magician_Cane common_cane = new Common_Magician_Cane();
+				return common_cane;
+			}
+		}
+		else if(character_job instanceof Monk)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Monk_Monk_Suit common_monk_suit = new Common_Monk_Monk_Suit();
+				return common_monk_suit;
+			}
+			else
+			{
+				Common_Monk_Glove common_glove = new Common_Monk_Glove();
+				return common_glove;
+			}
+		}
+		else if(character_job instanceof Witch_Doctor)
+		{
+			if(50 <= random.nextInt(100))
+			{
+				Common_Witch_Doctor_Ceremonial_Clothes common_witch_clothes = new Common_Witch_Doctor_Ceremonial_Clothes();
+				return common_witch_clothes;
+			}
+			else
+			{
+				Common_Witch_Doctor_Ceremonial_Knife common_witch_knife = new Common_Witch_Doctor_Ceremonial_Knife();
+				return common_witch_knife;
+			}
+		}
+		return null;
 	}
 }

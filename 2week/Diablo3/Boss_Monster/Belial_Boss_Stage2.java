@@ -2,6 +2,14 @@ package Boss_Monster;
 
 import java.util.Random;
 
+import Character_Job.*;
+import Item_Armor_Unique.*;
+import Item_Weapon_Unique.Unique_Babarian_Giant_Sword;
+import Item_Weapon_Unique.Unique_Daemon_Hunter_Bow;
+import Item_Weapon_Unique.Unique_Holy_Warrior_Flail;
+import Item_Weapon_Unique.Unique_Magician_Cane;
+import Item_Weapon_Unique.Unique_Monk_Glove;
+import Item_Weapon_Unique.Unique_Witch_Doctor_Ceremonial_Knife;
 import Monster_Type.Boss_Monster;
 import Monster_Unit.Monster_Unit;
 
@@ -79,5 +87,47 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 	public double Monster_HP() {
 		// TODO Auto-generated method stub
 		return HP;
+	}
+
+	@Override
+	public Object Drop_Item(Character_Job character_job) {
+		// TODO Auto-generated method stub
+		if(character_job instanceof Babarian)
+		{
+			Unique_Babarian_Giant_Sword unique_sword = new Unique_Babarian_Giant_Sword();
+			System.out.println(unique_sword.Item_Name + "을 드롭합니다");
+			return unique_sword;
+		}
+		else if(character_job instanceof Daemon_Hunter)
+		{
+			Unique_Daemon_Hunter_Bow unique_bow = new Unique_Daemon_Hunter_Bow();
+			System.out.println(unique_bow.Item_Name + "을 드롭합니다");
+			return unique_bow;
+		}
+		else if(character_job instanceof Holy_Warrior)
+		{
+			Unique_Holy_Warrior_Flail unique_flail = new Unique_Holy_Warrior_Flail();
+			System.out.println(unique_flail.Item_Name + "을 드롭합니다");
+			return unique_flail;
+		}
+		else if(character_job instanceof Magician)
+		{
+			Unique_Magician_Cane unique_cane = new Unique_Magician_Cane();
+			System.out.println(unique_cane.Item_Name + "을 드롭합니다");
+			return unique_cane;
+		}
+		else if(character_job instanceof Monk)
+		{
+			Unique_Monk_Glove unique_glove = new Unique_Monk_Glove();
+			System.out.println(unique_glove.Item_Name + "을 드롭합니다");
+			return unique_glove;
+		}
+		else if(character_job instanceof Witch_Doctor)
+		{
+			Unique_Witch_Doctor_Ceremonial_Knife unique_knife = new Unique_Witch_Doctor_Ceremonial_Knife();
+			System.out.println(unique_knife.Item_Name + "을 드롭합니다");
+			return unique_knife;
+		}
+		return null;
 	}
 }

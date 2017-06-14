@@ -6,7 +6,7 @@ public class Common_Monster extends MonSter{	// 일반 몬스터 공통수치
 	
 	public Common_Monster()						// 초기화
 	{
-		Monster_Type = "일반 몬스터";					// 종류 : 일반 몬스터
+		Monster_Type = "일반 몬스터";				// 종류 : 일반 몬스터
 		Level_Num = 1;							// 일반 몬스터 초기 레벨
 		HP = 100;								// 일반 몬스터 생명력
 		Attack = 10;							// 일반 몬스터 공격력
