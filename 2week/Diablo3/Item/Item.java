@@ -1,11 +1,19 @@
 package Item;
 
 public class Item {
-	protected int Item_Vitality;
-	protected int Item_Strength;
-	protected int Item_Dex;
-	protected int Item_Intelligence;
-	protected String Item_Type;
-	protected String Item_Name;
+	public int Item_Vitality;
+	public int Item_Strength;
+	public int Item_Dex;
+	public int Item_Intelligence;
+	public String Item_Type;
+	public String Item_Name;
+	
+	public void bar()	// 상하 구분을 위한 경계선
+	{
+		System.out.println("");
+		System.out.println("------------------------------------------------");
+		System.out.println("");
+	}
 }
 class Item_Jewelry_Hole{}
+

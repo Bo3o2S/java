@@ -9,6 +9,8 @@ import Character_Job.Holy_Warrior;
 import Character_Job.Magician;
 import Character_Job.Monk;
 import Character_Job.Witch_Doctor;
+import Item_Jewelry_Unique.Unique_Jewelry_Attack;
+import Item_Jewelry_Unique.Unique_Jewelry_Defence;
 import Item_Weapon_Unique.Unique_Babarian_Giant_Sword;
 import Item_Weapon_Unique.Unique_Daemon_Hunter_Bow;
 import Item_Weapon_Unique.Unique_Holy_Warrior_Flail;
@@ -20,7 +22,11 @@ import Monster_Unit.Monster_Unit;
 
 public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	// 5스테이지 보스 : 말티엘
 	
-	public String Name = "말티엘";
+	public Malthael_Boss_Stage5()
+	{
+		Name = "말티엘";
+	}
+	
 	double Damage_Sprit_Ball= 4.0;						// 스킬 "영혼구" 공격배수
 	double Damage_Spirit_Fog= 4.0;						// 스킬 "영혼의 안개" 공격배수
 	double Damage_Ruin_Cloud= 5.0;						// 스킬 "파멸의 구름" 공격배수
@@ -133,5 +139,21 @@ public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	
 			return unique_knife;
 		}
 		return null;
+	}
+	
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100) < 50)
+		{
+			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
+			return unique_attack;
+		}
+		else
+		{
+			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+			return unique_defence;
+		}
 	}
 }

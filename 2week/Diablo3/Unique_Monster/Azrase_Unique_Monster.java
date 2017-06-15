@@ -4,13 +4,21 @@ import java.util.Random;
 
 import Character_Job.*;
 import Item_Armor_Rare.*;
+import Item_Jewelry_Common.Common_Jewelry_Attack;
+import Item_Jewelry_Common.Common_Jewelry_Defence;
+import Item_Jewelry_Rare.Rare_Jewelry_Attack;
+import Item_Jewelry_Rare.Rare_Jewelry_Defence;
 import Item_Weapon_Rare.*;
 import Monster_Type.Unique_Monster;
 import Monster_Unit.Monster_Unit;
 
 public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Unit, Runnable{	// 유니크 몬스터 : 악마피붙이 애즈래스
 	
-	public String Name = "악마피붙이 애즈래스";
+	public Azrase_Unique_Monster()
+	{
+		Name = "악마피붙이 애즈래스";
+	}
+	
 	double Damage_Flame_Hell= 3.0;										// 스킬 "화염지옥" 공격배수
 	double Damage_Thunderbolt_Raid= 3.0;								// 스킬 "번개작렬" 공격배수
 	double Damage_Freezing= 3.0;										// 스킬 "빙결" 공격배수
@@ -20,7 +28,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 		double Damage = 0;
 		Damage = Attack*Damage_Flame_Hell;								// 스킬 "화염지옥" 데미지
 		bar();
-		System.out.println(Name + "이 화염지옥(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 화염지옥(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -29,7 +37,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 		double Damage = 0;
 		Damage = Attack*Damage_Thunderbolt_Raid;						// 스킬 "번개벼락" 데미지
 		bar();
-		System.out.println(Name + "이 번개벼락(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 번개벼락(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -38,7 +46,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 		double Damage = 0;
 		Damage = Attack*Damage_Freezing;								// 스킬 "빙결" 데미지
 		bar();
-		System.out.println(Name + "이 빙결(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 빙결(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -56,7 +64,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 		if(HP <= 0)
 		{
 			bar();
-			System.out.println(Name + "을 처치하였습니다.");
+			System.out.println(Name + "를 처치하였습니다.");
 			Monster_Kill_Success = true;
 			bar();
 		}
@@ -174,6 +182,20 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 		}
 		return null;
 	}
+
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100)<50)
+		{
+			Rare_Jewelry_Attack common_attack = new Rare_Jewelry_Attack();
+			return common_attack;
+		}
+		else
+		{
+			Rare_Jewelry_Defence common_defence = new Rare_Jewelry_Defence();
+			return common_defence;
+		}
+	}
 }
-
-

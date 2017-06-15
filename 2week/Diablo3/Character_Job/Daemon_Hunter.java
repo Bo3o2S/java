@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Character.Character;
+
 import Item.Armor;
 import Item.Jewelry;
 import Item.Weapon;
@@ -299,9 +300,9 @@ public class Daemon_Hunter extends Character implements Character_Job{
 	public boolean Pick_Up_Jewerly(Jewelry jewelry)
 	{
 		boolean success = true;
-		if(inven.jewelry1 == null)	inven.jewelry1 = jewelry;
-		else if(inven.jewelry2 == null)	inven.jewelry2 = jewelry;
-		else if(inven.jewelry2 == null)	inven.jewelry3 = jewelry;
+		if(inven.jewelry1.Item_Name == null)	inven.jewelry1 = jewelry;
+		else if(inven.jewelry2.Item_Name == null)	inven.jewelry2 = jewelry;
+		else if(inven.jewelry3.Item_Name == null)	inven.jewelry3 = jewelry;
 		else
 		{
 			System.out.println("보석함이 가득 찼습니다.");
@@ -310,7 +311,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		return success;
 	}
 
-	public void Delete_Jewerly(Jewelry jewelry)
+	public void Exchange_Jewerly(Jewelry jewelry)
 	{
 		Scanner scan = new Scanner(System.in);
 		int num;

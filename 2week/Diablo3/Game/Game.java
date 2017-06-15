@@ -10,6 +10,9 @@ import Item.Armor;
 import Item.Item;
 import Item.Jewelry;
 import Item.Weapon;
+import Item_Weapon_Rare.Item_Weapon_Rare;
+import Item_Weapon_Unique.Item_Weapon_Unique;
+import Monster.MonSter;
 import Champion_Monster.*;
 import Unique_Monster.*;
 import Monster_Unit.*;
@@ -19,6 +22,8 @@ import Character_Job.*;
 
 public class Game {
 	
+	private static boolean Recovery_On = true;
+
 	public static void main(String[] args) {
 		
 		String ID;
@@ -508,15 +513,31 @@ public class Game {
 			int Unique_Monster_Apear_Chance = 5;
 			int Apear_Chance = 100;												// 몬스터 등장 확률 100%
 			int Monster_Flag = 0;												// 몬스터 구분. 1:일반몬스터 	2.챔피언몬스터	3.유니크 몬스터
-			double Damage = 0;
+			
 			Random random = new Random();
 			int Monster_Apear_Chance = random.nextInt(100) + 1;					// 몬스터 출현확률(일반 85%, 챔피언 10%, 유니크 5%)
-	
+			SharedResource_Battle sharedresource_battle;
+			if(Monster_Apear_Chance <= Common_Monster_Apear_Chance) // 일반 몬스터
+			{
+				sharedresource_battle = new SharedResource_Battle(character.HP, compulsion.HP);
+				Monster_Appear_Print(compulsion);
+				Monster_Flag = 1;	// 일반 몬스터
+			}
+			else if((Monster_Apear_Chance > Common_Monster_Apear_Chance) && (Monster_Apear_Chance <= (Apear_Chance-Unique_Monster_Apear_Chance))) // 챔피언 몬스터
+			{
+				sharedresource_battle = new SharedResource_Battle(character.HP, raise_darkness.HP);
+				Monster_Appear_Print(raise_darkness);
+				Monster_Flag = 2;	// 챔피언 몬스터
+			}
+			else
+			{
+				sharedresource_battle = new SharedResource_Battle(character.HP, element.HP);
+				Monster_Appear_Print(element);
+				Monster_Flag = 3;	// 유니크 몬스터
+			}
 			while(true)
 			{
-				
-				SharedResource_Battle sharedresource_battle = new SharedResource_Battle(character.HP, compulsion.HP);
-				if(sharedresource_battle.Character_HP <= 0) // 사망시
+				if(character.HP <= 0) // 사망시
 				{
 					break;
 				}
@@ -545,6 +566,8 @@ public class Game {
 							Monster_Gold = compulsion.Gold;
 							Get_Gold(Monster_Gold, character);
 							Item item = Get_Item(compulsion, character);
+							Get_Jewelry(compulsion, character);
+							Level_Up(character);
 							((Character_Job)character).Wear_Equipment(item);
 						}
 						else if(Monster_Flag == 2) // 챔피언 몬스터
@@ -553,37 +576,25 @@ public class Game {
 							Get_Experience(Monster_Experience, character);
 							Monster_Gold = raise_darkness.Gold;
 							Get_Gold(Monster_Gold, character);
-							Item item = Get_Item(compulsion, character);
+							Item item = Get_Item(raise_darkness, character);
+							Get_Jewelry(raise_darkness, character);
+							Level_Up(character);
 							((Character_Job)character).Wear_Equipment(item);
 						}
-						else
+						else // 유니크 몬스터
 						{
 							Monster_Experience = element.Exp;
 							Get_Experience(Monster_Experience, character);
 							Monster_Gold = element.Gold;
 							Get_Gold(Monster_Gold, character);
-							Item item = Get_Item(compulsion, character);
+							Item item = Get_Item(element, character);
+							Get_Jewelry(element, character);
+							Level_Up(character);							// 레벨업 여부 판단
 							((Character_Job)character).Wear_Equipment(item);
 						}
-						
-						Level_Up(character);																// 레벨업 여부 판단
 						break;
 					}
-//					if(Monster_Apear_Chance <= Common_Monster_Apear_Chance) // 일반 몬스터
-//					{
-//						Monster_Appear_Print(compulsion);
-//						Monster_Flag = 1;	// 일반 몬스터
-//					}
-//					else if((Monster_Apear_Chance > Common_Monster_Apear_Chance) && (Monster_Apear_Chance <= (Apear_Chance-Unique_Monster_Apear_Chance))) // 챔피언 몬스터
-//					{
-//						Monster_Appear_Print(raise_darkness);
-//						Monster_Flag = 2;	// 챔피언 몬스터
-//					}
-//					else
-					{
-						Monster_Appear_Print(element);
-						Monster_Flag = 3;	// 유니크 몬스터
-					}
+					
 					int num = Attack_Choice();	// 행동 선택 : 1. 공격하기 	2. 체력회복	3. 후퇴하기	4. 마을복귀
 					
 					if(num == 1) // 1. 공격하기 선택시
@@ -631,16 +642,16 @@ public class Game {
 							{
 								if(character.HP > 0)
 								{
-									이부분 고치기 : 스레드로 만들기!
-									Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
-									Damage_Calculator damage_calculator = new Damage_Calculator(Damage, compulsion.Defence, compulsion.Evasion);
-									Damage = damage_calculator.Damage_Conversion();
-									sharedresource_battle.Character_Attack(Damage);
-									compulsion.HP = sharedresource_battle.Monster_HP;
-									System.out.println(compulsion.Name + "이(가) " +(int) Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
-									
-									if(sharedresource_battle.Monster_HP > 0)
-										System.out.println(compulsion.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+									if(Monster_Flag == 1) // 일반 몬스터
+									{
+										Character_Normal_Attack(character, compulsion, sharedresource_battle);
+									}
+									else if(Monster_Flag == 2)
+									{
+										Character_Normal_Attack(character, raise_darkness, sharedresource_battle);
+									} 
+									else
+										Character_Normal_Attack(character, element, sharedresource_battle);
 								}
 							}
 							else if(attack_num == 2) // 2. 스킬공격 선택시
@@ -648,23 +659,21 @@ public class Game {
 								
 								if(character.HP > 0)
 								{
-									이부분 고치기 : 스레드로 만들기!
-									Damage = Skill_Attack((Character_Job) character);
-									if(Damage > 0) // 공격스킬 사용시에만
+									if(Monster_Flag == 1) // 일반 몬스터
 									{
-										Damage_Calculator damage_calculator = new Damage_Calculator(Damage, compulsion.Defence, compulsion.Evasion);
-										Damage = damage_calculator.Damage_Conversion();
-										sharedresource_battle.Character_Attack(Damage);
-										compulsion.HP = sharedresource_battle.Monster_HP;
-										System.out.println(compulsion.Name + "이(가) " + (int)Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
-										if(sharedresource_battle.Monster_HP > 0)
-											System.out.println(compulsion.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+										Character_Skill_Attack(character, compulsion, sharedresource_battle);
 									}
+									else if(Monster_Flag == 2)
+									{
+										Character_Skill_Attack(character, raise_darkness, sharedresource_battle);
+									}
+									else
+										Character_Skill_Attack(character, element, sharedresource_battle);
 								}
 							}
 							else // 3. 후퇴하기
 							{
-								common_attack_thread.destroy();
+								common_attack_thread.stop();
 								break;
 							}
 								
@@ -673,7 +682,8 @@ public class Game {
 					
 					else if(num == 2) // 2. 체력회복 선택시
 					{
-						Recovery_HP(character);
+						if(Recovery_On)
+							Recovery_HP(character);
 					}
 					else if(num == 3) // 3. 후퇴하기 선택시
 					{
@@ -689,17 +699,27 @@ public class Game {
 				}
 			}
 		}
-		
 	}
 	
 	private static Item Get_Item(Monster_Unit monster_unit, Character character) {
-		// TODO Auto-generated method stub
-		
 		Item item = (Item)monster_unit.Drop_Item((Character_Job)character);
+		if(item instanceof Weapon)
+			System.out.println(((Weapon)item).Item_Name + "(을)를 획득하였습니다!");
+		if(item instanceof Armor)
+			System.out.println(((Armor)item).Item_Name + "(을)를 획득하였습니다!");
+		
 		return item;
 	}
-
-
+	private static void Get_Jewelry(Monster_Unit monster_unit, Character character) {
+		Jewelry jewelry = (Jewelry) monster_unit.Drop_Jewelry();
+		if(jewelry != null)
+		{
+			System.out.println(((Jewelry)jewelry).Item_Name + "(을)를 획득하였습니다!");
+			boolean can_pick_up = ((Character_Job)character).Pick_Up_Jewerly(jewelry);
+			if(!can_pick_up)
+				((Character_Job)character).Exchange_Jewerly(jewelry);
+		}
+	}
 	private static int Attack_or_Retreat() {
 		Scanner scan = new Scanner(System.in);
 		bar();
@@ -715,12 +735,22 @@ public class Game {
 	private static int Attack_Choice() {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
-		System.out.println("1. 공격하기");
-		System.out.println("2. 체력회복");
-		System.out.println("3. 후퇴하기");
-		System.out.println("4. 마을복귀");
+		if(Recovery_On)
+		{
+			System.out.println("1. 공격하기");
+			System.out.println("2. 체력회복");
+			System.out.println("3. 후퇴하기");
+			System.out.println("4. 마을복귀");
+			System.out.println("선택하기(1~4) : ");
+		}
+		else
+		{
+			System.out.println("1. 공격하기");
+			System.out.println("2. 후퇴하기");
+			System.out.println("3. 마을복귀");
+			System.out.println("선택하기(1~3) : ");
+		}
 		
-		System.out.println("선택하기(1~4) : ");
 		int num = scan.nextInt();
 		scan.nextLine();
 		return num;
@@ -749,7 +779,7 @@ public class Game {
 				Raise_Darkness_Champion_Monster raise_darkness
 					= new Raise_Darkness_Champion_Monster();						// 챔피언 몬스터 : "어둠을 키우는 자" 생성
 				Azrase_Unique_Monster element
-					= new Azrase_Unique_Monster();						// 유니크 몬스터 생성 "원소지배자" 생성
+					= new Azrase_Unique_Monster();									// 유니크 몬스터 생성 "원소지배자" 생성
 				
 				
 				int Common_Monster_Apear_Chance = 85;
@@ -1715,6 +1745,7 @@ public class Game {
 		System.out.println("Stage1 보스 던전을 탐험합니다");
 		boolean back_To_Town = false;					// 마을복귀 변수. true: 복귀. false: 진행
 		boolean Boss_Kill_Success = false;				// 보스 처치 성공여부
+		SharedResource_Battle sharedresource_battle;
 		while(true)
 		{
 			if(character.HP <= 0)	//  사망시 마을로 돌아감
@@ -1728,7 +1759,8 @@ public class Game {
 				break;
 			
 			Butcher_Boss_Stage1 butcher = new Butcher_Boss_Stage1(); 
-						
+			
+			sharedresource_battle = new SharedResource_Battle(character.HP, butcher.HP);
 			Monster_Appear_Print(butcher); 			// 보스 몬스터 등장 문구
 			
 			while(true)
@@ -1749,59 +1781,62 @@ public class Game {
 						Get_Experience(Monster_Experience, character);
 						Monster_Gold = butcher.Gold;
 						Get_Gold(Monster_Gold, character);
+						Item item = Get_Item(butcher, character);
+						Get_Jewelry(butcher, character);
+						Level_Up(character);
+						((Character_Job)character).Wear_Equipment(item);
 						return Boss_Kill_Success;
 					}
 					
-					int num = Attack_Choice();	// 공격 선택
+					int num = Attack_Choice();	// 행동 선택 : 1. 공격하기 	2. 체력회복	3. 후퇴하기	4. 마을복귀
+					
 					double Damage;
-					if(num == 1) // 1. 일반공격 선택시
+					if(num == 1) // 1. 공격하기 선택시
 					{
-						
-						if(character.HP > 0)
-						{
-							Damage = Normal_Attack((Character_Job) character);								// 캐릭터 일반공격
-							butcher.HP = butcher.HP - Damage;											
-							System.out.println(butcher.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");	// 몬스터가 받는 데미지
-
-						}
+						Monster_Attack_Thread common_attack_thread = new Monster_Attack_Thread();
+						common_attack_thread.character = character;
+						common_attack_thread.sharedresource_battle = sharedresource_battle;
 						if(butcher.HP > 0 )
 						{
-							System.out.println("현재 " + butcher.Name + "의 HP : "+ butcher.HP);			// 현재 몬스터 HP
-							Damage = Monster_Attack(butcher);
-							System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
-							character.HP = character.HP - Damage;
-							if(character.HP > 0)
-								System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
-						} 												
-					}
-					else if(num == 2) // 2. 스킬공격 선택시
-					{
-						if(character.HP > 0)
+							System.out.println("현재 " + butcher.Name + "의 HP : "+ (int)sharedresource_battle.Monster_HP);			// 현재 몬스터 HP
+							common_attack_thread.monster_unit = butcher;
+							common_attack_thread.start();
+							character.HP = sharedresource_battle.Character_HP;
+						} 	
+						while(true)
 						{
-							Damage = Skill_Attack((Character_Job) character);
-							butcher.HP = butcher.HP - Damage;
-							System.out.println(butcher.Name + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 몬스터가 받는 데미지
+							if(sharedresource_battle.Monster_HP <= 0 || sharedresource_battle.Character_HP <= 0)
+								break;
+							int attack_num = Attack_or_Retreat();
+							if(attack_num == 1) // 1. 일반공격 선택시
+							{
+								if(character.HP > 0)
+									Character_Normal_Attack(character, butcher, sharedresource_battle);
+							}
+							else if(attack_num == 2) // 2. 스킬공격 선택시
+							{
+								if(character.HP > 0)
+									Character_Skill_Attack(character, butcher, sharedresource_battle);
+							}
+							else // 3. 후퇴하기
+							{
+								common_attack_thread.stop();
+								break;
+							}
+								
 						}
-						if(butcher.HP > 0 )
-						{
-							System.out.println("현재 " + butcher.Name + "의 HP : "+ butcher.HP);			// 현재 몬스터 HP
-							Damage = Monster_Attack(butcher);
-							character.HP = character.HP - Damage;
-							System.out.println(character.ID + "이(가) " + Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
-							if(character.HP > 0)
-								System.out.println("현재 " + character.ID +"의 HP : " + character.HP);				// 현재 캐릭터 HP
-						}
+																	
 					}
-					else if(num == 3) // 3. 체력회복 선택시
+					else if(num == 2) // 2. 체력회복 선택시
 					{
 						Recovery_HP(character);
 					}
-					else if(num == 4) // 4. 후퇴하기 선택시
+					else if(num == 3) // 3. 후퇴하기 선택시
 					{
 						System.out.println("후퇴합니다");
 						break;
 					}
-					else if(num == 5) // 5. 마을복귀 선택시
+					else if(num == 4) // 4. 마을복귀 선택시
 					{
 						System.out.println("마을로 돌아갑니다");
 						back_To_Town = true;
@@ -2276,22 +2311,22 @@ public class Game {
 		int Level = character.Level_Num;	// 현재 레벨 입력
 		while(true)
 		{
-			if(character.Exp == 0)	// 다음 레벨업만큼 경험치를 획득했을 때
+			if(character.Exp == 0)			// 다음 레벨업만큼 경험치를 획득했을 때
 			{
 				Level++;
 				character.Level(Level);		// 레벨업!
 				System.out.println("축하합니다!" + character.Level_Num + "레벨이 되었습니다!");
 			}
-			else if(character.Exp < 0)	// 다음 레벨업 이상으로 경험치 획득시
+			else if(character.Exp < 0)		// 다음 레벨업 이상으로 경험치 획득시
 			{
-				while(true)			// 경험치 획득량만큼 레벨업.
+				while(true)					// 경험치 획득량만큼 레벨업.
 				{
-					if(character.Exp > 0) // 더이상 획득 경험치가 없을 때까지
+					if(character.Exp > 0) 	// 더이상 획득 경험치가 없을 때까지
 						break;
 					long Left_Exp = character.Exp;
 					Level++;
 					character.Level(Level);
-					System.out.println("축하합니다!" + character.Level_Num + "로 레벨업 하였습니다!");
+					System.out.println("축하합니다!" + character.Level_Num + "레벨이 되었습니다!");
 					character.Exp = character.Exp - Left_Exp;
 				}
 			}
@@ -2322,45 +2357,84 @@ public class Game {
 	
 	public static void Recovery_HP(Character character)	// 체력회복 메뉴 선택시
 	{
-		bar();
-		if(character.HP <= character.Full_HP*0.7)		// 생명력이 70% 이하일 때
+		Thread thread = new Thread(new Runnable()
 		{
-			character.HP = character.HP + character.Full_HP*0.3;
-			System.out.println("생명력을 회복합니다");
-			System.out.println(character.Name + " 의 생명력이 " + (int)(character.Full_HP*0.3) +"만큼 회복되었습니다");	// 생명력 30% 회복
-			System.out.println("현재 " + character.Name + " 의 생명력" + character.HP);
-		}
-		else if((character.HP > character.Full_HP*0.7) && (character.HP < character.Full_HP))	// 생명력이 70% 초과 100% 미만이 때 남은 생명력 만큼 회복(최대치)
-		{
-			character.HP = character.Full_HP;
-			System.out.println("생명력을 회복합니다");
-			System.out.println(character.Name + " 의 생명력이 " + (int)(character.Full_HP - character.HP) +"만큼 회복되었습니다");
-			System.out.println("현재 " + character.Name + " 의 생명력" + character.HP);
-		}
-		else	// 생명력이 가득 차 있을 경우
-			System.out.println("생명력이 가득 차있습니다");
-	}
-}
 
-class SharedResource_Battle
-{
-	public double Character_HP;
-	public double Monster_HP;
-	public int Attack_Choice_Num;
-	public SharedResource_Battle(double character_hp, double monster_hp)
-	{
-		this.Character_HP = character_hp;
-		this.Monster_HP = monster_hp;
+			@Override
+			public void run() {
+				bar();
+				if(character.HP <= character.Full_HP*0.7)		// 생명력이 70% 이하일 때
+				{
+					character.HP = character.HP + character.Full_HP*0.3;
+					System.out.println("생명력을 회복합니다");
+					System.out.println(character.Name + " 의 생명력이 " + (int)(character.Full_HP*0.3) +"만큼 회복되었습니다");	// 생명력 30% 회복
+					System.out.println("현재 " + character.Name + " 의 생명력" + character.HP);
+				}
+				else if((character.HP > character.Full_HP*0.7) && (character.HP < character.Full_HP))	// 생명력이 70% 초과 100% 미만이 때 남은 생명력 만큼 회복(최대치)
+				{
+					character.HP = character.Full_HP;
+					System.out.println("생명력을 회복합니다");
+					System.out.println(character.Name + " 의 생명력이 " + (int)(character.Full_HP - character.HP) +"만큼 회복되었습니다");
+					System.out.println("현재 " + character.Name + " 의 생명력" + character.HP);
+				}
+				else	// 생명력이 가득 차 있을 경우
+					System.out.println("생명력이 가득 차있습니다");
+				Recovery_On = false;
+				try {
+					Thread.sleep(30000);
+					Recovery_On = true;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		thread.start();	
 	}
 	
-	public synchronized void Monster_Attack(double Damage)
+	public static void Character_Normal_Attack(Character character, MonSter monster, SharedResource_Battle sharedresource_battle)
 	{
-		Character_HP = Character_HP- Damage;
+		double Damage;
+		Damage = Normal_Attack((Character_Job) character);									// 캐릭터 일반공격
+		Damage_Calculator damage_calculator = new Damage_Calculator(Damage, monster);
+		Damage = damage_calculator.Damage_Conversion();
+		sharedresource_battle.Character_Attack(Damage);
+		monster.HP = sharedresource_battle.Monster_HP;
+		System.out.println(monster.Name + "이(가) " +(int) Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
+		if(sharedresource_battle.Monster_HP > 0)
+			System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+		if(character.weapon instanceof Item_Weapon_Unique)
+		{
+			((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+		}
+		else if(character.weapon instanceof Item_Weapon_Rare)
+		{
+			((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
+		}
 	}
 	
-	public synchronized void Character_Attack(double Damage)
+	public static void Character_Skill_Attack(Character character, MonSter monster, SharedResource_Battle sharedresource_battle)
 	{
-		Monster_HP = Monster_HP- Damage;
+		double Damage;
+		Damage = Skill_Attack((Character_Job) character);
+		if(Damage > 0) // 공격스킬 사용시에만
+		{
+			Damage_Calculator damage_calculator = new Damage_Calculator(Damage, monster);
+			Damage = damage_calculator.Damage_Conversion();
+			sharedresource_battle.Character_Attack(Damage);
+			monster.HP = sharedresource_battle.Monster_HP;
+			System.out.println(monster.Name + "이(가) " + (int)Damage + "만큼 데미지를 받았습니다!");			// 몬스터가 받는 데미지
+			if(sharedresource_battle.Monster_HP > 0)
+				System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+			if(character.weapon instanceof Item_Weapon_Unique)
+			{
+				((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+			}
+			else if(character.weapon instanceof Item_Weapon_Rare)
+			{
+				((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
+			}
+		}			
 	}
 }
 
@@ -2380,7 +2454,7 @@ class Monster_Attack_Thread extends Thread
 			if(sharedresource_battle.Monster_HP > 0)
 			{
 				Damage = monster_unit.Monster_Attack();
-				Damage_Calculator damage_calculator = new Damage_Calculator(Damage, character.Defence, character.Evasion);
+				Damage_Calculator damage_calculator = new Damage_Calculator(Damage, character);
 				Damage = damage_calculator.Damage_Conversion();
 				System.out.println(character.ID + "이(가) " + (int)Damage + "만큼 데미지를 받았습니다!");		// 캐릭터가 받는 데미지
 				sharedresource_battle.Monster_Attack(Damage);
@@ -2396,47 +2470,3 @@ class Monster_Attack_Thread extends Thread
 	}
 }
 
-class Normal_Attack_Choice extends Thread
-{
-	SharedResource_Battle sharedresource_battle;
-	Scanner scan = new Scanner(System.in);
-	@Override
-	public void run() {
-		while(true)
-		{
-			System.out.println("1. 공격");
-			System.out.println("2. 후퇴");
-			System.out.println("선택하기(1~2) : ");
-			sharedresource_battle.Attack_Choice_Num = scan.nextInt();
-			int num = scan.nextInt();
-			scan.nextLine();
-		}
-	}
-}
-
-class Damage_Calculator
-{
-	public double Damage;
-	public double Defence;
-	public double Evasion;
-	
-	public Damage_Calculator(double Damage, double Defence, double Evasion)
-	{
-		this.Damage = Damage;
-		this.Defence = Defence;
-		this.Evasion = Evasion;
-	}
-	
-	public double Damage_Conversion()
-	{
-		Random random = new Random();
-		Damage = Damage-Defence*0.1;
-		if( Evasion < random.nextInt(100)+1)
-			return Damage;
-		else
-		{
-			System.out.println("공격을 회피하였습니다!!!");
-			return 0;
-		}
-	}
-}

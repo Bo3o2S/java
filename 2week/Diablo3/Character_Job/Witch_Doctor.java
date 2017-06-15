@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Character.Character;
+
 import Item.Armor;
 import Item.Jewelry;
 import Item.Weapon;
@@ -299,7 +300,7 @@ public class Witch_Doctor extends Character implements Character_Job{
 		return success;
 	}
 
-	public void Delete_Jewerly(Jewelry jewelry)
+	public void Exchange_Jewerly(Jewelry jewelry)
 	{
 		Scanner scan = new Scanner(System.in);
 		int num;

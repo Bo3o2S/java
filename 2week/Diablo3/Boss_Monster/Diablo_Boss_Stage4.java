@@ -9,24 +9,20 @@ import Character_Job.Holy_Warrior;
 import Character_Job.Magician;
 import Character_Job.Monk;
 import Character_Job.Witch_Doctor;
-import Item_Armor_Unique.Unique_Babarian_Leather_Clothes;
-import Item_Armor_Unique.Unique_Daemon_Hunter_Cloak;
-import Item_Armor_Unique.Unique_Holy_Warrior_Holy_Armor;
-import Item_Armor_Unique.Unique_Magician_Robe;
-import Item_Armor_Unique.Unique_Monk_Monk_Suit;
-import Item_Armor_Unique.Unique_Witch_Doctor_Ceremonial_Clothes;
-import Item_Weapon_Unique.Unique_Babarian_Giant_Sword;
-import Item_Weapon_Unique.Unique_Daemon_Hunter_Bow;
-import Item_Weapon_Unique.Unique_Holy_Warrior_Flail;
-import Item_Weapon_Unique.Unique_Magician_Cane;
-import Item_Weapon_Unique.Unique_Monk_Glove;
-import Item_Weapon_Unique.Unique_Witch_Doctor_Ceremonial_Knife;
+import Item_Armor_Unique.*;
+import Item_Jewelry_Unique.Unique_Jewelry_Attack;
+import Item_Jewelry_Unique.Unique_Jewelry_Defence;
+import Item_Weapon_Unique.*;
 import Monster_Type.Boss_Monster;
 import Monster_Unit.Monster_Unit;
 
 public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	// 4번째 스테이지 보스 : 디아블로
 	
-	public String Name = "디아블로";
+	public Diablo_Boss_Stage4()
+	{
+		Name = "디아블로";
+	}
+	
 	double Damage_Fire_Circle= 4.0;					// 스킬 "화염의 원" 공격배수
 	double Damage_Fire_Launch= 4.0;					// 스킬 "화염발사" 공격배수
 	double Damage_Fire_Earthquake= 5.0;				// 스킬 "화염지진" 공격배수
@@ -36,7 +32,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Circle;			// 스킬 "화염의 원" 데미지
 		bar();
-		System.out.println(Name + "이 화염의 원(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 화염의 원(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -45,7 +41,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Launch;			// 스킬 "화염발사" 데미지
 		bar();
-		System.out.println(Name + "이 화염발사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 화염발사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -54,13 +50,13 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Earthquake;		// 스킬 "화염지진" 데미지
 		bar();
-		System.out.println(Name + "이 화염지진(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 화염지진(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar();
-		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "가 나타났습니다");
 		System.out.println("전투를 시작합니다");
 		bar();
 	}
@@ -72,7 +68,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 		if(HP <= 0)
 		{
 			bar();
-			System.out.println(Name + "을 처치하였습니다.");
+			System.out.println(Name + "를 처치하였습니다.");
 			Monster_Kill_Success = true;
 			bar();
 		}
@@ -139,5 +135,21 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 			return unique_knife;
 		}
 		return null;
+	}
+	
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100) < 50)
+		{
+			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
+			return unique_attack;
+		}
+		else
+		{
+			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+			return unique_defence;
+		}
 	}
 }

@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import Character_Job.*;
 import Item_Armor_Common.*;
+import Item_Jewelry_Common.Common_Jewelry_Attack;
+import Item_Jewelry_Common.Common_Jewelry_Defence;
 import Item_Weapon_Common.*;
 import Monster_Type.Champion_Monster;
 import Monster_Unit.Monster_Unit;
@@ -12,9 +14,12 @@ import Monster_Unit.Monster_Unit;
 
 public class Raise_Darkness_Champion_Monster extends Champion_Monster implements Monster_Unit{	// 챔피언 몬스터 : 어둠을 키우는 자
 	
-	static Scanner scan = new Scanner(System.in);
+	public Raise_Darkness_Champion_Monster()
+	{
+		Name = "어둠을 키우는 자";
+	}
 	
-	public String Name = "어둠을 키우는 자";
+	static Scanner scan = new Scanner(System.in);
 	double Damage_Melting = 2.0;										// 스킬 "융해" 공격배수
 	double Damage_Plague = 2.0;											// 스킬 "역병" 공격배수
 	double Damage_Shelling = 2.0;										// 스킬 "포격" 공격배수
@@ -25,7 +30,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 		double Damage = 0;
 		Damage = Attack*Damage_Melting;									// 스킬 "융해" 데미지
 		bar();
-		System.out.println(Name + "이 융해(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 융해(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -34,7 +39,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 		double Damage = 0;
 		Damage = Attack*Damage_Plague;									// 스킬 "역병" 데미지
 		bar();
-		System.out.println(Name + "이 역병(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 역병(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -43,13 +48,13 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 		double Damage = 0;
 		Damage = Attack*Damage_Shelling;								// 스킬 "포격" 데미지
 		bar();
-		System.out.println(Name + "이 포격(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 포격(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar();
-		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "가 나타났습니다");
 		System.out.println("전투를 시작합니다");
 		bar();
 	}
@@ -61,7 +66,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 		if(HP <= 0)
 		{
 			bar();
-			System.out.println(Name + "을 처치하였습니다.");
+			System.out.println(Name + "를 처치하였습니다.");
 			Monster_Kill_Success = true;
 			bar();
 		}
@@ -172,5 +177,21 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100)<50)
+		{
+			Common_Jewelry_Attack common_attack = new Common_Jewelry_Attack();
+			return common_attack;
+		}
+		else
+		{
+			Common_Jewelry_Defence common_defence = new Common_Jewelry_Defence();
+			return common_defence;
+		}
 	}
 }

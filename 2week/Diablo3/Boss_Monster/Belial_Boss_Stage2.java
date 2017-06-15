@@ -4,6 +4,8 @@ import java.util.Random;
 
 import Character_Job.*;
 import Item_Armor_Unique.*;
+import Item_Jewelry_Unique.Unique_Jewelry_Attack;
+import Item_Jewelry_Unique.Unique_Jewelry_Defence;
 import Item_Weapon_Unique.Unique_Babarian_Giant_Sword;
 import Item_Weapon_Unique.Unique_Daemon_Hunter_Bow;
 import Item_Weapon_Unique.Unique_Holy_Warrior_Flail;
@@ -15,7 +17,11 @@ import Monster_Unit.Monster_Unit;
 
 public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ // 2번째 스테이지 보스
 	
-	public String Name = "베리얼";
+	public Belial_Boss_Stage2()
+	{
+		Name = "베리얼";
+	}
+	
 	double Damage_Down_Tongs= 4.0;			// 스킬 "집게 내려찍기" 공격배수
 	double Damage_Spout_Poison= 4.0;		// 스킬 "독뿜기" 공격배수
 	double Damage_Poison_Fire= 5.0;			// 스킬 "독의 화염" 공격배수
@@ -49,7 +55,7 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar();
-		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다");
+		System.out.println(Monster_Type + " " + Name + "이 나타났습니다");
 		System.out.println("전투를 시작합니다");
 		bar();
 	}
@@ -129,5 +135,21 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 			return unique_knife;
 		}
 		return null;
+	}
+	
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100) < 50)
+		{
+			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
+			return unique_attack;
+		}
+		else
+		{
+			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+			return unique_defence;
+		}
 	}
 }

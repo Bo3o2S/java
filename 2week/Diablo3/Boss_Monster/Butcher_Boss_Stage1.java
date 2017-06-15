@@ -9,6 +9,8 @@ import Character_Job.Holy_Warrior;
 import Character_Job.Magician;
 import Character_Job.Monk;
 import Character_Job.Witch_Doctor;
+import Item_Jewelry_Unique.Unique_Jewelry_Attack;
+import Item_Jewelry_Unique.Unique_Jewelry_Defence;
 import Item_Weapon_Unique.Unique_Babarian_Giant_Sword;
 import Item_Weapon_Unique.Unique_Daemon_Hunter_Bow;
 import Item_Weapon_Unique.Unique_Holy_Warrior_Flail;
@@ -20,7 +22,11 @@ import Monster_Unit.Monster_Unit;
 
 public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ // 1번째 스테이지 보스
 	
-	public String Name = "도살자";
+	public Butcher_Boss_Stage1()
+	{
+		Name = "도살자";
+	}
+	
 	double Damage_Throw_Hook= 4.0;					// 스킬 "갈고리 날리기" 공격배수
 	double Damage_Flamethrower= 4.0;				// 스킬 "화염방사" 공격배수
 	double Damage_Crash= 5.0;						// 스킬 "충돌" 공격배수
@@ -39,7 +45,7 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 		double Damage = 0;
 		Damage = Attack*Damage_Flamethrower;		// 스킬 "화염방사" 데미지
 		bar();
-		System.out.println(Name + "이 화염방사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 화염방사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
@@ -48,13 +54,13 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 		double Damage = 0;
 		Damage = Attack*Damage_Crash;				// 스킬 "충돌" 데미지
 		bar();
-		System.out.println(Name + "이 충돌(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
+		System.out.println(Name + "가 충돌(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
 	
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar();
-		System.out.println(Monster_Type + " " + Name + "가(이) 나타났습니다!");
+		System.out.println(Monster_Type + " " + Name + "가 나타났습니다!");
 		System.out.println("전투를 시작합니다");
 		bar();
 	}
@@ -66,7 +72,7 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 		if(HP <= 0)
 		{
 			bar();
-			System.out.println(Name + "을 처치하였습니다.");
+			System.out.println(Name + "를 처치하였습니다.");
 			Monster_Kill_Success = true;
 			bar();
 		}
@@ -133,5 +139,21 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 			return unique_knife;
 		}
 		return null;
+	}
+	
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100) < 50)
+		{
+			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
+			return unique_attack;
+		}
+		else
+		{
+			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+			return unique_defence;
+		}
 	}
 }

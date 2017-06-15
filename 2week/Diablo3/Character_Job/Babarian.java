@@ -7,7 +7,10 @@ import Character.Character;
 import Item.Armor;
 import Item.Jewelry;
 import Item.Weapon;
+
 import Item_Weapon_Common.Common_Babarian_Giant_Sword;
+import Item_Weapon_Rare.Item_Weapon_Rare;
+import Item_Weapon_Unique.Item_Weapon_Unique;
 
 public class Babarian extends Character implements Character_Job{
 	
@@ -64,7 +67,10 @@ public class Babarian extends Character implements Character_Job{
 	{
 		Skill_Name = "광분";
 		double Damage = 0;
-		Damage = Attack*Damage_Fury;		// 스킬 "광분"의 데미지
+		if(weapon != null)
+			Damage = (Attack+weapon.Item_Attack)*Damage_Fury;		// 스킬 "광분"의 데미지
+		else
+			Damage = Attack*Damage_Fury;
 		bar();
 		System.out.println(Skill_Name + "을 시전합니다."+(int)Damage+"의 데미지를 주었습니다!");
 		
@@ -93,8 +99,10 @@ public class Babarian extends Character implements Character_Job{
 		double Damage = 0;
 		if(Anger >= Anger_Use_Ancestor_Hammer) // 스킬 "선조의 망치"가 사용가능 할때(분노 20이상)
 		{
-			
-			Damage = Attack*Damage_Ancestor_Hammer;		// 스킬 "선조의 망치"의 데미지
+			if(weapon != null)
+				Damage = (Attack+weapon.Item_Attack)*Damage_Ancestor_Hammer;		// 스킬 "선조의 망치"의 데미지
+			else
+				Damage = Attack*Damage_Ancestor_Hammer;		// 스킬 "선조의 망치"의 데미지
 			
 			Anger = Anger - Anger_Use_Ancestor_Hammer;	// 분노 사용량만큼 감소(20감소)
 			bar();
@@ -143,7 +151,6 @@ public class Babarian extends Character implements Character_Job{
 					e.printStackTrace();
 				}
 			}
-		
 		});
 		thread.start();
 		bar();
@@ -188,7 +195,10 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("회피력 : " + Evasion);
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
-		
+		if(weapon != null)
+			System.out.println("착용무기 : " + weapon.Item_Name);
+		if(armor != null)
+			System.out.println("착용방어구 : " + armor.Item_Name);
 		bar();
 	}
 
@@ -197,6 +207,8 @@ public class Babarian extends Character implements Character_Job{
 		// TODO Auto-generated method stub
 		double Damage = 0;
 		Damage = Attack;
+		if(weapon != null)
+			Damage = Attack + weapon.Item_Attack;
 		System.out.println(Name + "가 " + Attack + "만큼의 데미지를 입힙니다");		// 몬스터에게 주는 데미지
 		return Damage;
 	}
@@ -253,33 +265,55 @@ public class Babarian extends Character implements Character_Job{
 			String answer;
 			if(object instanceof Weapon)
 			{
-				System.out.println("몬스터에서 드롭된 장비 " + ((Weapon)object).Item_Name + "(을)를 착용하시겠습니까?");
-				System.out.println("장비 착용시 기존장비는 삭제됩니다");
-				System.out.println("선택해주세요.예(Y), 아니오(N) : ");
-				answer = scan.next();
-				scan.nextLine();
-				if(answer.equals("Y") || answer.equals("y"))
+				if(weapon == null)
 				{
-					weapon.Item_Type = ((Weapon) object).Item_Type;
-					weapon.Item_Name = ((Weapon) object).Item_Name;
-					weapon.Item_Attack = ((Weapon) object).Item_Attack;
-					weapon.Item_Strength = ((Weapon) object).Item_Strength;
-					weapon.Item_Jewelry_Hole_Num = ((Weapon) object).Item_Jewelry_Hole_Num;
-					weapon.jewelry_hole = ((Weapon) object).jewelry_hole;
-					weapon.Item_Vitality = ((Weapon) object).Item_Vitality;
+					weapon = new Weapon();
+					System.out.println("몬스터에서 드롭된 장비 " + ((Weapon)object).Item_Name + "(을)를 착용합니다");
+//					weapon.Item_Type = ((Weapon) object).Item_Type;
+//					weapon.Item_Name = ((Weapon) object).Item_Name;
+//					weapon.Item_Attack = ((Weapon) object).Item_Attack;
+//					weapon.Item_Strength = ((Weapon) object).Item_Strength;
+//					weapon.Item_Jewelry_Hole_Num = ((Weapon) object).Item_Jewelry_Hole_Num;
+//					weapon.jewelry_hole = ((Weapon) object).jewelry_hole;
+//					weapon.Item_Vitality = ((Weapon) object).Item_Vitality;
+					weapon = (Weapon)object;
 				}
 				else
-					System.out.println(((Weapon)object).Item_Name + "는 삭제됩니다.");
+				{
+					System.out.println("몬스터에서 드롭된 장비 " + ((Weapon)object).Item_Name + "(을)를 착용하시겠습니까?");
+					System.out.println("현재 착용한 장비는 " + weapon.Item_Name + " 입니다");
+					System.out.println("Y 선택시 장비를 착용하게 되며 기존장비는 삭제됩니다.");
+					System.out.println("N 선택시 장비는 삭제됩니다");
+					System.out.println("선택해주세요.예(Y), 아니오(N) : ");
+					answer = scan.next();
+					scan.nextLine();
+					if(answer.equals("Y") || answer.equals("y"))
+					{
+//						weapon.Item_Type = ((Weapon) object).Item_Type;
+//						weapon.Item_Name = ((Weapon) object).Item_Name;
+//						weapon.Item_Attack = ((Weapon) object).Item_Attack;
+//						weapon.Item_Strength = ((Weapon) object).Item_Strength;
+//						weapon.Item_Jewelry_Hole_Num = ((Weapon) object).Item_Jewelry_Hole_Num;
+//						weapon.jewelry_hole = ((Weapon) object).jewelry_hole;
+//						weapon.Item_Vitality = ((Weapon) object).Item_Vitality;
+						System.out.println(((Weapon)object).Item_Name + "을 착용하였습니다");
+						weapon = (Weapon)object;
+					}
+					else
+					{
+						//System.out.println(((Weapon)object).Item_Name + "를 인벤토리에 저장합니다.");
+						System.out.println(((Weapon)object).Item_Name + "이 삭제되었습니다");
+						inven.weapon = (Weapon)object;
+					}
+						
+				}
 			}
 			else if(object instanceof Armor)
 			{
-				System.out.println("몬스터에서 드롭된 장비 " + ((Armor)object).Item_Name + "(을)를 착용하시겠습니까?");
-				System.out.println("장비 착용시 기존장비는 삭제됩니다");
-				System.out.println("선택해주세요.예(Y), 아니오(N) : ");
-				answer = scan.next();
-				scan.nextLine();
-				if(answer.equals("Y") || answer.equals("y"))
+				if(armor == null)
 				{
+					armor = new Armor();
+					System.out.println("몬스터에서 드롭된 장비 " + ((Armor)object).Item_Name + "(을)를 착용합니다");
 					armor.Item_Type = ((Armor) object).Item_Type;
 					armor.Item_Name = ((Armor) object).Item_Name;
 					armor.Item_Defence = ((Armor) object).Item_Defence;
@@ -289,7 +323,30 @@ public class Babarian extends Character implements Character_Job{
 					armor.Item_Vitality = ((Armor) object).Item_Vitality;
 				}
 				else
-					System.out.println(((Weapon)object).Item_Name + "는 삭제됩니다.");
+				{
+					System.out.println("몬스터에서 드롭된 장비 " + ((Armor)object).Item_Name + "(을)를 착용하시겠습니까?");
+					System.out.println("장비 착용시 기존장비는 삭제됩니다");
+					System.out.println("현재 착용한 장비는 " + armor.Item_Name + " 입니다");
+					System.out.println("선택해주세요.예(Y), 아니오(N) : ");
+					answer = scan.next();
+					scan.nextLine();
+					if(answer.equals("Y") || answer.equals("y"))
+					{
+						armor.Item_Type = ((Armor) object).Item_Type;
+						armor.Item_Name = ((Armor) object).Item_Name;
+						armor.Item_Defence = ((Armor) object).Item_Defence;
+						armor.Item_Strength = ((Armor) object).Item_Strength;
+						armor.Item_Jewelry_Hole_Num = ((Armor) object).Item_Jewelry_Hole_Num;
+						armor.jewelry_hole = ((Armor) object).jewelry_hole;
+						armor.Item_Vitality = ((Armor) object).Item_Vitality;
+					}
+					else
+					{
+						//System.out.println(((Armor)object).Item_Name + "를 인벤토리에 저장합니다.");
+						System.out.println(((Armor)object).Item_Name + "를 삭제합니다");
+						inven.armor = (Armor)object;
+					}
+				}
 			}
 		}
 	}
@@ -297,9 +354,9 @@ public class Babarian extends Character implements Character_Job{
 	public boolean Pick_Up_Jewerly(Jewelry jewelry)
 	{
 		boolean success = true;
-		if(inven.jewelry1 == null)	inven.jewelry1 = jewelry;
-		else if(inven.jewelry2 == null)	inven.jewelry2 = jewelry;
-		else if(inven.jewelry2 == null)	inven.jewelry3 = jewelry;
+		if(inven.jewelry1.Item_Name == null)	inven.jewelry1 = jewelry;
+		else if(inven.jewelry2.Item_Name == null)	inven.jewelry2 = jewelry;
+		else if(inven.jewelry3.Item_Name == null)	inven.jewelry3 = jewelry;
 		else
 		{
 			System.out.println("보석함이 가득 찼습니다.");
@@ -308,18 +365,19 @@ public class Babarian extends Character implements Character_Job{
 		return success;
 	}
 	
-	public void Delete_Jewerly(Jewelry jewelry)
+	public void Exchange_Jewerly(Jewelry jewelry)
 	{
 		Scanner scan = new Scanner(System.in);
 		int num;
 		bar();
-		System.out.println(jewelry.Item_Name + "을 얻었습니다.");
+		System.out.println("인벤토리에 보석을 저장합니다");
 		System.out.println("기존 보석을 교체하시겠습니까?");
 		System.out.println("보석 교체시 기존 보석은 삭제됩니다");
 		System.out.println("1." + inven.jewelry1.Item_Name + " 삭제");
 		System.out.println("2." + inven.jewelry2.Item_Name + " 삭제");
 		System.out.println("3." + inven.jewelry3.Item_Name + " 삭제");
-		System.out.println("선택(1~3) : ");
+		System.out.println("4.교체하지 않음");
+		System.out.println("선택(1~4) : ");
 		num = scan.nextInt();
 		scan.nextLine();
 		
@@ -357,4 +415,3 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("");
 	}
 }
-

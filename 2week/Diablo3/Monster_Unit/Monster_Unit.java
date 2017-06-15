@@ -9,4 +9,5 @@ public interface Monster_Unit {
 	public double Monster_Attack();
 	public double Monster_HP();
 	public Object Drop_Item(Character_Job character_job);
+	public Object Drop_Jewelry();
 }

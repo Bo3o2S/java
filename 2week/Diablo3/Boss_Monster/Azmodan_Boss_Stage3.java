@@ -8,10 +8,14 @@ import java.util.Random;
 import Character_Job.*;
 import Item_Weapon_Unique.*;
 import Item_Armor_Unique.*;
+import Item_Jewelry_Unique.*;
 
 public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	// 3번쨰 스테이지 보스 : 아즈모단
 	
-	public String Name = "아즈모단";	
+	public Azmodan_Boss_Stage3()
+	{
+		Name = "아즈모단";
+	}
 	double Damage_Throw_Corpse= 4.0;			// 스킬 "시체투하" 공격배수
 	double Damage_Darkness_Area= 4.0;			// 스킬 "어둠의 영역" 공격배수
 	double Damage_Fireball= 5.0;				// 스킬 "화염구" 공격배수
@@ -126,5 +130,21 @@ public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	/
 			return unique_knife;
 		}
 		return null;
+	}
+
+	@Override
+	public Object Drop_Jewelry() {
+		// TODO Auto-generated method stub
+		Random rand = new Random();
+		if(rand.nextInt(100) < 50)
+		{
+			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
+			return unique_attack;
+		}
+		else
+		{
+			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+			return unique_defence;
+		}
 	}
 }
