@@ -5,6 +5,7 @@ public class SharedResource_Battle
 	public double Character_HP;
 	public double Monster_HP;
 	public int Attack_Choice_Num;
+	public double Boss_Monster_Sheild;
 	public SharedResource_Battle(double character_hp, double monster_hp)
 	{
 		this.Character_HP = character_hp;
@@ -19,5 +20,11 @@ public class SharedResource_Battle
 	public synchronized void Character_Attack(double Damage)
 	{
 		Monster_HP = Monster_HP - Damage;
+	}
+	
+	public synchronized double Sheild_Energy(double Damage)
+	{
+		Boss_Monster_Sheild = Boss_Monster_Sheild - Damage;
+		return Damage/4;
 	}
 }

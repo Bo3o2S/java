@@ -8,6 +8,4 @@ public class Armor extends Item{
 	public int Item_Intelligence;
 	public int Item_Jewelry_Hole_Num;
 	public Item_Jewelry_Hole jewelry_hole = new Item_Jewelry_Hole();
-	public String Item_Type;
-	public String Item_Name;
 }

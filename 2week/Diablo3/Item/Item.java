@@ -15,5 +15,4 @@ public class Item {
 		System.out.println("");
 	}
 }
-class Item_Jewelry_Hole{}
 

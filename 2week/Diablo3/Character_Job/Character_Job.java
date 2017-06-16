@@ -11,14 +11,7 @@ public interface Character_Job {
 	public void Wear_Equipment(Object object);
 	public boolean Pick_Up_Jewerly(Jewelry jewelry);
 	public void Exchange_Jewerly(Jewelry jewelry);
-}
-
-class Inven
-{
-	Weapon weapon = new Weapon();
-	Armor armor = new Armor();
-	Jewelry jewelry1 = new Jewelry();
-	Jewelry jewelry2 = new Jewelry();
-	Jewelry jewelry3 = new Jewelry();
+	public void Insert_Jewelry(int num);
+	public void Remove_Jewelry(int num);
 }
 

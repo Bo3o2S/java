@@ -27,7 +27,7 @@ public class Character extends Unit{
 		
 		protected double Vital_Hp_Rate;		// 활력이 HP에 미치는 증가량. HP = 활력*Vital_Hp_Rate
 		protected long Exp_Rate;			// 레벨에 따른 필요 경험치 증가량
-		
+		public Inven inven;
 		public void Level(int Level)		// 레벨에 따른 스탯 증가
 		{
 			Level_Num = Level;																	// 현재 레벨
@@ -50,3 +50,5 @@ public class Character extends Unit{
 		public Armor armor;
 		public Jewelry jewelry;	
 }
+
+

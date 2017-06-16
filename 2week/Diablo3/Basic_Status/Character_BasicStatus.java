@@ -86,7 +86,9 @@ public class Character_BasicStatus {
 		
 		public void bar()
 		{
+			System.out.println("");
 			System.out.println("================================================");
+			System.out.println("");
 		}
 		
 }

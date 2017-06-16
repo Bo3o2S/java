@@ -21,6 +21,8 @@ public class Unit {
 	
 	public void bar()	// 상하 구분을 위한 경계선
 	{
+		System.out.println("");
 		System.out.println("------------------------------------------------");
+		System.out.println("");
 	}
 }

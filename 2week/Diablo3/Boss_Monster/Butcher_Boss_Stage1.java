@@ -145,15 +145,15 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 	public Object Drop_Jewelry() {
 		// TODO Auto-generated method stub
 		Random rand = new Random();
-		if(rand.nextInt(100) < 50)
-		{
+//		if(rand.nextInt(100) < 50)
+//		{
 			Unique_Jewelry_Attack unique_attack = new Unique_Jewelry_Attack();
 			return unique_attack;
-		}
-		else
-		{
-			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
-			return unique_defence;
-		}
+//		}
+//		else
+//		{
+//			Unique_Jewelry_Defence unique_defence = new Unique_Jewelry_Defence();
+//			return unique_defence;
+//		}
 	}
 }

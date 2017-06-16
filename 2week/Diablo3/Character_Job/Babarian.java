@@ -4,10 +4,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Character.Character;
+import Character.Inven;
 import Item.Armor;
 import Item.Jewelry;
 import Item.Weapon;
-
+import Item_Jewelry_Common.*;
+import Item_Jewelry_Rare.*;
+import Item_Jewelry_Unique.*;
 import Item_Weapon_Common.Common_Babarian_Giant_Sword;
 import Item_Weapon_Rare.Item_Weapon_Rare;
 import Item_Weapon_Unique.Item_Weapon_Unique;
@@ -49,6 +52,7 @@ public class Babarian extends Character implements Character_Job{
 		Attack_Rate = 20;
 		Defence_Rate = 10;
 		Evasion_Rate = 0.3;
+		inven = new Inven();
 	}
 	
 	//야만전사 추가 스킬 세팅
@@ -61,7 +65,7 @@ public class Babarian extends Character implements Character_Job{
 	int Anger_Make_Cry_of_Battlefield = 20;		// 스킬 "전장의 함성"의 분노 생성량
 	int Full_Anger = 100;						// 분노 최대치
 	Boolean Skill_On = false;					// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능. 
-	Inven inven = new Inven();
+	
 	public int Jewerly_Num = 0; 
 	public double Fury() // 스킬 "광분"
 	{
@@ -413,5 +417,694 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("");
 		System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
 		System.out.println("");
+	}
+	
+	public void Insert_Jewelry(int num)
+	{
+		while(true)
+		{
+			if(num == 1) // 무기
+			{
+				if(weapon == null)
+				{
+					bar();
+					System.out.println("현재 착용하고 있는 무기가 없습니다.무기 획득 후 다시 방문 부탁드립니다");
+					bar();
+					break;
+				}
+				bar();
+				Scanner scan = new Scanner(System.in);
+				System.out.println(weapon.Item_Name + "에 장착할 보석을 선택하세요.");
+				if(inven.jewelry1.Item_Name != null)
+					System.out.println("1. " + inven.jewelry1.Item_Name);
+				if(inven.jewelry2.Item_Name != null)
+					System.out.println("2. " + inven.jewelry2.Item_Name);
+				if(inven.jewelry3.Item_Name != null)
+					System.out.println("3. " + inven.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				
+				if(number == 1)
+				{
+					bar();
+					if(inven.jewelry1 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry1.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_attack;
+						}
+						
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("1번 홀에 " + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 2)
+				{
+					bar();
+					if(inven.jewelry2 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry2.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry2.Item_Name = null;
+						System.out.println("1번 홀에" + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry2.Item_Name = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 3)
+				{
+					bar();
+					if(inven.jewelry3 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry3.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("1번 홀에" + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Attack)
+						{
+							Common_Jewelry_Attack common_jewelry_attack = new Common_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Attack)
+						{
+							Rare_Jewelry_Attack rare_jewelry_attack = new Rare_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_attack;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Attack)
+						{
+							Unique_Jewelry_Attack unique_jewelry_attack = new Unique_Jewelry_Attack();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_attack;
+						}
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 4)
+				{
+					break;
+				}
+			}
+			else if(num == 2)
+			{
+				if(armor == null)
+				{
+					bar();
+					System.out.println("현재 착용하고 있는 방어구가 없습니다.방어구 획득 후 다시 방문 부탁드립니다");
+					bar();
+					break;
+				}
+				bar();
+				Scanner scan = new Scanner(System.in);
+				System.out.println(armor.Item_Name + "에 장착할 보석을 선택하세요.");
+				if(inven.jewelry1.Item_Name != null)
+					System.out.println("1. " + inven.jewelry1.Item_Name);
+				if(inven.jewelry2.Item_Name != null)
+					System.out.println("2. " + inven.jewelry2.Item_Name);
+				if(inven.jewelry3.Item_Name != null)
+					System.out.println("3. " + inven.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				if(number == 1)
+				{
+					bar();
+					if(inven.jewelry1 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry1.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry1 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry1 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry1.Item_Name = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 2)
+				{
+					bar();
+					if(inven.jewelry2 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry2.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry2.Item_Name = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry2.Item_Name = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry2 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry2 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 3)
+				{
+					bar();
+					if(inven.jewelry3 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry3.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = common_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry1 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = common_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry2 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3.Item_Name == null)
+					{
+						if(inven.jewelry3 instanceof Common_Jewelry_Defence)
+						{
+							Common_Jewelry_Defence common_jewelry_defence = new Common_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = common_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Rare_Jewelry_Defence)
+						{
+							Rare_Jewelry_Defence rare_jewelry_defence = new Rare_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = rare_jewelry_defence;
+						}
+						else if(inven.jewelry3 instanceof Unique_Jewelry_Defence)
+						{
+							Unique_Jewelry_Defence unique_jewelry_defence = new Unique_Jewelry_Defence();
+							this.weapon.jewelry_hole.jewelry3 = unique_jewelry_defence;
+						}
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry3.Item_Name = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 4)
+				{
+					break;
+				}
+			
+			}
+		}
+	}
+		
+	
+	public void Remove_Jewelry(int num)
+	{
+		Scanner scan = new Scanner(System.in);
+		while(true)
+		{	
+			if(num == 1)
+			{
+				if(weapon == null)
+				{
+					bar();
+					System.out.println("착용하고 있는 무기가 없습니다. 무기 착용 후 다시 방문해주세요");
+					bar();
+					break;
+				}
+				bar();
+				System.out.println(weapon.Item_Name + "에 장착된 보석은 아래와 같습니다");
+				if(weapon.jewelry_hole.jewelry1.Item_Name != null)
+					System.out.println("1. " + weapon.jewelry_hole.jewelry1.Item_Name);
+				if(weapon.jewelry_hole.jewelry2.Item_Name != null)
+					System.out.println("2. " + weapon.jewelry_hole.jewelry2.Item_Name);
+				if(weapon.jewelry_hole.jewelry3.Item_Name != null)
+					System.out.println("3. " + weapon.jewelry_hole.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				if(number == 1)
+				{
+					weapon.jewelry_hole.jewelry1.Item_Name = null;
+					System.out.println(weapon.Item_Name + "의 1번 보석이 삭제되었습니다!");
+				}
+				else if(number == 2)
+				{
+					weapon.jewelry_hole.jewelry2.Item_Name = null;
+					System.out.println(weapon.Item_Name + "의 2번 보석이 삭제되었습니다!");
+				}
+				else if(number == 3)
+				{
+					weapon.jewelry_hole.jewelry3.Item_Name = null;
+					System.out.println(weapon.Item_Name + "의 3번 보석이 삭제되었습니다!");
+				}
+				else if(number == 4)
+					break;
+			}
+			if(num == 2)
+			{
+				if(armor == null)
+				{
+					bar();
+					System.out.println("착용하고 있는 방어구가 없습니다. 방어구 착용 후 다시 방문해주세요");
+					bar();
+					break;
+				}
+				bar();
+				System.out.println(armor.Item_Name + "에 장착된 보석은 아래와 같습니다");
+				if(armor.jewelry_hole.jewelry1 != null)
+					System.out.println("1. " + armor.jewelry_hole.jewelry1.Item_Name);
+				if(armor.jewelry_hole.jewelry2 != null)
+					System.out.println("2. " + armor.jewelry_hole.jewelry2.Item_Name);
+				if(armor.jewelry_hole.jewelry3 != null)
+					System.out.println("3. " + armor.jewelry_hole.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				if(number == 1)
+				{
+					armor.jewelry_hole.jewelry1.Item_Name = null;
+					System.out.println(armor.Item_Name + "의 1번 보석이 삭제되었습니다!");
+				}
+				else if(number == 2)
+				{
+					armor.jewelry_hole.jewelry2.Item_Name = null;
+					System.out.println(armor.Item_Name + "의 2번 보석이 삭제되었습니다!");
+				}
+				else if(number == 3)
+				{
+					armor.jewelry_hole.jewelry3.Item_Name = null;
+					System.out.println(armor.Item_Name + "의 3번 보석이 삭제되었습니다!");
+				}
+				else if(number == 4)
+					break;
+			}
+		}
+	}	
+}
+
+class Copy_Jewelry
+{
+	public Jewelry jewelry;
+	
+	public Copy_Jewelry(Jewelry jewelry)
+	{
+		this.jewelry = jewelry;
 	}
 }

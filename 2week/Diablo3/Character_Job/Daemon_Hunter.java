@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Character.Character;
-
+import Character.Inven;
 import Item.Armor;
 import Item.Jewelry;
 import Item.Weapon;
@@ -43,6 +43,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		Attack_Rate = 22;
 		Defence_Rate = 9;
 		Evasion_Rate = 0.3;
+		inven = new Inven();
 	}
 	
 	// 악마사냥꾼 추가 스탯 세팅
@@ -78,7 +79,7 @@ public class Daemon_Hunter extends Character implements Character_Job{
 	
 	// 스킬 사용여부. 버프 스킬에 사용. true: 스킬 사용중. false : 스킬 사용가능. 
 	Boolean Skill_On = false;
-	Inven inven = new Inven();
+	
 	public int Jewerly_Num = 0; 
 	Random random = new Random();
 	
@@ -330,5 +331,390 @@ public class Daemon_Hunter extends Character implements Character_Job{
 		if(num == 2)	inven.jewelry2 = jewelry;
 		if(num == 3)	inven.jewelry3 = jewelry;
 		
+	}
+	
+	public void Insert_Jewelry(int num)
+	{
+		while(true)
+		{
+			bar();
+			Scanner scan = new Scanner(System.in);
+			System.out.println(weapon.Item_Name + "에 장착할 보석을 선택하세요.");
+			if(inven.jewelry1 != null)
+				System.out.println("1. " + inven.jewelry1.Item_Name);
+			if(inven.jewelry2 != null)
+				System.out.println("2. " + inven.jewelry2.Item_Name);
+			if(inven.jewelry3 != null)
+				System.out.println("3. " + inven.jewelry3.Item_Name);
+			System.out.println("4. 나가기");
+			System.out.println("선택(1~4) : ");
+			int number = scan.nextInt();
+			scan.nextLine();
+			
+			if(num == 1) // 무기
+			{
+				if(number == 1)
+				{
+					bar();
+					if(inven.jewelry1 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry1.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1 == null)
+					{
+						this.weapon.jewelry_hole.jewelry1 = inven.jewelry1;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry1 = null;
+						System.out.println("1번 홀에" + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2 == null)
+					{
+						this.weapon.jewelry_hole.jewelry2 = inven.jewelry1;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry1 = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3 == null)
+					{
+						this.weapon.jewelry_hole.jewelry3 = inven.jewelry1;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry1 = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 2)
+				{
+					bar();
+					if(inven.jewelry2 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry2.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1 == null)
+					{
+						this.weapon.jewelry_hole.jewelry1 = inven.jewelry2;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry2 = null;
+						System.out.println("1번 홀에" + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2 == null)
+					{
+						this.weapon.jewelry_hole.jewelry2 = inven.jewelry2;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry2 = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3 == null)
+					{
+						this.weapon.jewelry_hole.jewelry3 = inven.jewelry3;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry3 = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 3)
+				{
+					bar();
+					if(inven.jewelry3 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry3.Item_Type == 1)
+					{
+						System.out.println("방어력 보석은 무기에 장착할 수 없습니다.!");
+						System.out.println("공격력 보석을 선택해주세요!");
+						continue;
+					}
+					if(weapon.jewelry_hole.jewelry1 == null)
+					{
+						this.weapon.jewelry_hole.jewelry1 = inven.jewelry3;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry1.Attack;
+						inven.jewelry3 = null;
+						System.out.println("1번 홀에" + weapon.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry1.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry2 == null)
+					{
+						this.weapon.jewelry_hole.jewelry2 = inven.jewelry3;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry2.Attack;
+						inven.jewelry3 = null;
+						System.out.println("2번 홀에" + weapon.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry2.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else if(weapon.jewelry_hole.jewelry3 == null)
+					{
+						this.weapon.jewelry_hole.jewelry3 = inven.jewelry3;
+						weapon.Item_Attack = weapon.Item_Attack + weapon.jewelry_hole.jewelry3.Attack;
+						inven.jewelry3 = null;
+						System.out.println("3번 홀에" + weapon.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(weapon.Item_Name + "의 공격력이" + weapon.jewelry_hole.jewelry3.Attack + "만큼 증가하였습니다");
+						System.out.println("현재" + weapon.Item_Name + "의 공격력 : " + weapon.Item_Attack);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 4)
+				{
+					break;
+				}
+			}
+			else if(num == 2)
+			{
+				if(number == 1)
+				{
+					bar();
+					if(inven.jewelry1 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry1.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1 == null)
+					{
+						this.armor.jewelry_hole.jewelry1 = inven.jewelry1;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry1 = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2 == null)
+					{
+						this.armor.jewelry_hole.jewelry2 = inven.jewelry1;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry1 = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3 == null)
+					{
+						this.armor.jewelry_hole.jewelry3 = inven.jewelry1;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry1 = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 2)
+				{
+					bar();
+					if(inven.jewelry2 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry2.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1 == null)
+					{
+						this.armor.jewelry_hole.jewelry1 = inven.jewelry2;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry2 = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2 == null)
+					{
+						this.armor.jewelry_hole.jewelry2 = inven.jewelry2;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry2 = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3 == null)
+					{
+						this.armor.jewelry_hole.jewelry3 = inven.jewelry3;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry3 = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 3)
+				{
+					bar();
+					if(inven.jewelry3 == null)
+					{
+						System.out.println("인벤에 보석이 없습니다. 보석 획득 후 이용해주세요!");
+						continue;
+					}
+					if(inven.jewelry3.Item_Type == 0)
+					{
+						System.out.println("공격력 보석은 방어구에 장착할 수 없습니다.!");
+						System.out.println("방어력 보석을 선택해주세요!");
+						continue;
+					}
+					if(armor.jewelry_hole.jewelry1 == null)
+					{
+						this.armor.jewelry_hole.jewelry1 = inven.jewelry3;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry1.Defence;
+						inven.jewelry3 = null;
+						System.out.println("1번 홀에" + armor.jewelry_hole.jewelry1.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry1.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry2 == null)
+					{
+						this.armor.jewelry_hole.jewelry2 = inven.jewelry3;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry2.Defence;
+						inven.jewelry3 = null;
+						System.out.println("2번 홀에" + armor.jewelry_hole.jewelry2.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry2.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else if(armor.jewelry_hole.jewelry3 == null)
+					{
+						this.armor.jewelry_hole.jewelry3 = inven.jewelry3;
+						armor.Item_Defence = armor.Item_Defence + armor.jewelry_hole.jewelry3.Defence;
+						inven.jewelry3 = null;
+						System.out.println("3번 홀에" + armor.jewelry_hole.jewelry3.Item_Name + "이 장착되었습니다.!!!");
+						System.out.println(armor.Item_Name + "의 방어력이" + armor.jewelry_hole.jewelry3.Defence + "만큼 증가하였습니다");
+						System.out.println("현재" + armor.Item_Name + "의 방어력 : " + armor.Item_Defence);
+					}
+					else
+					{
+						System.out.println("비어 있는 홀이 없습니다. 보석 제거 후 사용해주세요!");
+					}
+				}
+				else if(number == 4)
+				{
+					break;
+				}
+			
+			}
+		}
+	}
+		
+	
+	public void Remove_Jewelry(int num)
+	{
+		Scanner scan = new Scanner(System.in);
+		while(true)
+		{	
+			if(num == 1)
+			{
+				bar();
+				System.out.println(weapon.Item_Name + "에 장착된 보석은 아래와 같습니다");
+				if(weapon.jewelry_hole.jewelry1 != null)
+					System.out.println("1. " + weapon.jewelry_hole.jewelry1.Item_Name);
+				if(weapon.jewelry_hole.jewelry2 != null)
+					System.out.println("2. " + weapon.jewelry_hole.jewelry2.Item_Name);
+				if(weapon.jewelry_hole.jewelry3 != null)
+					System.out.println("3. " + weapon.jewelry_hole.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				if(number == 1)
+				{
+					weapon.jewelry_hole.jewelry1 = null;
+					System.out.println(weapon.Item_Name + "의 1번 보석이 삭제되었습니다!");
+				}
+				else if(number == 2)
+				{
+					weapon.jewelry_hole.jewelry2 = null;
+					System.out.println(weapon.Item_Name + "의 2번 보석이 삭제되었습니다!");
+				}
+				else if(number == 3)
+				{
+					weapon.jewelry_hole.jewelry3 = null;
+					System.out.println(weapon.Item_Name + "의 3번 보석이 삭제되었습니다!");
+				}
+				else if(number == 4)
+					break;
+			}
+			if(num == 2)
+			{
+				bar();
+				System.out.println(armor.Item_Name + "에 장착된 보석은 아래와 같습니다");
+				if(armor.jewelry_hole.jewelry1 != null)
+					System.out.println("1. " + armor.jewelry_hole.jewelry1.Item_Name);
+				if(armor.jewelry_hole.jewelry2 != null)
+					System.out.println("2. " + armor.jewelry_hole.jewelry2.Item_Name);
+				if(armor.jewelry_hole.jewelry3 != null)
+					System.out.println("3. " + armor.jewelry_hole.jewelry3.Item_Name);
+				System.out.println("4. 나가기");
+				System.out.println("선택 : ");
+				int number = scan.nextInt();
+				scan.nextLine();
+				if(number == 1)
+				{
+					armor.jewelry_hole.jewelry1 = null;
+					System.out.println(armor.Item_Name + "의 1번 보석이 삭제되었습니다!");
+				}
+				else if(number == 2)
+				{
+					armor.jewelry_hole.jewelry2 = null;
+					System.out.println(armor.Item_Name + "의 2번 보석이 삭제되었습니다!");
+				}
+				else if(number == 3)
+				{
+					armor.jewelry_hole.jewelry3 = null;
+					System.out.println(armor.Item_Name + "의 3번 보석이 삭제되었습니다!");
+				}
+				else if(number == 4)
+					break;
+			}
+		}
 	}
 }

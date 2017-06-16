@@ -58,6 +58,8 @@ public class MonSter_BasicStatus {
 	
 	public void bar()
 	{
+		System.out.println("");
 		System.out.println("================================================");
+		System.out.println("");
 	}
 }

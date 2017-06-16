@@ -6,7 +6,7 @@ public class Common_Babarian_Giant_Sword extends Item_Weapon_Common{
 	public Common_Babarian_Giant_Sword()
 	{
 		Item_Name = "일반 거대검";		// 아이템 명
-		Item_Strength = 5;			// 아이템 수치
+		Item_Strength = 1000;			// 아이템 수치
 		Set_Weapon_Status();			// 아이템 생성
 	}
 	

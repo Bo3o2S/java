@@ -1,5 +1,8 @@
 package Item_Weapon_Unique;
 
+import Item.Item_Interface;
+import Item.Item_Jewelry_Hole;
+import Item.Jewelry;
 import Item.Weapon;
 import Monster.MonSter;
 
@@ -9,13 +12,13 @@ import Character.Character;
 import Game.Damage_Calculator;
 import Game.SharedResource_Battle;
 
-public class Item_Weapon_Unique extends Weapon{
+public class Item_Weapon_Unique extends Weapon implements Item_Interface{
 	
 	public Item_Weapon_Unique()	// 일반 아이템 기본 세팅
 	{
 		Item_Type = "유니크 아이템";	// 아이템 종류
-		Item_Attack = 20;		// 아이템 공격력
-		Item_Vitality = 20;		// 아이템 활력
+		Item_Attack = 5000;		// 아이템 공격력
+		Item_Vitality = 5000;		// 아이템 활력
 		Item_Jewelry_Hole_Num = 3;  // 보석홈 개수
 	}
 	
@@ -192,5 +195,73 @@ public class Item_Weapon_Unique extends Weapon{
 		});
 		thread.start();
 		bar();
+	}
+	
+	public Item_Jewelry_Hole jewelry_hole = new Item_Jewelry_Hole();
+	
+	public double Insert_Jewelry(Jewelry jewelry, int num)
+	{
+		if(num == 1)
+		{
+			System.out.println("1번 홈에 보석을 장착합니다");
+			if(jewelry_hole.jewelry1 == null)
+			{
+				jewelry_hole.jewelry1 = jewelry;
+				if(jewelry_hole.jewelry1.Attack != 0)
+					return jewelry_hole.jewelry1.Attack;
+				if(jewelry_hole.jewelry1.Defence != 0)
+					return jewelry_hole.jewelry1.Defence;
+			}
+			else
+				System.out.println("보석을 제거해야 장착 가능합니다");
+		}
+		else if(num == 2)
+		{
+			System.out.println("2번 홈에 보석을 장착합니다");
+			if(jewelry_hole.jewelry2 == null)
+			{
+				jewelry_hole.jewelry2 = jewelry;
+				if(jewelry_hole.jewelry2.Attack != 0)
+					return jewelry_hole.jewelry2.Attack;
+				if(jewelry_hole.jewelry2.Defence != 0)
+					return jewelry_hole.jewelry2.Defence;
+			}
+			else
+				System.out.println("보석을 제거해야 장착 가능합니다");
+		}
+		else if(num == 3)
+		{
+			System.out.println("3번 홈에 보석을 장착합니다");
+			if(jewelry_hole.jewelry3 == null)
+			{
+				jewelry_hole.jewelry3 = jewelry;
+				if(jewelry_hole.jewelry3.Attack != 0)
+					return jewelry_hole.jewelry3.Attack;
+				if(jewelry_hole.jewelry3.Defence != 0)
+					return jewelry_hole.jewelry3.Defence;
+			}
+			else
+				System.out.println("보석을 제거해야 장착 가능합니다");
+		}
+		return 0;
+	}
+	
+	public void Remove_Jewelry(int num)
+	{
+		if(num == 1)
+		{
+			jewelry_hole.jewelry1 = null;
+			System.out.println("1번 홈의 보석을 제거하였습니다");
+		}
+		else if(num == 2)
+		{
+			jewelry_hole.jewelry2 = null;
+			System.out.println("2번 홈의 보석을 제거하였습니다");
+		}
+		else if(num == 3)
+		{
+			jewelry_hole.jewelry3 = null;
+			System.out.println("3번 홈의 보석을 제거하였습니다");
+		}
 	}
 }
