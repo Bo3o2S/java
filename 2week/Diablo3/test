@@ -1,0 +1,14 @@
+Scanner scan = new Scanner(System.in);
+		bar();
+		System.out.println(stage + "막에 오신것을 환영합니다!");
+		System.out.println("마을 광장입니다!");
+		System.out.println("1. 캐릭터 스탯 확인하기");
+		System.out.println("2. 일반 던전 입장하기");
+		System.out.println("3. 보스 던전 입장하기");
+		System.out.println("4. 체력 회복하기");
+		System.out.println("5. 보석상 방문");
+		System.out.println("6. 카나이 보물함");
+		System.out.println("7. 게임 종료하기");
+		bar();
+		System.out.println("번호입력(1 ~ 7) : ");
+		int Input_Num = scan.nextInt();
