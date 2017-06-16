@@ -23,10 +23,10 @@ public class Babarian extends Character implements Character_Job{
 		Name = "야만용사";
 		Level_Num = 1;
 		//HP = 140;
-		HP = 2000000;
+		HP = 50000;
 		Full_HP = HP;
 		//Attack = 20;
-		Attack = 200000;
+		Attack = 50000;
 		Defence = 16;
 		Evasion = 3;
 		Strength = 10;  
@@ -135,20 +135,24 @@ public class Babarian extends Character implements Character_Job{
 		{
 			@Override
 			public void run() {
+				bar();
 				System.out.println(Skill_Name + "을 시전합니다. " + duration + "초 동안 지속됩니다");
-				System.out.println("방어력이 " + Defence*0.2 +"만큼 증가하였습니다");
-				System.out.println("HP가 " + HP*0.1 +"만큼 증가하였습니다");
+				System.out.println("방어력이 " + (long)Defence*0.2 +"만큼 증가하였습니다");
+				System.out.println("HP가 " + (long)HP*0.1 +"만큼 증가하였습니다");
 				Defence = Defence*1.2;			// 방어력 20% 증가
 				HP = HP*1.2;					// 생명력 10% 증가
 				Skill_On = true;
 				System.out.println("현재 방어력은 " + (long)Defence +"입니다");
 				System.out.println("현재 HP는 " + (long)HP +"입니다");
+				bar();
 				try {
 					Thread.sleep(duration*1000);
 					Defence = temp_Defence;
 					HP = temp_HP;
+					bar();
 					System.out.println("방어력이 원래대로 돌아옵니다. 현재 방어력은 " + (long)Defence +"입니다");
 					System.out.println("HP가 원래대로 돌아옵니다. 현재 HP는 " + (long)HP +"입니다");
+					bar();
 					Skill_On = false;
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

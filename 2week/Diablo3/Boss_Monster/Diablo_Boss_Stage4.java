@@ -57,7 +57,6 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 	public void Monster_Appear() {				// 몬스터 등장을 알림
 		bar();
 		System.out.println(Monster_Type + " " + Name + "가 나타났습니다");
-		System.out.println("전투를 시작합니다");
 		bar();
 	}
 	

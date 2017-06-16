@@ -22,9 +22,9 @@ import Character_Job.*;
 
 
 public class Game {
-	
+	boolean Morning_On = true;
+	Shared_Time shared_time = new Shared_Time(Morning_On);
 	private static boolean Recovery_On = true;
-	private static boolean Morning_On = true;
 	public static void main(String[] args) {
 		
 		String ID;
@@ -83,6 +83,38 @@ public class Game {
 	
 	
 	private static void Play_Game(Character character) {
+		
+		Thread thread = new Thread(new Runnable()
+		{
+			double temp_character_attack = character.Attack;
+			double temp_character_defence = character.Defence;
+			@Override
+			public void run() {
+				while(true)
+				{
+					System.out.println("\t\t\t\t\t\t\t\t\t\t낮이 되었습니다");
+					System.out.println("\t\t\t\t\t\t\t\t\t\t낮에는 공격력이 약해지고 방어력이 강화됩니다");
+					character.Attack = temp_character_attack;
+					character.Attack = character.Attack*0.9;
+					character.Defence = temp_character_defence;
+					character.Defence = character.Defence*1.1;
+					try {
+						Thread.sleep(300000);
+						System.out.println("\t\t\t\t\t\t\t\t\t\t밤이 되었습니다");
+						System.out.println("\t\t\t\t\t\t\t\t\t\t밤에는 공격력이 강해지고 방어력이 약화됩니다");
+						character.Attack = temp_character_attack;
+						character.Attack = character.Attack*1.1;
+						character.Defence = temp_character_defence;
+						character.Defence = character.Defence*0.9;
+						Thread.sleep(300000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		});
+		
 		int num;
 		int stage = 1;
 		boolean Boss_Kill_Success = false;
@@ -92,12 +124,13 @@ public class Game {
 			if(stage > 5)
 			{
 				System.out.println("축하합니다!!! 모든 스테이지를 클리어 하였습니다!");
+				thread.stop();
 				break;
 			}
 			
 			Boss_Kill_Success = false;
+			thread.start();
 			num = Play(stage);
-			
 			if(num == 1)
 			{
 				Status((Character_Job)character);				// 캐릭터 상태창 출력
@@ -163,6 +196,7 @@ public class Game {
 			else if(num == 6)
 			{
 				System.out.println("게임을 종료합니다!");
+				thread.stop();
 				System.exit(0);
 			}
 			else
@@ -862,6 +896,7 @@ public class Game {
 			}
 			else if(character.Exp < 0)		// 다음 레벨업 이상으로 경험치 획득시
 			{
+				
 				while(true)					// 경험치 획득량만큼 레벨업.
 				{
 					if(character.Exp > 0) 	// 더이상 획득 경험치가 없을 때까지
@@ -869,9 +904,9 @@ public class Game {
 					long Left_Exp = character.Exp;
 					Level++;
 					character.Level(Level);
-					System.out.println("축하합니다!" + character.Level_Num + "레벨이 되었습니다!");
-					character.Exp = character.Exp - Left_Exp;
+					character.Exp = character.Exp + Left_Exp;
 				}
+				System.out.println("축하합니다!" + character.Level_Num + "레벨이 되었습니다!");
 			}
 			break;
 		}
@@ -1051,7 +1086,7 @@ public class Game {
 		Scanner scan = new Scanner(System.in);
 		if(Recovery_On)
 		{
-			System.out.println("1. 공격하기");
+			System.out.println("1. 전투하기");
 			System.out.println("2. 체력회복");
 			System.out.println("3. 후퇴하기");
 			System.out.println("4. 마을복귀");
@@ -1125,5 +1160,16 @@ class Monster_Attack_Thread extends Thread
 	}
 }
 
-
+class Shared_Time
+{
+	public boolean Morning_On = true;
+	public Shared_Time(boolean bool)
+	{
+		this.Morning_On = bool;
+	}
+	public synchronized void Morning_On(boolean bool)
+	{
+		this.Morning_On  = bool;
+	}
+}
 

@@ -25,7 +25,9 @@ public class MonSter extends Unit{	// 몬스터 기본 세팅
 		
 	public void bar() // 구분선
 	{
+		System.out.println("");
 		System.out.println("================================================");
+		System.out.println("");
 	}
 	
 	public void Level(int Level) // 레벨별 몬스터 수치 세팅
