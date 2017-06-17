@@ -32,24 +32,35 @@ public class Item_Weapon_Unique extends Weapon implements Item_Interface{
 	double Summons_Damon_Attack_Rate = 6.0;
 	double Summons_Damon_Add_Attack_Rate = 10.0;
 	
-	public void Unique_Weapon_Skill(MonSter monster, SharedResource_Battle sharedresource_battle)
+	public boolean Unique_Weapon_Skill(MonSter monster, SharedResource_Battle sharedresource_battle)
 	{
+		boolean weapon_skill_on = false;
 		Random rand = new Random();
 		if(rand.nextInt(3) == 0)
 		{
 			if(rand.nextInt(100)<30)
+			{
 				Thunder_of_Heaven(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
 		else if(rand.nextInt(3) == 1)
 		{
 			if(rand.nextInt(100)<30)
+			{
 				Explosion(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
 		else if(rand.nextInt(3) == 2)
 		{
 			if(rand.nextInt(100)<30)
+			{
 				Summons_Damon(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
+		return weapon_skill_on;
 	}
 	
 	

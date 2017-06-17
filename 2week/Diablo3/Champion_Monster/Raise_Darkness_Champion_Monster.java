@@ -29,7 +29,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Melting;									// 스킬 "융해" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 융해(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -38,7 +38,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Plague;									// 스킬 "역병" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 역병(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -47,7 +47,7 @@ public class Raise_Darkness_Champion_Monster extends Champion_Monster implements
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Shelling;								// 스킬 "포격" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 포격(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

@@ -28,24 +28,35 @@ public class Item_Weapon_Rare extends Weapon implements Item_Interface{
 	double Poison_Launch_Attack_Rate = 2.0;
 	double Poison_Launch_Add_Attack_Rate = 0.1;
 	
-	public void Rare_Weapon_Skill(MonSter monster, SharedResource_Battle sharedresource_battle)
+	public boolean Rare_Weapon_Skill(MonSter monster, SharedResource_Battle sharedresource_battle)
 	{
+		boolean weapon_skill_on = false;
 		Random rand = new Random();
 		if(rand.nextInt(3) == 0)
 		{
 			if(rand.nextInt(100)<15)
+			{
 				Thunder_Arrow(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
 		else if(rand.nextInt(3) == 1)
 		{
 			if(rand.nextInt(100)<15)
+			{
 				Frozen_Skull(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
 		else if(rand.nextInt(3) == 2)
 		{
 			if(rand.nextInt(100)<15)
+			{
 				Poison_Launch(monster, sharedresource_battle);
+				weapon_skill_on = true;
+			}
 		}
+		return weapon_skill_on;
 	}
 	
 	

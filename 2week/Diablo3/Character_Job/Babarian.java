@@ -35,7 +35,7 @@ public class Babarian extends Character implements Character_Job{
 		Recovery = 10;
 		Vitality = 10;
 		Defence = 16;
-		Gold = 5000;
+		Gold = 500000;
 		Exp = 100;
 		Full_Exp = Exp;
 		
@@ -191,8 +191,7 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("직업명 : " + Name);
 		System.out.println("레벨 : " + Level_Num);
 		System.out.println("분노 : " + Anger);
-		System.out.println("전체 생명력 : " + Full_HP);
-		System.out.println("현재 생명력 : " + HP);
+		System.out.println("생명력 : " + HP + "/" + Full_HP);
 		System.out.println("힘 : " + Strength);
 		System.out.println("민첩 : " + Dex);
 		System.out.println("지능 : " + Intelligence);
@@ -204,9 +203,33 @@ public class Babarian extends Character implements Character_Job{
 		System.out.println("골드 : " + Gold);
 		System.out.println("경험치: " + (Full_Exp-Exp) + "/" + Full_Exp);
 		if(weapon != null)
-			System.out.println("착용무기 : " + weapon.Item_Name);
+		{
+			System.out.println("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆   착용 무기   ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
+			System.out.println("무기 : " + weapon.Item_Name);
+			System.out.println("힘 : " + weapon.Item_Strength);
+			System.out.println("활력 : " + weapon.Item_Vitality);
+			System.out.println("보석홈 개수 : " + weapon.Item_Jewelry_Hole_Num);
+			if(weapon.jewelry_hole.jewelry1.Item_Name != null)
+				System.out.println("착용보석 1 : " + weapon.jewelry_hole.jewelry1.Item_Name);
+			if(weapon.jewelry_hole.jewelry2.Item_Name != null)
+				System.out.println("착용보석 2 : " + weapon.jewelry_hole.jewelry2.Item_Name);
+			if(weapon.jewelry_hole.jewelry3.Item_Name != null)
+				System.out.println("착용보석 3 : " + weapon.jewelry_hole.jewelry3.Item_Name);
+		}
 		if(armor != null)
-			System.out.println("착용방어구 : " + armor.Item_Name);
+		{
+			System.out.println("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆   착용 방어구   ☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆");
+			System.out.println("방어구 : " + armor.Item_Name);
+			System.out.println("방어력 : " + armor.Item_Defence);
+			System.out.println("활력 : " + armor.Item_Vitality);
+			System.out.println("보석홈 개수 : " + armor.Item_Jewelry_Hole_Num);
+			if(armor.jewelry_hole.jewelry1.Item_Name != null)
+				System.out.println("착용보석 1 : " + armor.jewelry_hole.jewelry1.Item_Name);
+			if(armor.jewelry_hole.jewelry2.Item_Name != null)
+				System.out.println("착용보석 2 : " + armor.jewelry_hole.jewelry2.Item_Name);
+			if(armor.jewelry_hole.jewelry3.Item_Name != null)
+				System.out.println("착용보석 3 : " + armor.jewelry_hole.jewelry3.Item_Name);
+		}
 		bar();
 	}
 

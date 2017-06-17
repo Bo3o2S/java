@@ -24,7 +24,7 @@ public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	/
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Throw_Corpse;	// 스킬 "화염구" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 시체투하(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 
 		return Damage;
@@ -34,7 +34,7 @@ public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	/
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Darkness_Area;	// 스킬 "어둠의 영역" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 어둠의 영역(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -43,7 +43,7 @@ public class Azmodan_Boss_Stage3 extends Boss_Monster implements Monster_Unit{	/
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Fireball;		// 스킬 "화염구" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 화염구(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

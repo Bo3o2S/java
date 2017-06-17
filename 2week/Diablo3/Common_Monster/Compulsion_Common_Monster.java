@@ -18,7 +18,7 @@ public class Compulsion_Common_Monster extends Common_Monster implements Monster
 		double Damage = 0;
 		Damage = Attack*Damage_Tightening;		
 		System.out.println(Name + "이 조이기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
-		bar();
+		System.out.println("");
 		return Damage;
 	}
 	

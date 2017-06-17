@@ -31,7 +31,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Circle;			// 스킬 "화염의 원" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 화염의 원(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -40,7 +40,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Launch;			// 스킬 "화염발사" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 화염발사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -49,7 +49,7 @@ public class Diablo_Boss_Stage4 extends Boss_Monster implements Monster_Unit{	//
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Fire_Earthquake;		// 스킬 "화염지진" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 화염지진(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

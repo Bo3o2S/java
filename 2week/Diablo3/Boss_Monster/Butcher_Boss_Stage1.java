@@ -35,7 +35,7 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Throw_Hook;			// 스킬 "갈고리 날리기" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 갈고리 날리기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -44,7 +44,7 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Flamethrower;		// 스킬 "화염방사" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 화염방사(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -53,7 +53,7 @@ public class Butcher_Boss_Stage1 extends Boss_Monster implements Monster_Unit{ /
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Crash;				// 스킬 "충돌" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 충돌(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

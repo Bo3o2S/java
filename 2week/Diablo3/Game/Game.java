@@ -2,7 +2,7 @@ package Game;
 
 import java.util.Random;
 import java.util.Scanner;
-
+import java.util.stream.DoubleStream;
 
 import Boss_Monster.*;
 import Common_Monster.*;
@@ -84,7 +84,7 @@ public class Game {
 	
 	private static void Play_Game(Character character) {
 		
-		Thread thread = new Thread(new Runnable()
+		Thread day = new Thread(new Runnable()
 		{
 			double temp_character_attack = character.Attack;
 			double temp_character_defence = character.Defence;
@@ -92,6 +92,12 @@ public class Game {
 			public void run() {
 				while(true)
 				{
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					System.out.println("\t\t\t\t\t\t\t\t\t\t낮이 되었습니다");
 					System.out.println("\t\t\t\t\t\t\t\t\t\t낮에는 공격력이 약해지고 방어력이 강화됩니다");
 					character.Attack = temp_character_attack;
@@ -106,15 +112,14 @@ public class Game {
 						character.Attack = character.Attack*1.1;
 						character.Defence = temp_character_defence;
 						character.Defence = character.Defence*0.9;
-						Thread.sleep(300000);
+						Thread.sleep(290000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			}
-
 		});
-		
+		day.start();
 		int num;
 		int stage = 1;
 		boolean Boss_Kill_Success = false;
@@ -124,12 +129,12 @@ public class Game {
 			if(stage > 5)
 			{
 				System.out.println("축하합니다!!! 모든 스테이지를 클리어 하였습니다!");
-				thread.stop();
+				day.stop();
 				break;
 			}
 			
 			Boss_Kill_Success = false;
-			thread.start();
+			
 			num = Play(stage);
 			if(num == 1)
 			{
@@ -189,14 +194,14 @@ public class Game {
 			{
 				Visit_Jeweler(character);
 			}
-//			else if(num == 6)
-//			{
-//				Kanai_Treasure_Box(baba);
-//			}
 			else if(num == 6)
 			{
+				Kanai_Treasure_Box(character);
+			}
+			else if(num == 7)
+			{
 				System.out.println("게임을 종료합니다!");
-				thread.stop();
+				day.stop();
 				System.exit(0);
 			}
 			else
@@ -207,7 +212,319 @@ public class Game {
 
 
 	private static void Kanai_Treasure_Box(Character character) {
-				
+		while(true)
+		{
+			Scanner scan = new Scanner(System.in);
+			System.out.println("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★");
+			System.out.println("");
+			System.out.println("카나이 보물상자입니다!");
+			System.out.println("카나이 보물상자에 착용장비를 넣고 작동시키게 되면");
+			System.out.println("일정확률로 장비의 스탯이 올라가게 됩니다! ");
+			System.out.println("단 오히려 장비 스탯이 더 떨어질수도 있으니 주의하세요! ");
+			System.out.println("카나이 상자에 넣을 장비를 선택하세요");
+			System.out.println("1. 무기");
+			System.out.println("2. 방어구");
+			System.out.println("3. 나가기");
+			bar();
+			System.out.println("선택 : ");
+			int num = scan.nextInt();
+			if(num == 1)
+			{
+				Kanai_Reinforce_Weapon(character);
+			}
+			else if(num == 2)
+			{
+				Kanai_Reinforce_Armor(character);
+			}
+			else if(num == 3)
+			{
+				break;
+			}
+		}
+	}
+
+
+	private static void Kanai_Reinforce_Armor(Character character) {
+		if(character.armor == null)
+		{
+			System.out.println("현재 착용한 방어구가 없습니다! 방어구 착용후 방문해주세요");
+			return;
+		}
+		Scanner scan = new Scanner(System.in);
+		while(true)
+		{
+			bar();
+			System.out.println("방어구 강화 창입니다");
+			System.out.println("현재 착용하신 방어구는 다음과 같습니다");
+			System.out.println("아이템 명 : " + character.armor.Item_Name);
+			System.out.println("변경 가능한 스탯은 아래와 같습니다");
+			System.out.println("1. 방어력 : " + character.armor.Item_Defence);
+			System.out.println("2. 활력 : " + character.armor.Item_Vitality);
+			if(character instanceof Babarian)
+				System.out.println("3. 힘: " + character.armor.Item_Strength);
+			if(character instanceof Daemon_Hunter)
+				System.out.println("3. 민첩: " + character.armor.Item_Dex);
+			if(character instanceof Holy_Warrior)
+				System.out.println("3. 힘: " + character.armor.Item_Strength);
+			if(character instanceof Magician)
+				System.out.println("3. 지능: " + character.armor.Item_Intelligence);
+			if(character instanceof Monk)
+				System.out.println("3. 민첩: " + character.armor.Item_Dex);
+			if(character instanceof Witch_Doctor)
+				System.out.println("3. 지능: " + character.armor.Item_Intelligence);
+			System.out.println("4. 나가기");
+			System.out.println("어떤 스탯을 변경하시겠습니까?");
+			System.out.println("");
+			System.out.println("선택 : ");
+			int num = scan.nextInt();
+			scan.nextLine();
+			System.out.println("");
+			character.Gold = character.Gold - 50000;
+			System.out.println("50000 골드가 소모 되었습니다");
+			System.out.println("");
+			if(num == 1)
+			{
+				double temp_defence = character.armor.Item_Defence;
+				System.out.println("현재 방어구 방어력은 " + character.armor.Item_Defence + "입니다");
+				System.out.println("방어구 방어력을 강화합니다!");
+				try {
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....3");
+					System.out.println("");
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....2");
+					System.out.println("");
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....1");
+					System.out.println("");
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				double rand = Math.random();
+				int rand_defence = (int)((rand*(character.armor.Item_Defence*2)) + character.armor.Item_Defence/2); // 공격력 1/2 최대 2배
+				character.armor.Item_Defence = rand_defence;
+				if(temp_defence < character.armor.Item_Defence)
+					System.out.println("방어구 방어력 강화에 성공하였습니다! 강화된 방어구 방어력 : " + character.armor.Item_Defence);
+				if(temp_defence > character.armor.Item_Defence)
+					System.out.println("방어구 방어력  강화에 실패하였습니다. 방어구 방어력  : " + character.armor.Item_Defence);
+			}
+			else if(num == 2)
+			{
+				int temp_vitality = character.armor.Item_Vitality;
+				System.out.println("현재 방어구 활력은 " + character.armor.Item_Vitality + "입니다");
+				System.out.println("방어구 활력을 강화합니다!");
+				try {
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....3");
+					System.out.println("");
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....2");
+					System.out.println("");
+					Thread.sleep(1000);
+					System.out.println("");
+					System.out.println("강화중....1");
+					System.out.println("");
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				double rand = Math.random();
+				int rand_vitality = (int)((rand*(character.armor.Item_Vitality*2)) + character.armor.Item_Vitality/2); // 공격력 1/2 최대 2배
+				character.weapon.Item_Vitality = rand_vitality;
+				if(temp_vitality < character.armor.Item_Vitality)
+					System.out.println("방어구 활력 강화에 성공하였습니다! 강화된 방어구 활력 : " + character.armor.Item_Vitality);
+				if(temp_vitality > character.armor.Item_Vitality)
+					System.out.println("방어구 활력 강화에 실패하였습니다. 방어구 활력 : " + character.armor.Item_Vitality);
+			}
+			else if(num == 3)
+			{
+				if(character instanceof Babarian || character instanceof Holy_Warrior)
+				{
+					int temp_strength = character.armor.Item_Strength;
+					System.out.println("현재 방어구 힘은 " + character.armor.Item_Strength + "입니다");
+					System.out.println("방어구 힘을 강화합니다!");
+					try {
+						Thread.sleep(1000);
+						System.out.println("");
+						System.out.println("강화중....3");
+						Thread.sleep(1000);
+						System.out.println("");
+						System.out.println("강화중....2");
+						Thread.sleep(1000);
+						System.out.println("");
+						System.out.println("강화중....1");
+						System.out.println("");
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					double rand = Math.random();
+					int rand_strength = (int)((rand*(character.armor.Item_Strength*2)) + character.armor.Item_Strength/2); // 공격력 1/2 최대 2배
+					character.weapon.Item_Strength = rand_strength;
+					if(temp_strength < character.armor.Item_Strength)
+						System.out.println("방어구 힘 강화에 성공하였습니다! 강화된 방어구 힘 : " + character.armor.Item_Strength);
+					if(temp_strength > character.armor.Item_Strength)
+						System.out.println("방어구 힘 강화에 실패하였습니다. 방어구 힘 : " + character.armor.Item_Strength);
+					bar();
+				}
+			}
+			else if(num == 4)
+			{
+				break;
+			}
+		}
+		
+	}
+
+
+	private static void Kanai_Reinforce_Weapon(Character character) {
+		if(character.weapon == null)
+		{
+			System.out.println("현재 착용한 무기가 없습니다! 무기 착용후 방문해주세요");
+			return;
+		}
+		Scanner scan = new Scanner(System.in);
+		while(true)
+		{
+			bar();
+			System.out.println("무기 강화 창입니다");
+			System.out.println("현재 착용하신 방어구는 다음과 같습니다");
+			System.out.println("아이템 명 : " + character.weapon.Item_Name);
+			System.out.println("변경 가능한 스탯은 아래와 같습니다");
+			System.out.println("1. 공격력 : " + character.weapon.Item_Attack);
+			System.out.println("2. 활력 : " + character.weapon.Item_Vitality);
+			if(character instanceof Babarian)
+				System.out.println("3. 힘: " + character.weapon.Item_Strength);
+			if(character instanceof Daemon_Hunter)
+				System.out.println("3. 민첩: " + character.weapon.Item_Dex);
+			if(character instanceof Holy_Warrior)
+				System.out.println("3. 힘: " + character.weapon.Item_Strength);
+			if(character instanceof Magician)
+				System.out.println("3. 지능: " + character.weapon.Item_Intelligence);
+			if(character instanceof Monk)
+				System.out.println("3. 민첩: " + character.weapon.Item_Dex);
+			if(character instanceof Witch_Doctor)
+				System.out.println("3. 지능: " + character.weapon.Item_Intelligence);
+			System.out.println("4. 나가기");
+			System.out.println("어떤 스탯을 변경하시겠습니까?");
+			System.out.println("");
+			System.out.println("선택 : ");
+			int num = scan.nextInt();
+			scan.nextLine();
+			System.out.println("");
+			character.Gold = character.Gold - 50000;
+			System.out.println("50000 골드가 소모 되었습니다");
+			System.out.println("");
+			if(num == 1)
+			{
+				double temp_attack = character.weapon.Item_Attack;
+				System.out.println("현재 무기 공격력은 " + character.weapon.Item_Attack + "입니다");
+				System.out.println("무기 공격력을 강화합니다!");
+				try {
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....3");
+					System.out.println("");
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....2");
+					System.out.println("");
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....1");
+					System.out.println("");
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				double rand = Math.random();
+				int rand_attack = (int)((rand*(character.weapon.Item_Attack*2)) + character.weapon.Item_Attack/2); // 공격력 1/2 최대 2배
+				character.weapon.Item_Attack = rand_attack;
+				if(temp_attack < character.weapon.Item_Attack)
+					System.out.println("무기 공격력 강화에 성공하였습니다! 강화된 무기 공격력 : " + character.weapon.Item_Attack);
+				if(temp_attack > character.weapon.Item_Attack)
+					System.out.println("무기 공격력 강화에 실패하였습니다. 무기 공격력 : " + character.weapon.Item_Attack);
+			}
+			else if(num == 2)
+			{
+				int temp_vitality = character.weapon.Item_Vitality;
+				System.out.println("현재 무기 활력은 " + character.weapon.Item_Vitality + "입니다");
+				System.out.println("무기 활력을 강화합니다!");
+				try {
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....3");
+					System.out.println("");
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....2");
+					System.out.println("");
+					Thread.sleep(2000);
+					System.out.println("");
+					System.out.println("강화중....1");
+					System.out.println("");
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				double rand = Math.random();
+				int rand_vitality = (int)((rand*(character.weapon.Item_Vitality*2)) + character.weapon.Item_Vitality/2); // 공격력 1/2 최대 2배
+				character.weapon.Item_Vitality = rand_vitality;
+				if(temp_vitality < character.weapon.Item_Vitality)
+					System.out.println("무기 활력 강화에 성공하였습니다! 강화된 무기 활력 : " + character.weapon.Item_Vitality);
+				if(temp_vitality > character.weapon.Item_Vitality)
+					System.out.println("무기 활력 강화에 실패하였습니다. 무기 활력 : " + character.weapon.Item_Vitality);
+			}
+			else if(num == 3)
+			{
+				if(character instanceof Babarian || character instanceof Holy_Warrior)
+				{
+					int temp_strength = character.weapon.Item_Strength;
+					System.out.println("현재 무기 힘은 " + character.weapon.Item_Strength + "입니다");
+					System.out.println("무기 힘을 강화합니다!");
+					try {
+						Thread.sleep(2000);
+						System.out.println("");
+						System.out.println("강화중....3");
+						Thread.sleep(2000);
+						System.out.println("");
+						System.out.println("강화중....2");
+						Thread.sleep(2000);
+						System.out.println("");
+						System.out.println("강화중....1");
+						System.out.println("");
+						Thread.sleep(3000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					double rand = Math.random();
+					int rand_strength = (int)((rand*(character.weapon.Item_Strength*2)) + character.weapon.Item_Strength/2); // 공격력 1/2 최대 2배
+					character.weapon.Item_Strength = rand_strength;
+					if(temp_strength < character.weapon.Item_Strength)
+						System.out.println("무기 힘 강화에 성공하였습니다! 강화된 무기 힘 : " + character.weapon.Item_Strength);
+					if(temp_strength > character.weapon.Item_Strength)
+						System.out.println("무기 힘 강화에 실패하였습니다. 무기 힘 : " + character.weapon.Item_Strength);
+					bar();
+				}
+			}
+			else if(num == 4)
+			{
+				break;
+			}
+		}
+		
 	}
 
 
@@ -512,9 +829,9 @@ public class Game {
 		System.out.println("2. 일반 던전 입장하기");
 		System.out.println("3. 보스 던전 입장하기");
 		System.out.println("4. 체력 회복하기");
-		System.out.println("5. 보석상");
-		//System.out.println("6. 카나이함");
-		System.out.println("6. 게임 종료하기");
+		System.out.println("5. 보석상 방문");
+		System.out.println("6. 카나이함");
+		System.out.println("7. 게임 종료하기");
 		bar();
 		System.out.println("번호입력(1 ~ 6) : ");
 		int Input_Num = scan.nextInt();
@@ -1006,16 +1323,33 @@ public class Game {
 		}
 		if(sharedresource_battle.Monster_HP > 0)
 		{
-			if(character.weapon instanceof Item_Weapon_Unique)
+			if(character.weapon != null)
 			{
-				((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+				boolean weapon_skill_on = false;
+				if(character.weapon instanceof Item_Weapon_Unique)
+				{
+					weapon_skill_on = ((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+				}
+				else if(character.weapon instanceof Item_Weapon_Rare)
+				{
+					weapon_skill_on = ((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
+				}
+				if(weapon_skill_on)
+				{
+					if(sharedresource_battle.Monster_HP > 0)
+					{
+						System.out.println("");
+						System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+						System.out.println("");
+					}
+				}
+				else
+				{
+					System.out.println("");
+					System.out.println("무기 스킬이 발동되지 않았습니다!");
+					System.out.println("");
+				}
 			}
-			else if(character.weapon instanceof Item_Weapon_Rare)
-			{
-				((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
-			}
-			if(sharedresource_battle.Monster_HP > 0)
-				System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
 		}
 	}
 	
@@ -1044,16 +1378,33 @@ public class Game {
 			}
 			if(sharedresource_battle.Monster_HP > 0)
 			{
-				if(character.weapon instanceof Item_Weapon_Unique)
+				if(character.weapon != null)
 				{
-					((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+					boolean weapon_skill_on = false;
+					if(character.weapon instanceof Item_Weapon_Unique)
+					{
+						weapon_skill_on = ((Item_Weapon_Unique)character.weapon).Unique_Weapon_Skill(monster, sharedresource_battle);
+					}
+					else if(character.weapon instanceof Item_Weapon_Rare)
+					{
+						weapon_skill_on = ((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
+					}
+					if(weapon_skill_on)
+					{
+						if(sharedresource_battle.Monster_HP > 0)
+						{
+							System.out.println("");
+							System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
+							System.out.println("");
+						}
+					}
+					else
+					{
+						System.out.println("");
+						System.out.println("무기 스킬이 발동되지 않았습니다!");
+						System.out.println("");
+					}
 				}
-				else if(character.weapon instanceof Item_Weapon_Rare)
-				{
-					((Item_Weapon_Rare)character.weapon).Rare_Weapon_Skill(monster, sharedresource_battle);
-				}
-				if(sharedresource_battle.Monster_HP > 0)
-					System.out.println(monster.Name + "의 현재 생명력은 " + (int)sharedresource_battle.Monster_HP + " 입니다!");			// 몬스터가 받는 데미지
 			}
 		}			
 	}

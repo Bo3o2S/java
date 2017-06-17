@@ -30,7 +30,7 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Down_Tongs;		// 스킬 "집게 내려찍기" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 집게 내려찍기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -39,7 +39,7 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Spout_Poison;	// 스킬 "독뿜기 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 독 뿜기(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -48,7 +48,7 @@ public class Belial_Boss_Stage2 extends Boss_Monster implements Monster_Unit{ //
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Poison_Fire;		// 스킬 "독의 화염" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 독의 화염(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

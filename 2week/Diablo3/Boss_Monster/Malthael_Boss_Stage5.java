@@ -35,7 +35,7 @@ public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Sprit_Ball;				// 스킬 "영혼구" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 영혼구(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -44,7 +44,7 @@ public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Spirit_Fog;				// 스킬 "영혼의 안개" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 영혼의 안개(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -53,7 +53,7 @@ public class Malthael_Boss_Stage5 extends Boss_Monster implements Monster_Unit{	
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Ruin_Cloud;				// 스킬 "파멸구름" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "이 파멸의 구름(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}

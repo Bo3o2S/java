@@ -27,7 +27,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Flame_Hell;								// 스킬 "화염지옥" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 화염지옥(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -36,7 +36,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Thunderbolt_Raid;						// 스킬 "번개벼락" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 번개벼락(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
@@ -45,7 +45,7 @@ public class Azrase_Unique_Monster extends Unique_Monster implements Monster_Uni
 	{
 		double Damage = 0;
 		Damage = Attack*Damage_Freezing;								// 스킬 "빙결" 데미지
-		bar();
+		System.out.println("");
 		System.out.println(Name + "가 빙결(을)를 시전합니다. " + Damage + "데미지를 받았습니다");
 		return Damage;
 	}
